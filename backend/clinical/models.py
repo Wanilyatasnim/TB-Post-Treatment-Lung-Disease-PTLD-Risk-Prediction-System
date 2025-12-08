@@ -32,7 +32,7 @@ class TreatmentRegimen(TimestampedModel):
     regimen_id = models.CharField(max_length=20, unique=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="regimens")
     drugs = models.CharField(max_length=255)
-    start_date = models.DateField()
+    start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     outcome = models.CharField(
         max_length=20,
@@ -50,7 +50,7 @@ class TreatmentModification(TimestampedModel):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="modifications")
     modified_drug = models.CharField(max_length=10)
     reason = models.CharField(max_length=50)
-    date = models.DateField()
+    date = models.DateField(null=True, blank=True)
     new_dosage_mg = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self) -> str:
@@ -60,7 +60,7 @@ class TreatmentModification(TimestampedModel):
 class MonitoringVisit(TimestampedModel):
     visit_id = models.CharField(max_length=30, unique=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="visits")
-    date = models.DateField()
+    date = models.DateField(null=True, blank=True)
     adverse_reactions = models.CharField(max_length=50, blank=True)
     adherence_pct = models.FloatField(null=True, blank=True)
     smear_result = models.CharField(max_length=20, blank=True)
@@ -77,7 +77,7 @@ class RiskPrediction(TimestampedModel):
     risk_category = models.CharField(max_length=10)
     model_version = models.CharField(max_length=50)
     shap_values = models.JSONField(null=True, blank=True)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(null=True, blank=True)
     confidence = models.FloatField(null=True, blank=True)
 
     def __str__(self) -> str:
