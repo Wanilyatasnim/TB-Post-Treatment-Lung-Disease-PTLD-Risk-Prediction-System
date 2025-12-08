@@ -64,33 +64,98 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["post"])
     def predict(self, request):
         """
-        Stub prediction endpoint (Phase 1/2): returns synthetic risk until real model is wired.
-        Expects patient_id; optionally accepts payload for logging.
+        Generate PTLD risk prediction using ML model.
+        Expects patient_id in request data.
         """
         patient_id = request.data.get("patient_id")
         if not patient_id:
             return Response({"detail": "patient_id is required"}, status=status.HTTP_400_BAD_REQUEST)
+        
         try:
             patient = Patient.objects.get(patient_id=patient_id)
         except Patient.DoesNotExist:
             return Response({"detail": "patient not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        # Simple heuristic stub
-        base = 0.15
-        score = base + random.random() * 0.6
-        score = round(min(score, 0.99), 4)
-        category = "low" if score < 0.33 else "medium" if score < 0.66 else "high"
-        payload = {
-            "prediction_id": f"PR-{patient_id}-{int(datetime.utcnow().timestamp())}",
-            "patient": patient,
-            "risk_score": score,
-            "risk_category": category,
-            "model_version": "v0.1.0-stub",
-            "shap_values": {},
-            "timestamp": datetime.utcnow(),
-            "confidence": round(0.6 + random.random() * 0.35, 3),
-        }
-        prediction, _ = RiskPrediction.objects.update_or_create(prediction_id=payload["prediction_id"], defaults=payload)
+        # Extract patient features for ML model
+        try:
+            features = self._extract_patient_features(patient)
+        except Exception as e:
+            return Response(
+                {"detail": f"Feature extraction failed: {str(e)}"}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
+        # Get prediction from ML model
+        from ml.predictor import get_predictor
+        try:
+            predictor = get_predictor()
+            result = predictor.predict(features)
+        except Exception as e:
+            return Response(
+                {"detail": f"Prediction failed: {str(e)}"}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
+        # Save prediction to database
+        prediction_id = f"PR-{patient_id}-{int(datetime.utcnow().timestamp())}"
+        prediction = RiskPrediction.objects.create(
+            prediction_id=prediction_id,
+            patient=patient,
+            risk_score=result['risk_score'],
+            risk_category=result['risk_category'],
+            model_version=result['model_version'],
+            shap_values=result['shap_values'],
+            timestamp=datetime.utcnow(),
+            confidence=result['confidence']
+        )
+        
         return Response(RiskPredictionSerializer(prediction).data, status=status.HTTP_201_CREATED)
+    
+    def _extract_patient_features(self, patient):
+        """
+        Extract features from patient record for ML prediction.
+        
+        Args:
+            patient: Patient model instance
+        
+        Returns:
+            dict: Feature dictionary matching model requirements
+        """
+        import numpy as np
+        
+        # Get visit statistics
+        visits = patient.visits.all()
+        adherence_values = list(visits.values_list('adherence_pct', flat=True))
+        
+        # Calculate adherence statistics
+        if adherence_values:
+            adherence_mean = float(np.mean(adherence_values))
+            adherence_min = float(np.min(adherence_values))
+            adherence_std = float(np.std(adherence_values))
+        else:
+            # Default values if no visits yet
+            adherence_mean = 90.0
+            adherence_min = 85.0
+            adherence_std = 5.0
+        
+        # Count modifications
+        modification_count = patient.modifications.count()
+        
+        # Count visits
+        visit_count = visits.count()
+        
+        return {
+            'age': int(patient.age),
+            'bmi': float(patient.bmi) if patient.bmi else 22.0,
+            'hiv_positive': int(patient.hiv_positive),
+            'diabetes': int(patient.diabetes),
+            'smoker': int(patient.smoker),
+            'x_ray_score': float(patient.x_ray_score) if patient.x_ray_score else 5.0,
+            'adherence_mean': adherence_mean,
+            'adherence_min': adherence_min,
+            'adherence_std': adherence_std,
+            'modification_count': modification_count,
+            'visit_count': visit_count
+        }
 
 
