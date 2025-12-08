@@ -17,10 +17,14 @@ from clinical.serializers import (
 
 class BasePermission(permissions.IsAuthenticated):
     """
-    Placeholder for future RBAC; currently requires authentication.
+    RBAC placeholder: extend with per-role checks later.
     """
 
-    pass
+    def has_permission(self, request, view):
+        if not super().has_permission(request, view):
+            return False
+        # Example: allow all authenticated for now; hook per-role logic here.
+        return True
 
 
 class PatientViewSet(viewsets.ModelViewSet):
