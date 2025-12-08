@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Dashboard</h3>
+<div class="row g-3 mb-3">
+  <div class="col-md-3">
+    <div class="card text-bg-light">
+      <div class="card-body">
+        <div class="fw-bold">Total Patients</div>
+        <div class="fs-3">{{ total_patients }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-bg-light">
+      <div class="card-body">
+        <div class="fw-bold">Risk Breakdown</div>
+        <ul class="mb-0">
+          {% for item in risk_breakdown %}
+            <li>{{ item.risk_category }}: {{ item.count }}</li>
+          {% empty %}
+            <li>No predictions yet</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-bg-light">
+      <div class="card-body">
+        <div class="fw-bold">Outcomes</div>
+        <ul class="mb-0">
+          {% for item in outcomes %}
+            <li>{{ item.outcome|default:"(none)" }}: {{ item.count }}</li>
+          {% empty %}
+            <li>No outcomes yet</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">Recent Predictions</div>
+  <div class="card-body p-0">
+    <table class="table mb-0 table-sm">
+      <thead><tr><th>ID</th><th>Patient</th><th>Score</th><th>Category</th><th>Timestamp</th></tr></thead>
+      <tbody>
+      {% for p in recent_predictions %}
+        <tr>
+          <td>{{ p.prediction_id }}</td>
+          <td>{{ p.patient.patient_id }}</td>
+          <td>{{ p.risk_score }}</td>
+          <td>{{ p.risk_category }}</td>
+          <td>{{ p.timestamp }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="text-center">No predictions yet</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h3>Patient {{ patient.patient_id }}</h3>
+    <p class="text-muted mb-0">Age {{ patient.age }}, Sex {{ patient.sex }}, District {{ patient.district }}</p>
+  </div>
+  <div>
+    <a class="btn btn-secondary btn-sm" href="/">Back to list</a>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Regimens</div>
+      <div class="card-body p-0">
+        <table class="table mb-0 table-sm">
+          <thead><tr><th>ID</th><th>Drugs</th><th>Start</th><th>End</th><th>Outcome</th></tr></thead>
+          <tbody>
+          {% for r in regimens %}
+            <tr>
+              <td>{{ r.regimen_id }}</td>
+              <td>{{ r.drugs }}</td>
+              <td>{{ r.start_date }}</td>
+              <td>{{ r.end_date }}</td>
+              <td>{{ r.outcome }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="text-center">No regimens</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Modifications</div>
+      <div class="card-body p-0">
+        <table class="table mb-0 table-sm">
+          <thead><tr><th>ID</th><th>Drug</th><th>Reason</th><th>Date</th></tr></thead>
+          <tbody>
+          {% for m in modifications %}
+            <tr>
+              <td>{{ m.modification_id }}</td>
+              <td>{{ m.modified_drug }}</td>
+              <td>{{ m.reason }}</td>
+              <td>{{ m.date }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="4" class="text-center">No modifications</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mt-1">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Monitoring Visits</div>
+      <div class="card-body p-0">
+        <table class="table mb-0 table-sm">
+          <thead><tr><th>ID</th><th>Date</th><th>Adherence %</th><th>Smear</th><th>Adverse</th></tr></thead>
+          <tbody>
+          {% for v in visits %}
+            <tr>
+              <td>{{ v.visit_id }}</td>
+              <td>{{ v.date }}</td>
+              <td>{{ v.adherence_pct }}</td>
+              <td>{{ v.smear_result }}</td>
+              <td>{{ v.adverse_reactions }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="text-center">No visits</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Recent Risk Predictions</span>
+        <form action="/api/predictions/predict/" method="post" class="d-flex gap-2">
+          {% csrf_token %}
+          <input type="hidden" name="patient_id" value="{{ patient.patient_id }}">
+          <button class="btn btn-sm btn-primary" type="submit">Recalculate risk</button>
+        </form>
+      </div>
+      <div class="card-body p-0">
+        <table class="table mb-0 table-sm">
+          <thead><tr><th>ID</th><th>Score</th><th>Category</th><th>Version</th><th>Timestamp</th></tr></thead>
+          <tbody>
+          {% for p in predictions %}
+            <tr>
+              <td>{{ p.prediction_id }}</td>
+              <td>{{ p.risk_score }}</td>
+              <td>{{ p.risk_category }}</td>
+              <td>{{ p.model_version }}</td>
+              <td>{{ p.timestamp }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="text-center">No predictions</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
