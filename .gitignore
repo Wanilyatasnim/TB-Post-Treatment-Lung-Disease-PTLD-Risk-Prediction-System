@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+
+# Django/DB
+*.sqlite3
+db.sqlite3
+media/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+
+# Coverage / reports
+.coverage
+coverage.xml
+htmlcov/
+
+# Docker
+*.log
+.DS_Store
+
+
