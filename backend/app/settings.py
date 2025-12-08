@@ -20,6 +20,12 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default="unsafe-secret-key")
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
+# Supabase configuration
+SUPABASE_URL = env("SUPABASE_URL", default="")
+SUPABASE_KEY = env("SUPABASE_ANON_KEY", default="")
+# Optional: Use service role key for backend operations with elevated privileges
+# SUPABASE_SERVICE_ROLE_KEY = env("SUPABASE_SERVICE_ROLE_KEY", default="")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
