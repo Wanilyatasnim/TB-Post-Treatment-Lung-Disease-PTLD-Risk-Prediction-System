@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Patients</h3>
+  <a class="btn btn-primary btn-sm" href="#">Add Patient</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Sex</th>
+        <th>Age</th>
+        <th>HIV</th>
+        <th>Diabetes</th>
+        <th>Smoker</th>
+        <th>X-ray</th>
+        <th>District</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for patient in patients %}
+      <tr>
+        <td>{{ patient.patient_id }}</td>
+        <td>{{ patient.sex }}</td>
+        <td>{{ patient.age }}</td>
+        <td>{{ patient.hiv_positive }}</td>
+        <td>{{ patient.diabetes }}</td>
+        <td>{{ patient.smoker }}</td>
+        <td>{{ patient.x_ray_score }}</td>
+        <td>{{ patient.district }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="8" class="text-center">No patients yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
