@@ -1,0 +1,1001 @@
+patient_id,sex,age,bmi,hiv_positive,diabetes,smoker,x_ray_score,district,comorbidities,baseline_date
+PT-00001,M,69,18.9,False,False,False,2.09,North Judithbury,None,2023-03-30
+PT-00002,M,33,24.0,False,True,True,7.63,East Jill,DM;Smoker,2023-04-03
+PT-00003,M,39,20.9,False,False,False,4.59,New Roberttown,None,2023-01-21
+PT-00004,F,24,18.9,False,False,False,8.51,East Jessetown,None,2023-03-19
+PT-00005,M,81,20.8,False,False,True,6.47,Lake Debra,Smoker,2023-02-09
+PT-00006,F,21,18.3,True,True,True,6.48,Robinsonshire,HIV;DM;Smoker,2023-01-27
+PT-00007,F,56,19.4,False,False,True,6.09,Lisatown,Smoker,2023-02-22
+PT-00008,M,34,15.6,False,False,True,12.63,Lake Roberto,Smoker,2023-04-06
+PT-00009,M,30,30.4,False,False,False,3.71,Ericmouth,None,2023-01-01
+PT-00010,F,31,21.1,False,False,True,2.47,North Noahstad,Smoker,2023-04-07
+PT-00011,M,50,24.5,False,False,False,6.7,Cassandraton,None,2023-03-20
+PT-00012,F,44,22.2,False,True,False,6.41,Herrerafurt,DM,2023-04-30
+PT-00013,F,83,17.9,False,False,False,5.61,New Kellystad,None,2023-02-25
+PT-00014,M,27,19.1,False,False,False,6.56,Lake Chad,None,2023-01-28
+PT-00015,M,34,17.5,False,True,True,7.3,Port Keith,DM;Smoker,2023-03-14
+PT-00016,F,60,21.5,False,False,False,2.97,Port Jesseville,None,2023-03-31
+PT-00017,F,66,18.5,False,True,False,11.99,Ramirezstad,DM,2023-04-08
+PT-00018,F,18,18.2,False,False,False,10.35,West Michael,None,2023-04-14
+PT-00019,M,79,27.5,False,False,False,7.76,Jacquelineland,None,2023-03-08
+PT-00020,F,35,20.5,False,False,False,10.5,New Jessica,None,2023-04-08
+PT-00021,F,53,25.4,False,False,False,10.38,South Noah,None,2023-02-01
+PT-00022,M,32,23.9,False,False,False,0.65,Lake Mark,None,2023-02-16
+PT-00023,F,68,25.9,False,False,True,5.04,East Lydiamouth,Smoker,2023-03-23
+PT-00024,F,77,22.4,False,False,False,3.88,Adamsborough,None,2023-01-02
+PT-00025,M,82,22.2,False,False,False,5.34,Jasonfort,None,2023-02-07
+PT-00026,F,43,18.8,False,False,False,4.13,Wilkersonmouth,None,2023-02-01
+PT-00027,M,79,24.7,False,False,False,4.93,West Donald,None,2023-03-21
+PT-00028,F,22,23.4,False,False,False,7.12,Juliechester,None,2023-02-26
+PT-00029,F,62,23.1,False,False,True,1.03,Coxberg,Smoker,2023-04-01
+PT-00030,F,19,20.4,False,False,False,8.42,Daviston,None,2023-04-12
+PT-00031,M,76,26.3,False,False,True,6.19,East Courtneychester,Smoker,2023-04-22
+PT-00032,M,50,21.3,False,True,False,4.92,South Patrickmouth,DM,2023-02-06
+PT-00033,M,42,16.0,False,False,False,7.42,Tashatown,None,2023-02-10
+PT-00034,M,28,24.6,False,False,False,1.87,Lake Nicoleview,None,2023-02-07
+PT-00035,F,25,16.6,False,False,True,5.87,Danielchester,Smoker,2023-01-13
+PT-00036,M,43,22.9,False,False,False,5.88,South Aaron,None,2023-02-25
+PT-00037,M,80,21.9,False,False,False,4.68,Teresaburgh,None,2023-02-09
+PT-00038,M,41,18.8,True,False,True,11.58,Port Colleenhaven,HIV;Smoker,2023-01-30
+PT-00039,F,79,23.7,False,True,True,9.68,East Nathaniel,DM;Smoker,2023-04-06
+PT-00040,M,41,20.5,False,False,True,7.96,New Stephanie,Smoker,2023-01-19
+PT-00041,M,69,19.4,False,False,False,4.68,New Mariotown,None,2023-01-23
+PT-00042,F,43,22.0,False,True,False,12.29,West Natashaport,DM,2023-01-24
+PT-00043,F,69,19.9,False,False,True,2.2,North John,Smoker,2023-02-26
+PT-00044,M,68,20.3,False,True,False,3.81,North Jessicaland,DM,2023-01-07
+PT-00045,F,45,17.8,False,False,False,7.13,East Donna,None,2023-01-20
+PT-00046,F,53,25.2,False,False,True,5.95,West Allison,Smoker,2023-01-07
+PT-00047,F,18,22.4,True,False,False,11.39,Brandtside,HIV,2023-03-28
+PT-00048,M,67,22.5,False,False,True,13.12,Lake Larry,Smoker,2023-04-06
+PT-00049,M,69,22.1,False,False,False,1.67,Samuelhaven,None,2023-02-19
+PT-00050,F,28,22.2,False,False,False,2.83,Martinezbury,None,2023-03-16
+PT-00051,F,48,22.9,False,False,False,6.82,West Andrewside,None,2023-02-13
+PT-00052,F,84,24.8,False,False,True,8.31,New Jeffrey,Smoker,2023-02-08
+PT-00053,F,52,24.0,False,False,True,6.87,Lake Crystalbury,Smoker,2023-03-14
+PT-00054,M,64,21.2,False,False,False,4.65,North Micheleland,None,2023-01-30
+PT-00055,M,75,20.0,False,True,False,2.32,West Elizabeth,DM,2023-03-19
+PT-00056,M,64,21.3,False,False,False,1.98,New David,None,2023-02-19
+PT-00057,M,83,24.0,False,False,True,6.48,Sanchezfort,Smoker,2023-04-05
+PT-00058,F,61,19.0,False,False,True,2.63,Leeville,Smoker,2023-02-13
+PT-00059,M,46,15.5,False,False,False,2.54,Gomezchester,None,2023-02-16
+PT-00060,M,30,22.6,False,False,False,3.57,Shieldston,None,2023-02-02
+PT-00061,F,44,22.7,False,False,False,8.03,North Richardmouth,None,2023-04-23
+PT-00062,F,22,19.0,False,False,False,5.46,East Jamesside,None,2023-02-06
+PT-00063,F,80,22.3,False,True,False,6.45,Taylorburgh,DM,2023-03-15
+PT-00064,F,78,14.9,False,False,False,7.43,Stevenland,None,2023-01-18
+PT-00065,F,23,21.1,False,True,False,4.7,Mortonside,DM,2023-01-11
+PT-00066,M,68,24.5,False,False,False,5.43,North Deniseside,None,2023-02-06
+PT-00067,F,49,24.1,True,False,False,9.37,North Sarabury,HIV,2023-02-08
+PT-00068,F,57,20.1,False,True,True,5.16,South Todd,DM;Smoker,2023-02-01
+PT-00069,F,63,24.3,False,False,False,7.62,Port Richard,None,2023-03-21
+PT-00070,F,59,19.7,False,False,False,0.0,East Nicholasfurt,None,2023-02-08
+PT-00071,M,80,21.4,False,False,False,5.79,Saramouth,None,2023-03-14
+PT-00072,M,27,28.1,False,False,False,5.68,Rodneyside,None,2023-04-21
+PT-00073,M,59,26.1,False,False,True,7.02,Mooreport,Smoker,2023-01-26
+PT-00074,F,67,17.0,False,False,False,0.43,North Beth,None,2023-03-10
+PT-00075,F,52,26.9,False,False,True,2.83,Lake Leeton,Smoker,2023-04-18
+PT-00076,F,65,24.1,False,False,False,5.28,Shawhaven,None,2023-02-05
+PT-00077,F,47,19.4,False,False,False,9.56,North Susan,None,2023-03-20
+PT-00078,F,23,18.5,True,True,False,5.92,Port Jacobland,HIV;DM,2023-04-13
+PT-00079,F,82,17.1,False,False,False,3.92,South David,None,2023-03-04
+PT-00080,M,18,23.7,False,False,False,5.22,New Brooke,None,2023-02-24
+PT-00081,F,54,19.3,True,False,False,7.48,South Dianeshire,HIV,2023-04-29
+PT-00082,M,57,23.9,False,False,False,2.23,Sarahborough,None,2023-03-11
+PT-00083,F,52,19.5,False,False,False,4.09,Johnfurt,None,2023-01-18
+PT-00084,F,55,17.9,False,False,True,9.53,Lake Debbie,Smoker,2023-03-16
+PT-00085,F,49,18.9,False,False,False,11.85,Stewartland,None,2023-01-01
+PT-00086,F,58,20.7,False,False,False,10.15,South Christineshire,None,2023-03-15
+PT-00087,M,34,20.7,False,False,False,4.11,North Amandahaven,None,2023-03-21
+PT-00088,M,43,21.8,False,False,False,4.52,Davidstad,None,2023-03-27
+PT-00089,M,41,25.1,False,False,False,4.43,East Mikeburgh,None,2023-04-04
+PT-00090,F,29,22.7,False,False,True,6.86,Bassport,Smoker,2023-03-11
+PT-00091,F,58,22.8,False,False,True,5.66,Lake Lisaport,Smoker,2023-01-02
+PT-00092,M,83,24.6,False,False,False,3.04,East Josephville,None,2023-01-11
+PT-00093,M,53,25.3,False,False,False,6.96,West Juan,None,2023-01-13
+PT-00094,F,24,19.4,False,False,False,7.01,Lake Matthew,None,2023-01-18
+PT-00095,M,55,27.2,False,False,False,3.78,Williamview,None,2023-03-09
+PT-00096,M,35,22.4,False,True,False,3.99,North Cynthiaview,DM,2023-04-14
+PT-00097,F,78,20.1,False,False,False,5.83,North Matthewberg,None,2023-04-29
+PT-00098,M,41,23.3,False,False,False,4.47,Evanmouth,None,2023-01-01
+PT-00099,F,51,23.1,False,False,True,8.38,Hoffmanville,Smoker,2023-01-15
+PT-00100,F,77,17.8,False,False,False,12.19,Lake Rebeccaside,None,2023-01-20
+PT-00101,M,36,22.7,False,False,True,9.24,Port Mikeside,Smoker,2023-02-08
+PT-00102,F,79,21.4,False,False,False,1.99,South David,None,2023-03-14
+PT-00103,F,28,21.8,False,False,True,6.56,Michaelton,Smoker,2023-01-30
+PT-00104,M,30,24.9,False,True,False,6.21,Jasonbury,DM,2023-03-24
+PT-00105,F,72,20.0,False,False,True,5.21,West Kimberlychester,Smoker,2023-04-23
+PT-00106,M,68,18.7,False,False,False,7.58,East Michelle,None,2023-01-29
+PT-00107,F,23,25.8,True,False,False,2.81,South Angel,HIV,2023-01-24
+PT-00108,F,69,22.2,False,False,True,3.98,Kimberlychester,Smoker,2023-02-04
+PT-00109,F,63,20.7,False,False,False,9.27,West Erik,None,2023-03-26
+PT-00110,F,46,21.0,False,False,False,8.95,South Monicafort,None,2023-01-31
+PT-00111,F,68,21.6,True,False,False,5.74,East Lisa,HIV,2023-04-10
+PT-00112,M,60,18.4,False,False,True,7.25,Baileybury,Smoker,2023-04-24
+PT-00113,M,56,17.8,False,False,False,1.2,North Donna,None,2023-01-08
+PT-00114,F,20,18.7,False,False,False,8.37,Murphyland,None,2023-02-08
+PT-00115,F,73,26.0,False,True,False,3.59,Michaelhaven,DM,2023-02-28
+PT-00116,F,52,21.0,False,False,False,7.08,Frazierside,None,2023-04-19
+PT-00117,F,46,20.6,False,False,True,6.48,Sheilaville,Smoker,2023-04-30
+PT-00118,M,21,22.7,False,False,False,6.54,Gregoryview,None,2023-01-01
+PT-00119,F,77,16.9,True,False,False,6.18,North Candacestad,HIV,2023-03-25
+PT-00120,F,63,20.1,False,False,False,9.38,Samuelhaven,None,2023-01-08
+PT-00121,F,49,22.6,False,False,False,16.36,South Rachelborough,None,2023-03-29
+PT-00122,M,46,25.2,False,False,True,3.35,Bradleychester,Smoker,2023-01-16
+PT-00123,M,22,19.0,False,False,False,1.08,New Saraside,None,2023-01-21
+PT-00124,M,67,20.0,True,False,True,3.12,West Ryan,HIV;Smoker,2023-04-16
+PT-00125,M,23,18.8,False,False,False,4.84,Cindyville,None,2023-01-20
+PT-00126,F,21,14.9,False,False,True,7.11,Williamchester,Smoker,2023-04-23
+PT-00127,M,20,20.6,False,True,False,9.37,Richardport,DM,2023-03-24
+PT-00128,F,77,20.6,False,True,False,7.42,East Robert,DM,2023-03-18
+PT-00129,F,34,25.7,False,False,True,9.47,Byrdburgh,Smoker,2023-01-04
+PT-00130,F,28,21.3,False,False,True,13.41,Richardtown,Smoker,2023-03-31
+PT-00131,M,31,21.0,True,False,False,3.09,Justinchester,HIV,2023-01-02
+PT-00132,M,35,22.2,False,False,False,6.57,Stevenmouth,None,2023-04-26
+PT-00133,M,23,23.1,False,False,False,7.93,New Thomas,None,2023-02-23
+PT-00134,F,47,25.5,False,False,False,5.84,Lake Christopher,None,2023-03-10
+PT-00135,F,79,20.6,False,True,False,8.64,Clarencebury,DM,2023-02-08
+PT-00136,F,28,14.3,False,False,False,6.83,Jeffreyborough,None,2023-02-08
+PT-00137,M,84,20.5,False,False,False,7.73,North Brandon,None,2023-03-06
+PT-00138,F,19,21.7,False,True,False,6.76,Carrland,DM,2023-04-14
+PT-00139,M,53,24.1,False,False,False,6.09,Perryshire,None,2023-02-02
+PT-00140,F,50,22.5,False,False,False,7.74,Lake Heather,None,2023-03-17
+PT-00141,F,72,20.4,True,False,False,8.0,Rossberg,HIV,2023-01-30
+PT-00142,F,61,26.8,False,False,False,1.6,Port Michelleville,None,2023-04-27
+PT-00143,M,69,21.8,False,False,False,8.48,Robinsonhaven,None,2023-01-23
+PT-00144,M,28,15.6,False,False,False,7.88,Williamsbury,None,2023-02-13
+PT-00145,M,73,22.8,False,False,False,5.8,South Dennismouth,None,2023-02-04
+PT-00146,F,57,21.5,False,False,False,8.46,Stephaniemouth,None,2023-04-18
+PT-00147,F,18,21.9,False,False,False,6.1,Rivasside,None,2023-01-30
+PT-00148,M,34,23.5,False,False,False,3.16,Merrittfort,None,2023-02-15
+PT-00149,F,61,21.8,False,False,True,10.12,Greenbury,Smoker,2023-03-20
+PT-00150,F,81,26.8,False,False,False,0.33,Katiehaven,None,2023-01-24
+PT-00151,M,27,22.8,False,True,False,1.05,Simsview,DM,2023-03-12
+PT-00152,F,60,20.4,False,False,False,3.35,Jonesport,None,2023-03-13
+PT-00153,M,70,23.6,False,False,True,3.05,West Matthew,Smoker,2023-02-22
+PT-00154,M,38,23.4,True,False,False,6.31,East Edwardfurt,HIV,2023-02-26
+PT-00155,M,28,26.0,True,False,True,1.42,Lake Jason,HIV;Smoker,2023-04-09
+PT-00156,M,77,20.7,False,False,False,11.77,Russellside,None,2023-03-02
+PT-00157,M,30,21.2,False,False,False,4.08,Perryborough,None,2023-02-24
+PT-00158,F,60,22.9,True,False,False,3.98,Priceshire,HIV,2023-01-13
+PT-00159,F,22,16.4,False,False,True,7.67,Port Nicoleshire,Smoker,2023-02-05
+PT-00160,M,70,20.4,False,False,False,8.39,Woodsstad,None,2023-02-04
+PT-00161,M,37,23.9,True,False,False,1.77,Karenchester,HIV,2023-03-31
+PT-00162,F,42,23.0,False,False,False,7.68,South Jeffrey,None,2023-03-19
+PT-00163,M,40,24.3,False,False,True,6.51,Tuckerfurt,Smoker,2023-01-08
+PT-00164,F,68,16.9,False,False,True,0.0,Elizabethfurt,Smoker,2023-03-01
+PT-00165,F,44,22.9,False,False,False,5.44,Port Tanner,None,2023-02-10
+PT-00166,M,31,22.1,False,False,False,7.29,New Amanda,None,2023-01-13
+PT-00167,M,25,25.4,False,False,False,7.96,Vargastown,None,2023-02-27
+PT-00168,F,69,25.3,False,False,False,6.51,Lake Roymouth,None,2023-01-17
+PT-00169,M,54,27.7,False,False,False,8.31,North Jorge,None,2023-03-22
+PT-00170,M,67,16.1,True,False,True,1.72,Jasonmouth,HIV;Smoker,2023-03-06
+PT-00171,M,68,29.3,False,False,False,9.33,Kathleenfurt,None,2023-04-29
+PT-00172,F,46,23.4,False,False,True,4.34,Karenchester,Smoker,2023-02-25
+PT-00173,F,41,18.5,False,False,False,7.83,Maryfort,None,2023-03-21
+PT-00174,M,43,21.8,False,False,False,4.31,Lake Amberstad,None,2023-01-16
+PT-00175,F,31,21.4,False,False,False,8.29,Lake Casey,None,2023-02-13
+PT-00176,F,57,26.3,False,False,False,5.09,Port Anthonybury,None,2023-02-13
+PT-00177,F,32,24.4,False,False,False,12.17,Port Andrew,None,2023-01-19
+PT-00178,M,39,22.9,True,False,False,9.92,East David,HIV,2023-02-12
+PT-00179,F,44,24.7,False,False,False,2.82,New Staciemouth,None,2023-02-02
+PT-00180,M,74,25.0,False,False,False,4.57,Katieburgh,None,2023-02-12
+PT-00181,M,77,27.1,False,False,True,2.02,Port Loriport,Smoker,2023-03-02
+PT-00182,M,34,24.7,False,True,False,6.06,New Anthonyport,DM,2023-02-04
+PT-00183,M,53,25.0,False,False,False,2.52,Sandersborough,None,2023-02-22
+PT-00184,F,49,19.1,False,False,False,10.46,New Hannahbury,None,2023-02-22
+PT-00185,M,84,21.6,False,True,False,10.32,Lake Kendraville,DM,2023-01-11
+PT-00186,M,84,23.0,False,False,False,4.96,West Amandastad,None,2023-02-20
+PT-00187,F,64,19.1,False,False,True,8.51,New Deborahtown,Smoker,2023-01-04
+PT-00188,F,25,23.0,False,False,False,8.35,Shortville,None,2023-01-14
+PT-00189,M,61,24.0,False,False,True,8.13,Yumouth,Smoker,2023-03-11
+PT-00190,M,77,30.4,False,False,False,4.32,South Gregory,None,2023-04-12
+PT-00191,M,53,17.3,False,False,True,4.7,Christinaside,Smoker,2023-01-10
+PT-00192,F,69,20.7,False,False,True,4.9,Marshallshire,Smoker,2023-02-24
+PT-00193,F,66,21.8,False,False,False,6.24,Marcusbury,None,2023-01-11
+PT-00194,M,24,22.1,False,False,False,1.02,West Nicolebury,None,2023-01-13
+PT-00195,F,40,16.8,False,False,False,11.46,Hudsonfurt,None,2023-01-17
+PT-00196,M,71,19.0,True,False,False,0.26,Anthonymouth,HIV,2023-02-22
+PT-00197,M,68,26.4,False,False,True,5.62,South Jason,Smoker,2023-04-21
+PT-00198,M,35,17.8,False,False,False,5.21,Matthewview,None,2023-03-26
+PT-00199,F,81,25.2,False,True,False,4.64,New Stacyland,DM,2023-01-01
+PT-00200,M,57,27.3,False,True,False,5.02,Lake Richard,DM,2023-01-01
+PT-00201,M,45,21.6,True,False,False,4.54,Lake Thomas,HIV,2023-03-03
+PT-00202,M,84,26.1,True,False,True,8.28,Westtown,HIV;Smoker,2023-04-16
+PT-00203,M,55,20.7,False,False,True,5.73,West Jeffreybury,Smoker,2023-03-12
+PT-00204,F,38,21.1,False,True,False,7.6,Elizabethstad,DM,2023-03-14
+PT-00205,M,64,17.2,False,False,False,1.64,Transtad,None,2023-02-06
+PT-00206,F,36,25.5,False,False,False,6.42,Barajasside,None,2023-03-03
+PT-00207,F,37,15.2,False,False,False,7.01,Michaelmouth,None,2023-04-13
+PT-00208,F,61,18.6,False,False,True,6.5,Kristopherbury,Smoker,2023-01-26
+PT-00209,F,37,22.6,True,False,False,5.73,Lake Jamesville,HIV,2023-03-20
+PT-00210,F,22,20.3,False,False,True,8.54,East Javier,Smoker,2023-04-09
+PT-00211,F,80,21.8,False,False,False,6.34,Hillshire,None,2023-03-06
+PT-00212,M,44,25.5,False,False,False,7.26,Tinaborough,None,2023-04-16
+PT-00213,F,48,21.4,False,False,False,5.33,Jeremyburgh,None,2023-02-13
+PT-00214,M,50,22.2,False,False,False,5.53,Alexisside,None,2023-03-27
+PT-00215,F,31,18.9,False,False,True,8.01,West Brandon,Smoker,2023-02-02
+PT-00216,M,80,21.7,False,False,False,6.04,New Kellyberg,None,2023-04-28
+PT-00217,M,84,22.6,False,False,True,6.62,Garciatown,Smoker,2023-01-08
+PT-00218,F,49,21.5,False,False,True,1.22,Taylormouth,Smoker,2023-01-08
+PT-00219,M,21,21.5,True,True,True,0.46,Jackton,HIV;DM;Smoker,2023-03-05
+PT-00220,F,42,23.1,False,False,False,10.47,Shelleyfort,None,2023-01-26
+PT-00221,F,72,22.5,False,False,False,7.17,Port Cameronfort,None,2023-01-01
+PT-00222,M,79,22.0,True,False,True,6.76,New Crystalton,HIV;Smoker,2023-01-27
+PT-00223,F,37,21.2,False,False,True,6.01,East Lisa,Smoker,2023-04-24
+PT-00224,M,25,22.7,False,False,False,3.39,Christopherbury,None,2023-03-02
+PT-00225,M,23,24.8,False,False,True,7.96,New Kathybury,Smoker,2023-01-08
+PT-00226,F,21,23.9,False,False,False,3.14,Hayesmouth,None,2023-04-24
+PT-00227,M,64,22.6,False,False,True,5.15,Michellechester,Smoker,2023-04-16
+PT-00228,F,45,23.8,False,True,True,1.35,Ashleyton,DM;Smoker,2023-04-19
+PT-00229,M,42,22.1,False,False,True,2.81,Port Jaredborough,Smoker,2023-03-11
+PT-00230,M,33,20.8,False,False,True,5.3,Donnaburgh,Smoker,2023-04-28
+PT-00231,F,54,20.8,False,False,False,2.03,East Andrea,None,2023-04-09
+PT-00232,F,31,20.4,False,False,False,9.27,North Ricky,None,2023-04-27
+PT-00233,M,59,17.4,False,False,False,3.2,Carterbury,None,2023-03-23
+PT-00234,M,44,21.8,False,False,False,6.42,Jasminemouth,None,2023-01-14
+PT-00235,F,25,22.6,False,False,False,7.62,Lake Jesusview,None,2023-04-21
+PT-00236,M,71,25.8,False,False,True,3.14,South Danny,Smoker,2023-03-29
+PT-00237,M,64,20.1,False,False,False,11.33,Lake Edward,None,2023-04-30
+PT-00238,F,38,21.4,False,False,False,7.95,Margaretland,None,2023-01-24
+PT-00239,M,40,19.9,False,False,False,7.46,East Laurashire,None,2023-02-20
+PT-00240,F,73,19.5,False,False,True,6.23,Scottmouth,Smoker,2023-03-24
+PT-00241,M,71,22.7,False,False,False,3.0,Hollyview,None,2023-02-25
+PT-00242,F,53,26.0,False,False,False,7.44,Kimton,None,2023-01-19
+PT-00243,M,79,19.4,False,False,True,4.68,Navarroview,Smoker,2023-04-16
+PT-00244,M,27,16.4,False,False,True,5.29,North Jeremyshire,Smoker,2023-03-13
+PT-00245,F,27,24.5,False,False,True,11.14,Port Emilyview,Smoker,2023-02-22
+PT-00246,M,57,16.6,False,False,True,0.12,Port Katelynfort,Smoker,2023-02-27
+PT-00247,M,64,23.3,False,True,False,9.58,Moonburgh,DM,2023-02-11
+PT-00248,M,79,20.3,False,False,False,6.44,Waltersfort,None,2023-04-30
+PT-00249,F,50,22.8,False,False,False,4.76,South Michaelmouth,None,2023-01-27
+PT-00250,F,51,23.2,True,False,False,4.68,Elizabethburgh,HIV,2023-01-14
+PT-00251,F,36,24.7,False,False,True,9.31,Robertfort,Smoker,2023-01-13
+PT-00252,M,40,21.4,False,False,False,7.62,Elainefurt,None,2023-01-17
+PT-00253,F,56,21.4,False,False,True,3.75,South Christopherview,Smoker,2023-03-10
+PT-00254,M,61,23.8,False,False,True,7.55,Darrellfurt,Smoker,2023-04-08
+PT-00255,F,41,23.9,False,False,True,1.91,Lake Mollymouth,Smoker,2023-03-26
+PT-00256,F,49,20.0,False,False,True,5.93,Brownhaven,Smoker,2023-04-26
+PT-00257,M,37,22.8,False,True,True,5.99,Cindyfort,DM;Smoker,2023-04-04
+PT-00258,F,48,24.4,False,False,True,10.99,Wolfborough,Smoker,2023-01-27
+PT-00259,F,52,25.9,True,False,True,7.17,Andreaport,HIV;Smoker,2023-04-05
+PT-00260,M,53,19.6,False,False,False,2.95,Gilmorefort,None,2023-01-11
+PT-00261,F,27,25.2,False,False,False,5.35,North Teresabury,None,2023-04-14
+PT-00262,M,32,18.5,False,False,True,10.77,West Andrea,Smoker,2023-01-14
+PT-00263,F,50,22.6,False,False,False,0.0,Davisville,None,2023-02-26
+PT-00264,F,58,22.6,False,False,False,2.79,Valentineberg,None,2023-01-14
+PT-00265,M,32,21.0,False,False,True,4.61,Cantuport,Smoker,2023-04-13
+PT-00266,F,32,21.2,False,True,False,4.27,Robertfort,DM,2023-01-20
+PT-00267,F,28,20.1,False,False,False,4.33,Sanchezside,None,2023-04-10
+PT-00268,M,69,21.5,False,False,True,6.6,South James,Smoker,2023-01-25
+PT-00269,M,70,19.3,False,False,False,8.63,Port Chad,None,2023-04-03
+PT-00270,M,73,17.8,False,False,False,6.45,Morganhaven,None,2023-01-24
+PT-00271,F,28,24.4,False,True,False,6.13,Loriport,DM,2023-01-03
+PT-00272,M,34,25.1,False,True,True,3.17,Maryshire,DM;Smoker,2023-02-07
+PT-00273,M,60,19.4,False,False,False,6.49,Grimesmouth,None,2023-01-21
+PT-00274,F,66,23.2,True,False,False,6.75,Reedside,HIV,2023-04-08
+PT-00275,F,27,26.6,False,True,False,4.24,Gibsonmouth,DM,2023-03-26
+PT-00276,F,36,19.5,True,False,False,12.24,Lake John,HIV,2023-01-20
+PT-00277,M,68,20.7,False,False,True,7.11,Hallchester,Smoker,2023-01-09
+PT-00278,F,59,20.5,False,False,False,1.37,West Juliefurt,None,2023-01-16
+PT-00279,M,21,25.8,False,False,True,0.0,Mcneilberg,Smoker,2023-03-18
+PT-00280,F,48,21.9,False,True,False,10.63,Hannaberg,DM,2023-03-24
+PT-00281,M,43,23.4,False,False,False,6.57,Mollymouth,None,2023-02-26
+PT-00282,F,61,24.2,False,True,True,4.61,New Reneetown,DM;Smoker,2023-04-03
+PT-00283,M,55,23.0,False,True,False,7.74,South Monica,DM,2023-03-08
+PT-00284,F,33,24.5,False,False,False,8.52,North Terrance,None,2023-03-20
+PT-00285,F,25,24.7,False,False,False,7.34,Matthewfurt,None,2023-03-24
+PT-00286,F,84,22.7,False,False,False,7.33,Port Markside,None,2023-03-18
+PT-00287,M,42,17.5,False,False,False,7.32,Finleyfort,None,2023-03-21
+PT-00288,M,55,19.9,False,False,False,2.93,New Caseyport,None,2023-03-20
+PT-00289,M,43,19.3,False,True,False,4.08,Lake Christopher,DM,2023-03-19
+PT-00290,M,63,30.3,False,False,True,2.3,Port Cynthiaville,Smoker,2023-04-17
+PT-00291,M,45,18.9,False,False,True,4.85,Jacksonport,Smoker,2023-01-11
+PT-00292,M,56,21.5,False,False,False,5.61,North Markton,None,2023-03-01
+PT-00293,F,44,24.5,False,False,False,0.93,Michaelchester,None,2023-03-09
+PT-00294,M,38,25.8,False,False,True,4.93,East Amanda,Smoker,2023-01-17
+PT-00295,F,23,23.2,False,True,False,11.38,East Gregory,DM,2023-04-12
+PT-00296,F,42,18.8,False,False,False,3.86,Harveybury,None,2023-01-28
+PT-00297,F,19,24.8,False,False,True,6.32,Durhamberg,Smoker,2023-01-08
+PT-00298,M,66,23.3,False,False,False,9.21,South Dana,None,2023-02-22
+PT-00299,M,29,20.6,False,True,False,6.48,Scotttown,DM,2023-03-07
+PT-00300,F,64,24.0,False,True,True,9.03,Santanaside,DM;Smoker,2023-02-24
+PT-00301,M,28,24.5,False,False,False,7.75,North Scott,None,2023-03-04
+PT-00302,F,72,23.6,False,False,False,4.28,Vanessaport,None,2023-01-27
+PT-00303,M,70,22.4,False,False,True,5.63,Vaughnmouth,Smoker,2023-04-24
+PT-00304,F,66,20.9,False,False,False,6.91,Jamesfurt,None,2023-04-14
+PT-00305,M,59,24.2,False,True,True,6.81,Rodriguezfurt,DM;Smoker,2023-01-14
+PT-00306,M,65,21.0,True,True,True,8.9,Baileyport,HIV;DM;Smoker,2023-01-05
+PT-00307,F,50,20.4,True,False,False,1.29,Port Dominiqueview,HIV,2023-04-20
+PT-00308,M,74,22.7,False,False,True,5.35,New Michelleton,Smoker,2023-01-22
+PT-00309,M,20,23.7,False,False,False,9.95,Wallport,None,2023-01-13
+PT-00310,F,21,26.9,False,False,False,9.16,New Laurie,None,2023-01-28
+PT-00311,M,70,22.1,False,False,True,9.31,Lake James,Smoker,2023-04-07
+PT-00312,M,32,21.9,True,False,True,8.25,Ericaberg,HIV;Smoker,2023-04-15
+PT-00313,M,53,19.1,False,False,False,5.63,Lake Debbieport,None,2023-02-14
+PT-00314,M,59,27.0,False,False,True,3.14,Johnsonstad,Smoker,2023-03-09
+PT-00315,F,26,22.2,False,False,True,4.86,North Renee,Smoker,2023-02-14
+PT-00316,M,25,26.0,False,False,True,3.23,Julieburgh,Smoker,2023-02-07
+PT-00317,M,47,22.6,True,False,False,12.15,East Kristin,HIV,2023-01-19
+PT-00318,M,33,20.9,False,False,False,6.03,Alyssaview,None,2023-01-14
+PT-00319,M,80,22.1,False,False,False,8.2,West Robin,None,2023-04-04
+PT-00320,M,23,20.1,False,True,False,6.3,Coffeyport,DM,2023-04-09
+PT-00321,F,80,27.6,False,False,False,7.93,Lindamouth,None,2023-01-29
+PT-00322,M,68,25.3,False,False,True,8.57,East Karenbury,Smoker,2023-01-12
+PT-00323,F,28,19.4,False,False,True,12.31,Coffeyside,Smoker,2023-04-21
+PT-00324,M,27,17.3,False,False,True,9.47,Christopherfurt,Smoker,2023-04-05
+PT-00325,F,47,28.4,False,False,False,7.29,West Amandamouth,None,2023-01-18
+PT-00326,F,80,18.0,False,False,False,9.28,Emilyview,None,2023-01-20
+PT-00327,M,63,20.2,False,False,False,4.71,Carsonstad,None,2023-01-01
+PT-00328,M,49,21.1,False,False,False,3.01,Lake Jesustown,None,2023-04-29
+PT-00329,F,35,24.4,False,False,True,4.31,Rosebury,Smoker,2023-01-30
+PT-00330,F,40,24.8,False,False,False,6.53,Lake Madisonport,None,2023-04-29
+PT-00331,M,32,23.0,False,False,False,5.37,Wilsonton,None,2023-01-28
+PT-00332,F,40,23.5,False,False,False,3.17,West Wendyville,None,2023-02-10
+PT-00333,F,31,22.4,False,False,False,10.59,East Paigeberg,None,2023-01-22
+PT-00334,F,72,16.0,False,True,False,3.62,Chavezside,DM,2023-02-07
+PT-00335,M,25,18.8,False,False,False,1.87,Matthewsberg,None,2023-02-06
+PT-00336,M,18,22.2,False,False,False,9.86,Penafort,None,2023-04-30
+PT-00337,M,21,21.4,False,False,False,2.05,Crosbyview,None,2023-02-09
+PT-00338,F,49,24.4,False,False,False,10.17,Lake Mitchellmouth,None,2023-02-08
+PT-00339,F,81,25.7,False,False,False,5.32,Sampsonstad,None,2023-02-25
+PT-00340,F,43,21.8,True,False,True,3.81,Lake Michaelstad,HIV;Smoker,2023-03-19
+PT-00341,F,66,20.3,False,False,True,10.35,South Joshuaville,Smoker,2023-03-19
+PT-00342,F,35,17.6,False,False,True,4.38,Davisborough,Smoker,2023-04-21
+PT-00343,M,71,23.1,False,True,False,1.12,North Kristinbury,DM,2023-01-03
+PT-00344,M,47,23.0,True,False,False,3.4,Port Anne,HIV,2023-03-28
+PT-00345,F,83,21.4,False,False,False,2.35,Port Kathyborough,None,2023-02-20
+PT-00346,F,84,20.7,False,True,False,3.79,Port Molly,DM,2023-02-05
+PT-00347,M,80,17.1,False,False,False,9.26,Kimtown,None,2023-01-21
+PT-00348,M,36,21.3,False,False,False,0.0,Micheleberg,None,2023-01-14
+PT-00349,F,22,23.6,False,False,False,5.97,New John,None,2023-03-28
+PT-00350,F,24,22.3,False,False,False,2.12,North Donna,None,2023-03-01
+PT-00351,M,64,20.1,False,False,False,5.37,East Alexisbury,None,2023-03-01
+PT-00352,M,49,15.7,False,False,False,0.0,Alfredview,None,2023-04-13
+PT-00353,M,32,20.3,True,False,True,0.0,East Judyhaven,HIV;Smoker,2023-01-26
+PT-00354,F,35,20.3,False,False,False,3.66,Lake Brycemouth,None,2023-03-02
+PT-00355,F,79,22.6,False,False,False,6.32,Williamville,None,2023-02-05
+PT-00356,F,76,22.4,False,False,True,4.14,Gordonton,Smoker,2023-02-23
+PT-00357,F,73,21.2,True,False,False,3.5,Stephentown,HIV,2023-03-11
+PT-00358,M,63,25.7,False,False,True,3.7,South Melaniechester,Smoker,2023-02-07
+PT-00359,F,31,20.2,False,True,False,5.34,South Jennifermouth,DM,2023-03-27
+PT-00360,M,60,28.6,False,False,False,11.08,North Marcberg,None,2023-04-04
+PT-00361,F,75,16.2,False,False,True,4.67,East Joshuashire,Smoker,2023-02-22
+PT-00362,F,41,21.4,True,False,False,4.7,Oscarhaven,HIV,2023-04-17
+PT-00363,F,64,21.7,False,False,False,5.45,Shawnchester,None,2023-03-03
+PT-00364,M,80,20.3,False,True,True,11.19,Port Jacquelineside,DM;Smoker,2023-03-21
+PT-00365,F,33,20.5,False,False,False,6.94,South Shannon,None,2023-03-25
+PT-00366,F,53,21.4,False,False,False,5.46,South Matthew,None,2023-04-24
+PT-00367,M,71,23.6,False,False,True,4.87,Rossville,Smoker,2023-01-27
+PT-00368,M,42,21.2,False,False,False,9.45,Ronaldview,None,2023-02-27
+PT-00369,F,31,21.8,False,False,False,4.94,Stephaniefort,None,2023-04-23
+PT-00370,F,72,21.3,False,True,True,5.25,North Marieland,DM;Smoker,2023-02-06
+PT-00371,F,46,21.4,False,False,False,5.69,Davisstad,None,2023-01-29
+PT-00372,M,63,16.4,False,False,False,6.2,New Brian,None,2023-01-09
+PT-00373,M,18,22.7,False,False,False,4.44,Elizabethchester,None,2023-04-17
+PT-00374,F,68,18.1,False,False,False,3.09,Morganchester,None,2023-02-19
+PT-00375,M,61,19.9,False,False,True,4.3,West Carolinestad,Smoker,2023-04-10
+PT-00376,F,23,21.9,False,False,False,1.35,New Williamberg,None,2023-02-04
+PT-00377,M,45,20.2,False,False,False,7.24,Walkerville,None,2023-02-10
+PT-00378,F,48,15.0,False,False,False,2.11,Meganstad,None,2023-03-20
+PT-00379,F,33,18.7,False,False,False,8.08,Port Joshuabury,None,2023-01-17
+PT-00380,F,82,22.4,False,False,True,4.17,Bruceside,Smoker,2023-03-14
+PT-00381,M,19,19.0,False,False,False,8.56,New Sarahview,None,2023-03-26
+PT-00382,M,64,19.4,True,True,False,3.62,East Joshuaport,HIV;DM,2023-01-05
+PT-00383,F,27,20.6,False,False,True,6.53,Michaelburgh,Smoker,2023-03-30
+PT-00384,M,80,22.2,False,False,False,9.28,New Diane,None,2023-01-16
+PT-00385,M,21,20.5,False,True,False,7.72,East Joycetown,DM,2023-02-24
+PT-00386,M,79,22.0,False,False,True,4.97,Lake Alyssafurt,Smoker,2023-01-28
+PT-00387,F,28,25.9,False,True,False,2.16,Chavezburgh,DM,2023-02-01
+PT-00388,M,54,18.8,False,True,True,7.59,Larrymouth,DM;Smoker,2023-01-21
+PT-00389,M,84,21.5,False,False,False,4.35,North Ericton,None,2023-02-01
+PT-00390,F,84,20.0,False,False,False,9.2,West Scottchester,None,2023-02-24
+PT-00391,M,53,21.3,False,False,False,12.67,Lawsonchester,None,2023-01-19
+PT-00392,F,28,26.5,False,True,False,7.55,Jasonhaven,DM,2023-02-02
+PT-00393,F,56,26.1,False,True,False,7.9,West Russellport,DM,2023-01-20
+PT-00394,F,35,23.7,False,True,True,9.27,Roseport,DM;Smoker,2023-04-29
+PT-00395,M,24,19.3,False,False,False,7.07,East Randallton,None,2023-04-01
+PT-00396,F,58,23.4,False,False,False,5.51,East Kevinborough,None,2023-04-25
+PT-00397,F,25,20.2,False,False,False,8.74,Port Jonathan,None,2023-02-03
+PT-00398,M,68,18.7,False,True,False,4.23,Davidfort,DM,2023-02-13
+PT-00399,M,74,20.2,False,True,True,8.55,Thompsonfurt,DM;Smoker,2023-02-23
+PT-00400,M,27,21.5,False,False,False,11.56,New Angelica,None,2023-04-30
+PT-00401,F,56,22.1,False,False,True,3.75,Charleston,Smoker,2023-02-19
+PT-00402,F,73,22.6,False,False,False,2.92,Smithland,None,2023-04-20
+PT-00403,F,82,24.3,True,True,True,9.07,Barbarashire,HIV;DM;Smoker,2023-01-12
+PT-00404,M,25,26.7,False,False,False,0.73,Mckinneychester,None,2023-04-25
+PT-00405,M,50,21.1,False,False,False,0.0,Dariustown,None,2023-03-31
+PT-00406,F,42,26.2,False,True,False,1.71,Georgemouth,DM,2023-02-21
+PT-00407,F,54,26.7,False,False,False,10.15,Christopherville,None,2023-04-28
+PT-00408,F,57,19.4,False,False,True,7.53,South Brianna,Smoker,2023-02-03
+PT-00409,F,48,29.1,False,False,False,2.89,South Monicamouth,None,2023-01-28
+PT-00410,F,53,22.1,False,False,False,8.88,West Kimberly,None,2023-04-26
+PT-00411,F,82,23.1,False,False,True,6.04,New Cynthiahaven,Smoker,2023-01-27
+PT-00412,F,64,19.2,False,False,False,9.06,Port Michael,None,2023-02-18
+PT-00413,F,32,23.2,False,False,False,7.77,East Curtis,None,2023-04-03
+PT-00414,M,65,21.5,False,False,False,0.57,Jamesberg,None,2023-01-23
+PT-00415,M,25,18.8,False,False,True,10.77,East Stephaniefort,Smoker,2023-01-26
+PT-00416,M,83,24.6,False,False,False,13.31,Webstershire,None,2023-02-14
+PT-00417,F,82,17.7,False,False,True,3.53,Maldonadoshire,Smoker,2023-04-17
+PT-00418,F,27,21.8,False,False,False,9.63,Michellemouth,None,2023-02-08
+PT-00419,M,30,21.3,False,False,True,1.24,South Carlos,Smoker,2023-03-03
+PT-00420,F,27,24.2,False,False,False,8.44,Welchview,None,2023-03-07
+PT-00421,F,81,13.6,False,False,False,2.6,West Williamport,None,2023-01-20
+PT-00422,M,55,28.2,False,False,False,7.38,Hayeston,None,2023-03-29
+PT-00423,M,40,21.6,False,False,False,3.98,Marieland,None,2023-03-29
+PT-00424,M,57,26.0,False,False,False,8.49,New Brookefurt,None,2023-04-16
+PT-00425,F,26,20.7,False,False,False,4.17,Carpenterton,None,2023-03-11
+PT-00426,M,63,22.6,False,False,False,11.61,Stoutshire,None,2023-02-01
+PT-00427,M,29,23.1,False,False,False,5.44,West Cassidy,None,2023-04-20
+PT-00428,F,67,21.4,False,False,True,8.14,North Shannon,Smoker,2023-03-09
+PT-00429,M,61,24.3,False,False,True,5.48,Toniland,Smoker,2023-02-21
+PT-00430,F,71,18.9,False,False,False,7.44,North John,None,2023-01-21
+PT-00431,M,83,22.6,False,True,False,5.24,Ritterhaven,DM,2023-02-09
+PT-00432,F,42,16.6,True,False,False,4.45,West Nathan,HIV,2023-03-28
+PT-00433,M,82,19.8,True,False,True,3.71,Paulmouth,HIV;Smoker,2023-04-22
+PT-00434,M,55,17.4,False,False,True,7.23,Port Crystalmouth,Smoker,2023-02-13
+PT-00435,M,75,19.3,False,False,False,12.88,West Codyfurt,None,2023-01-05
+PT-00436,F,38,19.2,False,False,True,12.34,Johnathanberg,Smoker,2023-03-11
+PT-00437,M,71,27.2,True,False,False,6.65,Christopherberg,HIV,2023-02-05
+PT-00438,F,52,17.2,False,False,True,7.46,Kylefurt,Smoker,2023-02-13
+PT-00439,F,29,21.3,True,False,False,1.93,New Jeanne,HIV,2023-03-26
+PT-00440,M,63,23.2,False,True,True,1.79,West Angelicamouth,DM;Smoker,2023-01-05
+PT-00441,M,71,30.5,False,False,False,1.89,Lake Jacqueline,None,2023-01-21
+PT-00442,F,51,15.4,False,False,False,7.17,Lake Ellenhaven,None,2023-02-11
+PT-00443,M,25,14.4,False,True,True,8.17,Andrewport,DM;Smoker,2023-01-30
+PT-00444,M,26,18.7,False,False,False,4.54,East Matthew,None,2023-03-10
+PT-00445,F,63,24.5,False,False,False,0.0,Leeberg,None,2023-02-15
+PT-00446,M,19,18.1,False,False,True,4.13,North Kenneth,Smoker,2023-03-17
+PT-00447,F,58,22.0,True,False,False,6.7,New Kellihaven,HIV,2023-02-09
+PT-00448,M,45,17.2,False,True,False,5.97,Lake Matthewberg,DM,2023-01-31
+PT-00449,F,26,19.1,False,False,True,5.47,Mooreburgh,Smoker,2023-01-20
+PT-00450,M,20,23.7,False,False,False,0.02,Lake Samuel,None,2023-02-19
+PT-00451,M,53,23.7,False,False,False,8.46,Diazbury,None,2023-01-15
+PT-00452,M,50,22.5,True,False,False,3.64,Bishopmouth,HIV,2023-01-04
+PT-00453,F,83,20.3,False,False,False,5.11,New John,None,2023-04-06
+PT-00454,F,35,18.2,False,True,True,6.66,Mckeeborough,DM;Smoker,2023-01-19
+PT-00455,M,83,21.2,False,True,False,9.58,Erikashire,DM,2023-02-10
+PT-00456,M,43,21.3,False,False,True,2.1,Murrayport,Smoker,2023-01-27
+PT-00457,M,56,18.8,False,False,False,5.5,Shawchester,None,2023-02-02
+PT-00458,M,52,25.2,False,False,False,4.99,Port James,None,2023-01-05
+PT-00459,F,18,24.2,False,True,False,10.51,Port John,DM,2023-02-07
+PT-00460,F,46,24.4,False,False,True,8.1,Sawyerside,Smoker,2023-03-26
+PT-00461,M,75,22.4,False,False,False,6.53,Lake Meghanville,None,2023-01-04
+PT-00462,M,19,20.4,False,True,True,5.21,Christopherburgh,DM;Smoker,2023-03-09
+PT-00463,F,33,25.7,False,False,False,3.3,Shannonhaven,None,2023-03-19
+PT-00464,M,63,20.7,True,True,True,2.74,Port Samuel,HIV;DM;Smoker,2023-04-15
+PT-00465,F,58,23.7,False,False,False,2.05,Port Shannon,None,2023-03-18
+PT-00466,M,20,22.8,False,False,True,4.57,Sarahchester,Smoker,2023-01-22
+PT-00467,F,61,19.9,False,False,True,10.44,South Waynebury,Smoker,2023-04-25
+PT-00468,F,21,20.0,False,False,False,5.76,Vangstad,None,2023-03-01
+PT-00469,M,52,21.2,False,False,True,2.73,North Lucas,Smoker,2023-04-21
+PT-00470,F,28,20.7,False,False,True,8.69,Port Jennifermouth,Smoker,2023-02-28
+PT-00471,M,73,18.9,False,False,False,5.97,East Benjamin,None,2023-02-19
+PT-00472,F,76,26.2,False,False,False,4.57,Hortonberg,None,2023-04-04
+PT-00473,F,36,21.5,False,False,False,0.59,Westtown,None,2023-03-06
+PT-00474,M,73,16.4,False,True,False,2.84,North Jonathanberg,DM,2023-04-29
+PT-00475,F,65,23.1,True,False,False,8.0,Rodriguezport,HIV,2023-01-27
+PT-00476,M,65,19.0,False,False,False,6.01,West David,None,2023-01-05
+PT-00477,M,60,24.8,False,True,True,6.63,South Danielle,DM;Smoker,2023-01-16
+PT-00478,F,25,25.4,False,False,False,9.59,Brownfort,None,2023-01-11
+PT-00479,M,71,24.4,False,False,False,5.08,Lake Zacharybury,None,2023-04-05
+PT-00480,F,72,26.9,False,False,False,6.62,West Ruben,None,2023-03-15
+PT-00481,M,64,20.2,True,False,False,5.36,Johnchester,HIV,2023-04-30
+PT-00482,F,53,19.4,True,True,True,8.27,Lake Elizabeth,HIV;DM;Smoker,2023-03-21
+PT-00483,M,21,22.0,False,False,False,5.35,Carloshaven,None,2023-03-02
+PT-00484,F,79,25.3,False,False,True,6.72,South Morganton,Smoker,2023-02-09
+PT-00485,F,82,21.2,False,False,True,9.96,Zavalaview,Smoker,2023-02-02
+PT-00486,M,79,24.5,False,True,False,0.0,West Kristinastad,DM,2023-02-13
+PT-00487,F,42,23.7,False,False,False,3.89,Lake Diane,None,2023-01-23
+PT-00488,F,84,24.8,False,False,False,5.87,Port Bonniemouth,None,2023-03-31
+PT-00489,M,37,23.0,False,False,False,2.21,North Michael,None,2023-04-05
+PT-00490,M,61,18.2,True,False,False,0.0,Lisaburgh,HIV,2023-03-11
+PT-00491,M,30,25.0,False,True,False,7.19,Pollardfort,DM,2023-01-14
+PT-00492,M,67,20.6,False,False,False,5.93,Port Dennis,None,2023-04-08
+PT-00493,M,77,24.0,False,False,True,3.36,Johnsonborough,Smoker,2023-03-08
+PT-00494,F,22,17.8,False,False,False,2.45,Port Jameston,None,2023-01-26
+PT-00495,M,67,21.6,False,False,False,4.2,Sarahhaven,None,2023-02-27
+PT-00496,F,44,21.5,False,True,True,1.79,Haysside,DM;Smoker,2023-02-20
+PT-00497,M,24,21.6,False,False,False,6.02,Kingborough,None,2023-01-01
+PT-00498,F,28,23.0,False,False,False,9.88,Michaelton,None,2023-02-08
+PT-00499,F,34,21.7,False,False,True,3.7,Joshuastad,Smoker,2023-03-31
+PT-00500,M,56,25.6,False,False,True,3.52,Prestonmouth,Smoker,2023-03-09
+PT-00501,M,49,19.4,False,False,False,9.06,Morganburgh,None,2023-02-01
+PT-00502,F,56,21.3,True,False,False,4.29,Holtstad,HIV,2023-03-06
+PT-00503,M,29,24.8,False,False,False,8.72,Lauriechester,None,2023-04-11
+PT-00504,M,61,20.2,False,False,False,7.6,South Carrieburgh,None,2023-01-29
+PT-00505,F,30,24.8,False,True,True,12.4,Manuelland,DM;Smoker,2023-03-21
+PT-00506,M,52,24.5,False,False,True,2.76,Donnaport,Smoker,2023-01-10
+PT-00507,M,74,19.7,True,False,True,5.5,Morrisonchester,HIV;Smoker,2023-02-02
+PT-00508,M,44,26.2,False,True,False,3.81,Lake Scott,DM,2023-02-10
+PT-00509,M,56,20.0,False,False,False,6.24,Williamsstad,None,2023-04-07
+PT-00510,M,70,23.3,False,False,True,3.48,Hillton,Smoker,2023-02-14
+PT-00511,M,54,20.5,False,False,False,8.76,Lake Danastad,None,2023-03-02
+PT-00512,F,82,19.2,False,True,True,4.73,North Douglas,DM;Smoker,2023-01-22
+PT-00513,M,23,26.2,False,False,False,4.96,Johnsonland,None,2023-03-16
+PT-00514,F,37,23.7,False,False,False,5.94,Port Deanna,None,2023-02-07
+PT-00515,M,48,20.9,False,False,True,4.77,Patrickshire,Smoker,2023-02-19
+PT-00516,F,54,25.0,True,False,False,5.43,New Ericmouth,HIV,2023-02-25
+PT-00517,F,65,23.2,False,False,False,8.41,Nathanland,None,2023-02-28
+PT-00518,M,34,24.0,False,False,True,3.69,New Michael,Smoker,2023-01-07
+PT-00519,F,81,22.8,False,False,False,4.26,Debrabury,None,2023-01-18
+PT-00520,F,33,19.9,False,False,False,5.14,North Jillfort,None,2023-04-10
+PT-00521,M,66,20.6,False,False,True,6.8,Mcintyreville,Smoker,2023-03-10
+PT-00522,F,38,24.4,False,False,False,2.82,Kimberlymouth,None,2023-02-01
+PT-00523,F,75,14.2,False,True,False,11.66,New Justin,DM,2023-04-09
+PT-00524,F,41,22.3,False,False,True,4.8,Gonzalezberg,Smoker,2023-02-15
+PT-00525,F,78,22.2,False,False,False,1.5,South Geraldmouth,None,2023-02-08
+PT-00526,M,19,25.0,False,True,False,2.75,Port Evelynmouth,DM,2023-01-26
+PT-00527,M,31,20.4,False,False,True,1.64,Jennaside,Smoker,2023-04-29
+PT-00528,F,68,22.5,False,False,False,9.99,Patriciaburgh,None,2023-02-23
+PT-00529,F,44,22.4,False,True,False,7.2,Port Michael,DM,2023-03-24
+PT-00530,M,71,24.5,False,False,False,3.25,North Tracie,None,2023-03-25
+PT-00531,M,39,23.6,False,True,False,5.02,East Kristy,DM,2023-04-07
+PT-00532,F,42,20.5,False,False,False,6.76,West Angelastad,None,2023-01-22
+PT-00533,F,74,25.0,False,True,False,6.73,Laraside,DM,2023-04-15
+PT-00534,F,71,27.5,False,False,False,9.98,New Nicole,None,2023-02-19
+PT-00535,M,41,21.0,False,False,False,6.76,West Raymondfort,None,2023-04-21
+PT-00536,F,21,18.8,False,False,False,2.98,Hammondshire,None,2023-03-05
+PT-00537,M,72,20.9,False,False,True,4.12,East Teresaland,Smoker,2023-03-12
+PT-00538,M,83,16.7,False,False,False,8.56,Owenshaven,None,2023-04-26
+PT-00539,M,70,14.2,True,False,True,7.19,Davidside,HIV;Smoker,2023-04-18
+PT-00540,F,64,24.2,True,False,True,3.13,Port Tammy,HIV;Smoker,2023-01-23
+PT-00541,M,22,19.2,False,False,False,7.78,Shawton,None,2023-04-04
+PT-00542,F,75,23.4,False,False,False,5.67,New Ericburgh,None,2023-03-07
+PT-00543,M,67,19.9,False,True,False,3.74,West Sarah,DM,2023-02-06
+PT-00544,F,24,25.5,False,False,True,10.13,West Stacey,Smoker,2023-02-09
+PT-00545,M,21,23.7,False,False,False,0.0,Meghanview,None,2023-02-28
+PT-00546,M,41,22.7,False,False,False,2.84,Lake Stephanie,None,2023-01-17
+PT-00547,M,71,25.4,False,False,True,6.51,Davidport,Smoker,2023-03-25
+PT-00548,F,38,28.0,False,False,True,2.34,New Danielleshire,Smoker,2023-01-07
+PT-00549,M,25,20.3,False,False,False,8.84,East Donna,None,2023-04-13
+PT-00550,F,19,21.2,False,False,False,11.44,Meganshire,None,2023-04-25
+PT-00551,F,79,24.1,True,True,False,8.53,Port Michelleland,HIV;DM,2023-03-10
+PT-00552,F,33,17.3,False,False,True,8.72,Lake Kelliview,Smoker,2023-02-17
+PT-00553,F,81,22.7,False,False,True,7.33,Port Ashley,Smoker,2023-03-31
+PT-00554,M,59,24.9,False,False,False,6.27,South Pamelaside,None,2023-02-18
+PT-00555,F,28,19.9,False,False,False,6.72,Dawnport,None,2023-01-27
+PT-00556,F,64,22.0,False,False,True,3.01,Sanchezfurt,Smoker,2023-03-11
+PT-00557,M,53,19.6,False,False,False,2.32,Shawnton,None,2023-04-14
+PT-00558,F,27,20.1,False,False,True,9.54,South Robert,Smoker,2023-02-04
+PT-00559,M,23,22.9,True,True,True,4.48,Harrisberg,HIV;DM;Smoker,2023-04-30
+PT-00560,F,56,23.6,False,False,True,9.37,Michellemouth,Smoker,2023-01-30
+PT-00561,M,39,26.3,False,False,False,5.79,Theresaberg,None,2023-04-09
+PT-00562,M,82,22.8,False,False,False,9.85,Zacharyville,None,2023-02-07
+PT-00563,F,44,24.0,False,True,False,5.57,Johnville,DM,2023-01-21
+PT-00564,F,50,23.9,False,False,True,12.31,Shannonberg,Smoker,2023-02-14
+PT-00565,M,61,23.1,False,True,False,10.14,North Kellyfurt,DM,2023-01-16
+PT-00566,F,38,19.0,False,True,False,6.07,Wrightburgh,DM,2023-03-31
+PT-00567,M,34,17.8,False,True,False,5.72,Sarahmouth,DM,2023-03-07
+PT-00568,F,81,18.7,False,True,False,9.15,Port Erik,DM,2023-04-19
+PT-00569,M,55,21.8,True,True,False,8.21,Jimenezport,HIV;DM,2023-01-16
+PT-00570,M,18,23.3,False,True,True,6.71,Johnsonfurt,DM;Smoker,2023-01-27
+PT-00571,M,31,23.4,False,False,False,6.38,Levyborough,None,2023-04-30
+PT-00572,M,28,21.8,False,True,False,10.6,Brandonport,DM,2023-02-09
+PT-00573,F,60,20.9,False,True,False,8.26,Harperfort,DM,2023-04-30
+PT-00574,F,41,22.7,False,False,False,3.95,Amandaville,None,2023-04-14
+PT-00575,M,72,19.9,False,False,False,4.64,Andersonview,None,2023-04-22
+PT-00576,F,23,24.8,True,False,True,3.51,Kathrynstad,HIV;Smoker,2023-02-20
+PT-00577,M,82,18.3,False,False,True,8.62,South Brettside,Smoker,2023-04-09
+PT-00578,F,66,19.1,False,False,False,8.01,West Angela,None,2023-01-07
+PT-00579,M,22,20.6,False,False,False,9.58,South Williamside,None,2023-04-12
+PT-00580,F,35,15.9,False,True,False,5.26,Marciaville,DM,2023-03-17
+PT-00581,F,52,23.3,False,False,False,3.24,North Phillip,None,2023-04-14
+PT-00582,M,32,26.5,False,False,True,7.69,Angelastad,Smoker,2023-01-11
+PT-00583,F,34,19.8,False,False,False,3.43,East Carrie,None,2023-03-26
+PT-00584,F,22,18.6,False,False,True,6.56,Porterton,Smoker,2023-01-14
+PT-00585,F,18,21.8,False,True,True,8.19,East Jenniferfort,DM;Smoker,2023-04-24
+PT-00586,F,66,21.3,False,False,False,4.9,Hernandezhaven,None,2023-04-22
+PT-00587,F,19,17.6,False,True,True,6.43,West Sarah,DM;Smoker,2023-04-29
+PT-00588,M,84,23.5,False,True,False,7.48,Franciscoport,DM,2023-03-30
+PT-00589,M,62,18.9,False,False,False,4.53,Williamhaven,None,2023-02-04
+PT-00590,M,43,26.1,False,True,False,7.0,Ericksonport,DM,2023-02-20
+PT-00591,M,70,24.4,False,False,True,5.28,Cabrerastad,Smoker,2023-04-04
+PT-00592,M,84,21.2,False,False,True,7.79,Emilychester,Smoker,2023-03-15
+PT-00593,F,70,19.3,False,True,False,2.45,Lauratown,DM,2023-01-15
+PT-00594,M,82,20.5,False,False,True,2.59,Bakershire,Smoker,2023-04-19
+PT-00595,M,51,23.4,False,False,False,9.32,Lake Brett,None,2023-02-18
+PT-00596,F,23,21.9,False,False,False,6.95,Jacksonfurt,None,2023-03-05
+PT-00597,F,76,23.8,False,False,False,9.15,Port Erin,None,2023-04-16
+PT-00598,F,43,29.3,False,False,False,9.3,New Stacyville,None,2023-02-28
+PT-00599,F,81,18.5,False,False,True,3.01,North Scott,Smoker,2023-04-15
+PT-00600,M,45,25.8,False,False,False,0.96,Hernandezborough,None,2023-03-05
+PT-00601,M,56,25.2,True,False,True,8.31,Shawfort,HIV;Smoker,2023-04-10
+PT-00602,F,39,15.3,False,False,False,8.73,Lake Devinborough,None,2023-03-14
+PT-00603,M,65,26.9,False,False,False,7.63,Whitneyfort,None,2023-02-23
+PT-00604,F,72,19.6,False,False,False,5.65,Edwardsburgh,None,2023-04-26
+PT-00605,M,52,22.8,False,False,False,9.51,Barrmouth,None,2023-04-07
+PT-00606,M,31,27.1,False,False,False,3.7,Ericaview,None,2023-03-02
+PT-00607,M,45,20.2,True,False,False,8.28,Leebury,HIV,2023-01-22
+PT-00608,F,82,24.5,False,False,False,7.23,Angelabury,None,2023-04-16
+PT-00609,F,35,23.5,False,False,True,9.39,Kellieborough,Smoker,2023-04-16
+PT-00610,M,51,21.3,False,False,True,3.88,Stewartstad,Smoker,2023-02-13
+PT-00611,F,30,25.7,False,False,False,3.9,Keithshire,None,2023-03-25
+PT-00612,F,58,26.9,False,False,False,7.17,Huangfurt,None,2023-01-23
+PT-00613,M,42,17.2,False,False,False,2.83,Stephanieberg,None,2023-01-05
+PT-00614,M,63,21.5,False,False,True,6.1,Bobbyland,Smoker,2023-02-01
+PT-00615,F,52,22.3,False,False,True,0.38,Sandraview,Smoker,2023-03-10
+PT-00616,F,25,19.0,False,False,False,2.83,Lewisside,None,2023-01-22
+PT-00617,F,65,24.3,False,False,False,5.04,Sarahview,None,2023-01-23
+PT-00618,M,30,24.2,False,False,False,9.1,North Christina,None,2023-04-08
+PT-00619,F,76,25.0,False,False,False,4.56,East Brent,None,2023-01-14
+PT-00620,M,46,26.4,False,False,True,3.77,Lake Jesse,Smoker,2023-03-08
+PT-00621,M,28,15.1,False,False,False,5.42,South Markfort,None,2023-03-20
+PT-00622,M,42,23.9,False,False,False,9.35,Lake Kellitown,None,2023-02-02
+PT-00623,F,20,18.6,False,False,True,8.55,South Denise,Smoker,2023-04-29
+PT-00624,M,23,22.6,False,False,False,7.47,Woodsborough,None,2023-03-23
+PT-00625,M,54,23.2,False,False,False,4.76,Manuelton,None,2023-01-22
+PT-00626,M,50,21.6,False,False,False,10.77,Lake Audreyside,None,2023-03-15
+PT-00627,M,48,20.2,False,False,False,5.69,East Robertburgh,None,2023-03-05
+PT-00628,F,66,19.6,False,False,True,3.19,Port Randyfort,Smoker,2023-01-05
+PT-00629,M,81,23.1,False,False,False,8.79,Lake Suzanne,None,2023-03-03
+PT-00630,F,55,21.2,False,False,False,1.51,Nancytown,None,2023-02-20
+PT-00631,M,35,17.4,False,False,False,2.5,Ashleyville,None,2023-01-01
+PT-00632,F,28,17.4,False,True,False,6.85,Justinside,DM,2023-03-10
+PT-00633,M,30,21.7,False,False,True,5.52,Smallberg,Smoker,2023-01-08
+PT-00634,F,40,16.8,True,False,False,10.8,Nelsonville,HIV,2023-01-12
+PT-00635,M,25,24.6,False,False,False,0.0,Franciscomouth,None,2023-04-01
+PT-00636,M,33,17.6,False,False,True,3.07,Jennifertown,Smoker,2023-02-09
+PT-00637,F,23,24.9,False,False,False,8.48,Krystalshire,None,2023-04-12
+PT-00638,F,68,18.4,False,False,False,8.68,East Cheryl,None,2023-03-31
+PT-00639,M,75,24.0,False,False,True,5.04,Wilcoxhaven,Smoker,2023-03-23
+PT-00640,F,82,24.7,False,False,False,7.75,Christopherville,None,2023-04-02
+PT-00641,F,59,21.3,False,False,False,4.22,East Thomas,None,2023-01-25
+PT-00642,F,68,19.2,False,False,False,4.52,North Jose,None,2023-01-28
+PT-00643,F,82,25.3,True,False,False,5.35,South Karen,HIV,2023-03-09
+PT-00644,F,82,21.9,True,False,False,0.0,Kevinshire,HIV,2023-04-27
+PT-00645,F,49,25.9,False,False,True,7.81,West Desireebury,Smoker,2023-02-25
+PT-00646,F,50,21.7,False,False,False,0.3,Lake Davidport,None,2023-03-09
+PT-00647,F,36,20.4,False,False,False,6.95,South Gina,None,2023-03-31
+PT-00648,M,31,17.0,True,True,False,4.0,Hannahport,HIV;DM,2023-01-30
+PT-00649,F,51,20.1,False,True,False,6.22,Christinabury,DM,2023-02-14
+PT-00650,F,54,20.4,False,False,True,1.18,South Eric,Smoker,2023-03-15
+PT-00651,F,39,21.5,False,False,True,4.18,Robertside,Smoker,2023-01-17
+PT-00652,F,72,15.6,False,True,False,3.15,Toddborough,DM,2023-04-08
+PT-00653,F,32,22.2,False,False,False,1.42,Lake Karen,None,2023-04-19
+PT-00654,F,37,22.6,False,False,False,3.76,New Seanstad,None,2023-03-26
+PT-00655,M,82,22.2,False,False,False,3.85,New Danielside,None,2023-04-29
+PT-00656,M,74,25.4,False,False,False,5.82,New Amanda,None,2023-03-10
+PT-00657,M,81,22.0,False,False,False,9.98,West Melissa,None,2023-01-24
+PT-00658,F,47,24.7,True,False,True,7.5,Wilsonborough,HIV;Smoker,2023-02-06
+PT-00659,M,48,20.5,False,False,True,5.14,Davishaven,Smoker,2023-04-13
+PT-00660,M,38,21.4,True,False,False,8.68,Stokesmouth,HIV,2023-02-05
+PT-00661,F,64,23.1,False,False,False,4.05,New Robert,None,2023-02-14
+PT-00662,F,34,18.9,False,False,True,3.87,New Stevenport,Smoker,2023-02-10
+PT-00663,M,23,22.1,False,False,False,6.37,South Jonathantown,None,2023-03-02
+PT-00664,M,20,21.7,False,False,False,7.91,New Charles,None,2023-04-11
+PT-00665,F,48,23.0,False,False,False,5.43,Cooperland,None,2023-02-02
+PT-00666,M,62,23.9,False,False,False,2.58,North Valeriefort,None,2023-01-09
+PT-00667,F,35,21.8,False,False,False,4.01,West Robertberg,None,2023-04-15
+PT-00668,M,20,17.5,False,False,False,5.74,Brooksfurt,None,2023-02-22
+PT-00669,M,77,18.0,True,False,True,4.13,Kanefurt,HIV;Smoker,2023-04-16
+PT-00670,M,26,21.9,False,False,False,9.63,Millerside,None,2023-02-06
+PT-00671,F,76,25.9,False,False,False,4.29,Lake Michelle,None,2023-02-15
+PT-00672,M,51,22.8,False,True,False,6.25,East Victoriafurt,DM,2023-03-29
+PT-00673,F,54,21.9,False,False,True,8.25,Lake Tiffany,Smoker,2023-03-06
+PT-00674,M,53,20.9,False,False,True,7.41,Port Andrewport,Smoker,2023-01-03
+PT-00675,F,84,20.2,False,False,False,7.92,Nunezside,None,2023-03-08
+PT-00676,F,50,21.0,True,False,False,3.42,Patelbury,HIV,2023-03-21
+PT-00677,M,71,17.8,False,False,False,4.29,South Michael,None,2023-04-06
+PT-00678,M,64,22.0,False,False,False,5.74,Jacobville,None,2023-02-04
+PT-00679,M,82,17.2,False,False,False,5.76,Port Donnatown,None,2023-02-24
+PT-00680,M,46,16.8,False,False,True,0.48,East Carlos,Smoker,2023-02-18
+PT-00681,M,56,19.1,False,False,False,4.91,South Carlaton,None,2023-01-17
+PT-00682,F,72,20.9,False,False,True,4.67,Lake Bradley,Smoker,2023-02-26
+PT-00683,M,69,27.9,False,False,False,7.18,Youngborough,None,2023-04-24
+PT-00684,M,30,24.7,False,False,True,8.72,East Williamport,Smoker,2023-01-09
+PT-00685,F,64,18.4,False,False,False,5.04,Port Sabrina,None,2023-03-12
+PT-00686,M,53,26.5,False,False,False,9.11,Barbaramouth,None,2023-04-17
+PT-00687,M,58,20.3,False,False,False,3.88,West Nancy,None,2023-02-07
+PT-00688,M,69,25.5,False,True,False,7.02,South Kevin,DM,2023-03-01
+PT-00689,F,66,24.6,False,False,False,2.93,New Stacyburgh,None,2023-03-23
+PT-00690,F,29,16.5,False,False,True,5.18,Peterston,Smoker,2023-04-13
+PT-00691,M,79,23.1,False,False,True,6.99,Shellyfurt,Smoker,2023-02-07
+PT-00692,M,74,26.0,False,False,True,6.68,Heatherchester,Smoker,2023-02-18
+PT-00693,M,18,18.2,False,False,True,7.63,West Nicholas,Smoker,2023-02-13
+PT-00694,M,36,32.0,False,True,False,7.6,Allenbury,DM,2023-03-08
+PT-00695,F,72,22.7,True,False,False,7.64,Meredithberg,HIV,2023-04-19
+PT-00696,F,72,21.3,True,True,False,8.03,Melendezside,HIV;DM,2023-04-30
+PT-00697,M,77,30.7,False,False,False,0.98,Faulknerside,None,2023-03-09
+PT-00698,M,69,26.9,False,False,True,6.93,South John,Smoker,2023-02-22
+PT-00699,F,56,24.2,True,False,True,0.21,West Deborah,HIV;Smoker,2023-01-06
+PT-00700,M,71,21.5,False,False,True,6.15,Booneland,Smoker,2023-02-15
+PT-00701,F,46,21.0,False,False,False,7.3,North Joseph,None,2023-04-28
+PT-00702,M,23,21.9,False,True,False,7.22,Port Charlesshire,DM,2023-02-16
+PT-00703,M,33,20.6,False,False,False,5.59,South Jason,None,2023-03-13
+PT-00704,M,57,23.3,False,False,False,10.56,Kevintown,None,2023-03-06
+PT-00705,F,22,20.8,False,False,False,0.07,East Suzanne,None,2023-04-03
+PT-00706,M,41,21.8,False,False,True,4.18,Lake Yvonnefort,Smoker,2023-01-21
+PT-00707,F,18,27.6,False,False,True,11.29,Lake Cassandra,Smoker,2023-03-10
+PT-00708,M,27,21.1,False,True,False,4.49,South Rose,DM,2023-01-09
+PT-00709,M,78,25.6,False,True,True,3.48,Kimberlyfurt,DM;Smoker,2023-02-04
+PT-00710,F,73,21.0,False,False,False,9.13,Fergusonstad,None,2023-02-14
+PT-00711,F,51,19.5,False,False,False,2.68,Josehaven,None,2023-04-25
+PT-00712,F,71,21.6,False,False,False,7.62,Owensfort,None,2023-04-30
+PT-00713,F,37,22.6,False,False,False,8.9,Robinstad,None,2023-01-10
+PT-00714,F,81,19.4,False,False,False,5.38,Robertshire,None,2023-03-08
+PT-00715,F,72,23.7,False,False,False,0.6,Lake Dustin,None,2023-02-07
+PT-00716,F,44,21.0,False,False,False,3.14,Angelashire,None,2023-03-01
+PT-00717,F,51,18.9,False,False,False,7.4,Phillipsborough,None,2023-04-02
+PT-00718,M,72,26.9,False,False,True,7.48,Jerryshire,Smoker,2023-03-27
+PT-00719,F,51,18.9,False,False,True,1.7,South Andrea,Smoker,2023-03-08
+PT-00720,M,31,24.0,True,False,True,0.18,Jonathanfort,HIV;Smoker,2023-01-14
+PT-00721,F,69,21.1,False,False,False,10.01,Murraystad,None,2023-02-23
+PT-00722,F,27,20.8,True,False,True,9.26,East Jennifer,HIV;Smoker,2023-03-17
+PT-00723,F,41,19.5,True,False,False,6.13,Whiteside,HIV,2023-02-08
+PT-00724,F,63,22.3,False,False,False,5.25,New Arthurland,None,2023-02-23
+PT-00725,M,35,22.5,False,False,False,4.64,Port Adamberg,None,2023-02-09
+PT-00726,M,43,24.3,False,False,True,0.85,North Jasmine,Smoker,2023-04-28
+PT-00727,F,34,28.4,False,False,False,7.51,East Williamstad,None,2023-03-23
+PT-00728,M,43,23.1,False,False,True,2.62,New Danafort,Smoker,2023-03-26
+PT-00729,F,35,21.9,False,False,False,9.59,Smithside,None,2023-04-24
+PT-00730,F,49,19.5,False,True,True,9.19,Smithhaven,DM;Smoker,2023-02-14
+PT-00731,F,52,18.5,False,False,False,1.91,Amandaport,None,2023-01-21
+PT-00732,M,35,14.8,True,False,False,3.39,New Lisachester,HIV,2023-04-08
+PT-00733,F,68,24.8,True,False,False,3.51,North Samantha,HIV,2023-04-03
+PT-00734,F,18,16.6,False,False,False,4.99,East James,None,2023-01-15
+PT-00735,F,47,24.0,False,False,False,7.9,Lisaview,None,2023-04-15
+PT-00736,M,77,26.2,False,False,True,4.87,Millerfurt,Smoker,2023-02-12
+PT-00737,F,65,16.3,False,False,True,4.73,Cunninghambury,Smoker,2023-04-23
+PT-00738,F,64,22.9,False,False,False,4.89,Gabriellaland,None,2023-02-24
+PT-00739,M,38,22.4,False,False,False,9.99,North Richardfurt,None,2023-03-23
+PT-00740,F,79,17.4,False,False,False,7.55,Browntown,None,2023-04-06
+PT-00741,F,18,23.8,False,False,False,6.53,North Vincent,None,2023-04-25
+PT-00742,F,49,23.8,True,False,False,1.97,Newmanmouth,HIV,2023-04-03
+PT-00743,F,58,19.2,False,True,False,11.83,New Samanthabury,DM,2023-03-19
+PT-00744,F,63,19.9,False,True,True,3.5,Port Heather,DM;Smoker,2023-01-02
+PT-00745,F,28,22.2,False,False,True,3.86,Nelsonland,Smoker,2023-04-21
+PT-00746,F,81,15.5,False,False,False,5.55,Rachelshire,None,2023-04-07
+PT-00747,F,55,20.3,False,False,True,7.86,East Sarahmouth,Smoker,2023-02-03
+PT-00748,M,79,17.6,True,False,False,6.07,East Brendafurt,HIV,2023-04-16
+PT-00749,M,18,25.9,False,False,False,9.24,West Franciscobury,None,2023-03-08
+PT-00750,F,59,18.5,False,False,False,9.15,Rhodesside,None,2023-01-23
+PT-00751,F,79,22.1,True,True,True,9.24,Patrickberg,HIV;DM;Smoker,2023-04-26
+PT-00752,F,54,21.9,True,False,True,8.42,New Juliestad,HIV;Smoker,2023-02-21
+PT-00753,M,51,21.7,False,False,True,8.94,North Samuelland,Smoker,2023-01-03
+PT-00754,M,75,21.6,False,True,False,1.69,Cassiefurt,DM,2023-02-17
+PT-00755,F,47,24.7,False,False,True,10.08,Anthonyview,Smoker,2023-02-09
+PT-00756,M,72,22.9,False,False,False,6.23,Henrystad,None,2023-01-05
+PT-00757,F,44,15.4,False,True,False,0.64,Reynoldsshire,DM,2023-04-08
+PT-00758,M,57,18.5,False,False,True,10.04,Millerport,Smoker,2023-03-20
+PT-00759,M,41,24.1,True,False,False,8.57,Lake Charles,HIV,2023-03-13
+PT-00760,F,48,22.8,False,False,True,9.14,Ericberg,Smoker,2023-03-07
+PT-00761,F,45,23.5,False,False,False,4.02,Stewartville,None,2023-02-01
+PT-00762,F,26,22.4,False,True,False,7.32,North Sherrymouth,DM,2023-03-09
+PT-00763,F,35,20.8,False,True,False,7.1,Kathleenville,DM,2023-04-13
+PT-00764,M,52,22.9,False,False,True,9.09,North Jacob,Smoker,2023-03-04
+PT-00765,F,29,25.6,False,False,False,7.57,Hawkinshaven,None,2023-03-26
+PT-00766,M,49,25.1,False,False,False,9.06,Garcialand,None,2023-03-02
+PT-00767,F,61,20.6,False,False,False,3.77,Angelamouth,None,2023-03-26
+PT-00768,F,46,21.2,False,False,True,4.64,Smithchester,Smoker,2023-03-25
+PT-00769,F,72,17.0,False,True,False,5.8,Maxwellside,DM,2023-04-03
+PT-00770,M,80,21.9,False,False,True,5.09,New Adriana,Smoker,2023-01-01
+PT-00771,F,33,19.1,False,False,True,5.7,Jacksonview,Smoker,2023-01-09
+PT-00772,F,52,20.6,False,False,False,4.84,Josephberg,None,2023-04-27
+PT-00773,M,29,22.4,False,False,False,7.81,East Ryanchester,None,2023-01-14
+PT-00774,M,45,25.1,False,False,False,4.12,Toddland,None,2023-04-12
+PT-00775,M,45,25.9,False,False,True,6.74,Johnathanbury,Smoker,2023-03-09
+PT-00776,M,49,19.6,False,False,False,4.21,Wheelerborough,None,2023-03-19
+PT-00777,F,56,26.5,True,True,False,8.17,Rodriguezport,HIV;DM,2023-03-23
+PT-00778,F,79,17.6,False,False,False,8.69,South Martinfurt,None,2023-04-03
+PT-00779,F,21,29.4,False,False,True,9.24,Scottchester,Smoker,2023-04-28
+PT-00780,F,49,12.5,False,False,False,6.71,West Malik,None,2023-01-15
+PT-00781,F,60,20.8,False,True,False,11.12,South Leon,DM,2023-02-20
+PT-00782,M,78,27.3,False,False,True,3.57,Novakport,Smoker,2023-02-20
+PT-00783,F,30,22.3,False,True,True,5.31,Faulknerbury,DM;Smoker,2023-02-23
+PT-00784,M,66,19.8,False,False,False,8.54,Nicholasfurt,None,2023-03-06
+PT-00785,M,81,22.6,False,True,False,12.61,Danielshire,DM,2023-03-14
+PT-00786,F,57,24.0,False,False,False,0.0,New Wendy,None,2023-04-16
+PT-00787,F,24,24.9,False,True,False,3.91,Lake Katrina,DM,2023-04-30
+PT-00788,F,54,23.3,False,False,False,5.18,Lake Stevenborough,None,2023-04-15
+PT-00789,F,38,20.3,False,False,False,5.11,Salinasland,None,2023-01-29
+PT-00790,F,35,24.1,False,False,False,11.69,Chambersberg,None,2023-03-12
+PT-00791,M,44,19.3,False,False,True,8.48,Johnberg,Smoker,2023-02-25
+PT-00792,F,43,25.9,False,False,True,10.7,Mccormickland,Smoker,2023-04-09
+PT-00793,M,79,18.9,False,False,True,7.98,Ewingfort,Smoker,2023-03-31
+PT-00794,M,24,23.0,False,False,False,3.98,Fergusonchester,None,2023-03-13
+PT-00795,F,68,23.1,False,False,False,10.45,Port Tanyaside,None,2023-03-31
+PT-00796,F,39,19.8,False,False,False,5.57,North Kaylastad,None,2023-03-11
+PT-00797,F,64,20.3,False,False,True,5.13,Lake Cheyenne,Smoker,2023-01-14
+PT-00798,M,51,21.4,False,False,False,9.79,Rasmussenmouth,None,2023-03-18
+PT-00799,M,43,19.9,False,False,False,8.62,Rodriguezville,None,2023-02-10
+PT-00800,M,27,21.1,False,False,False,2.59,Jeffreyhaven,None,2023-04-29
+PT-00801,M,75,18.4,False,False,False,6.35,South Neil,None,2023-02-24
+PT-00802,M,40,23.6,False,False,False,2.27,Bartonshire,None,2023-04-02
+PT-00803,M,77,21.4,False,False,False,7.39,West Whitney,None,2023-03-26
+PT-00804,M,83,25.2,True,False,False,7.63,Garciachester,HIV,2023-04-18
+PT-00805,M,32,21.8,False,False,False,5.42,North Marieberg,None,2023-03-14
+PT-00806,M,52,18.6,True,False,False,0.0,Larrymouth,HIV,2023-04-15
+PT-00807,M,23,22.5,False,False,False,7.78,New Timothy,None,2023-01-06
+PT-00808,F,41,22.0,False,False,True,3.91,Davismouth,Smoker,2023-03-18
+PT-00809,M,29,19.8,False,False,True,5.08,Carloston,Smoker,2023-03-21
+PT-00810,F,74,23.8,False,False,False,7.09,North Melindaville,None,2023-03-23
+PT-00811,M,19,22.5,False,False,False,7.72,Lake John,None,2023-03-31
+PT-00812,M,34,22.6,False,False,False,7.21,New Ethan,None,2023-04-29
+PT-00813,F,21,20.4,False,False,False,4.56,Mullenbury,None,2023-02-28
+PT-00814,F,42,20.3,False,False,False,4.2,Sotoburgh,None,2023-03-18
+PT-00815,M,39,22.0,False,False,False,5.52,Fosterborough,None,2023-04-21
+PT-00816,F,77,18.1,False,False,True,2.58,Vargasfurt,Smoker,2023-03-21
+PT-00817,M,31,21.4,False,False,False,5.23,Lake Jasonview,None,2023-03-08
+PT-00818,F,75,18.1,False,False,False,12.74,New Cristianside,None,2023-02-17
+PT-00819,M,22,22.3,False,False,False,7.76,West Mark,None,2023-02-19
+PT-00820,F,37,22.2,False,False,False,4.13,Wilsonfort,None,2023-02-21
+PT-00821,F,20,24.3,False,False,False,9.4,Candicefurt,None,2023-04-13
+PT-00822,M,49,26.5,False,False,False,5.68,West Michaelmouth,None,2023-01-03
+PT-00823,M,54,23.6,False,False,False,7.29,Port Emily,None,2023-01-03
+PT-00824,F,28,18.9,True,False,False,6.2,Samanthashire,HIV,2023-02-07
+PT-00825,F,38,20.4,False,False,True,3.62,Lake Dennisville,Smoker,2023-03-03
+PT-00826,M,33,24.0,False,False,False,0.0,West Daryl,None,2023-04-25
+PT-00827,M,20,21.9,False,False,False,9.31,Heatherhaven,None,2023-01-07
+PT-00828,M,76,22.9,False,True,False,0.0,Barnesberg,DM,2023-03-17
+PT-00829,M,77,18.0,False,True,True,3.85,Hendersonfort,DM;Smoker,2023-04-13
+PT-00830,M,23,20.6,False,True,False,10.07,New Garrett,DM,2023-01-08
+PT-00831,M,24,23.9,False,False,False,9.25,Donaldmouth,None,2023-01-19
+PT-00832,F,49,19.5,False,True,False,9.33,Harveystad,DM,2023-01-15
+PT-00833,M,27,21.8,False,False,True,2.24,South Derrickfurt,Smoker,2023-04-05
+PT-00834,M,40,21.2,True,False,False,2.7,Ortizfort,HIV,2023-01-18
+PT-00835,M,51,17.7,False,False,False,2.22,Mckinneymouth,None,2023-01-07
+PT-00836,M,25,19.8,False,False,False,9.48,Jacksonshire,None,2023-03-26
+PT-00837,F,84,21.6,False,True,True,4.96,Port Kathleenport,DM;Smoker,2023-03-15
+PT-00838,F,51,24.3,True,False,True,5.93,West Jeffreyport,HIV;Smoker,2023-04-19
+PT-00839,M,84,24.0,False,False,False,6.54,Port Stephen,None,2023-01-19
+PT-00840,M,46,16.3,False,False,False,0.0,Dunnville,None,2023-02-07
+PT-00841,F,50,24.5,False,True,False,2.7,West Kimberlystad,DM,2023-01-11
+PT-00842,M,45,25.5,True,False,False,0.44,Port Jenniferside,HIV,2023-04-17
+PT-00843,F,54,20.1,False,False,False,5.94,South Curtis,None,2023-03-22
+PT-00844,M,41,18.6,False,False,False,2.6,West Nancy,None,2023-02-07
+PT-00845,M,51,18.3,False,False,False,8.33,South Joseland,None,2023-04-19
+PT-00846,F,52,21.8,False,False,False,6.95,Grimesville,None,2023-03-25
+PT-00847,M,68,24.2,False,False,False,12.04,East Lisa,None,2023-04-11
+PT-00848,F,38,25.1,False,False,False,4.94,Michellechester,None,2023-04-04
+PT-00849,M,41,21.3,False,False,False,6.44,New Donald,None,2023-01-15
+PT-00850,F,19,18.0,False,False,True,2.55,Port Jamie,Smoker,2023-04-05
+PT-00851,F,61,22.9,False,False,False,0.55,New Michaelview,None,2023-01-24
+PT-00852,F,80,21.6,False,False,False,5.18,West Tiffany,None,2023-03-12
+PT-00853,M,51,20.5,False,False,False,8.61,Keithview,None,2023-03-26
+PT-00854,F,81,19.7,False,False,True,4.69,East Sydneychester,Smoker,2023-01-11
+PT-00855,F,32,15.0,False,False,False,7.6,West Michelleberg,None,2023-01-10
+PT-00856,F,74,20.8,False,False,False,6.76,East Dustin,None,2023-01-22
+PT-00857,F,49,23.1,False,False,False,4.01,Mariafurt,None,2023-04-30
+PT-00858,F,53,28.5,False,False,False,5.09,Thomasview,None,2023-01-21
+PT-00859,M,43,18.6,False,False,False,7.61,Brooksland,None,2023-04-10
+PT-00860,F,59,23.2,False,False,False,9.42,South Zacharyview,None,2023-04-06
+PT-00861,F,51,21.9,False,True,False,5.72,Shawnfort,DM,2023-02-13
+PT-00862,M,33,21.1,False,False,False,4.76,Brandiland,None,2023-04-14
+PT-00863,F,18,21.1,False,False,True,2.32,Reidstad,Smoker,2023-01-01
+PT-00864,M,69,23.1,False,False,False,5.11,Port Amandaborough,None,2023-03-20
+PT-00865,M,76,24.6,False,False,True,6.35,Summersfort,Smoker,2023-04-19
+PT-00866,M,32,23.3,False,False,False,2.34,Marcusport,None,2023-03-26
+PT-00867,M,68,21.2,True,False,True,1.0,Amyberg,HIV;Smoker,2023-01-02
+PT-00868,F,36,28.4,False,True,False,7.39,Kramerton,DM,2023-02-16
+PT-00869,F,51,22.1,False,False,False,3.68,North Conniemouth,None,2023-03-25
+PT-00870,F,48,22.1,False,False,True,0.0,North Sarahburgh,Smoker,2023-02-12
+PT-00871,M,69,18.0,False,True,False,1.61,Bryantchester,DM,2023-02-15
+PT-00872,F,54,14.3,False,False,False,7.29,Lake Regina,None,2023-03-20
+PT-00873,M,68,17.9,False,False,False,5.46,Erikview,None,2023-04-11
+PT-00874,F,43,27.9,False,False,False,5.2,Lake Michaelland,None,2023-04-23
+PT-00875,M,73,23.0,False,False,False,6.11,Elizabethburgh,None,2023-03-29
+PT-00876,F,48,25.8,False,False,False,8.91,South Conniebury,None,2023-01-25
+PT-00877,F,62,23.3,False,False,False,4.95,Riosville,None,2023-04-27
+PT-00878,F,70,23.3,False,False,True,6.34,East Thomasberg,Smoker,2023-03-14
+PT-00879,M,68,21.8,False,False,False,4.04,New Erin,None,2023-04-22
+PT-00880,M,68,21.0,False,False,False,6.97,North Heatherville,None,2023-04-21
+PT-00881,M,30,22.8,True,False,True,10.81,Bensonfort,HIV;Smoker,2023-03-14
+PT-00882,F,32,20.0,False,False,False,2.74,East Patrickville,None,2023-02-02
+PT-00883,M,43,21.5,False,True,True,6.33,West Michaelport,DM;Smoker,2023-01-01
+PT-00884,F,84,22.2,False,False,False,1.27,South Kiara,None,2023-01-09
+PT-00885,F,70,21.5,False,True,False,4.7,Lake Victoria,DM,2023-02-05
+PT-00886,M,25,16.7,False,False,False,7.69,North Alyssa,None,2023-03-14
+PT-00887,F,18,21.8,False,False,False,10.18,New Debramouth,None,2023-01-28
+PT-00888,F,27,28.9,False,True,False,1.61,Jenniferberg,DM,2023-03-29
+PT-00889,M,51,18.2,False,False,False,5.73,Jensenmouth,None,2023-03-09
+PT-00890,F,37,22.1,False,False,True,4.57,North Peggy,Smoker,2023-02-08
+PT-00891,M,30,24.9,False,False,False,8.68,Port David,None,2023-01-30
+PT-00892,M,21,19.1,False,False,False,8.29,Bellchester,None,2023-03-20
+PT-00893,F,81,22.8,False,False,False,4.49,Kyliebury,None,2023-01-21
+PT-00894,F,84,20.4,False,False,False,9.14,Deannabury,None,2023-03-03
+PT-00895,F,40,24.1,False,False,False,5.74,Kimberlytown,None,2023-04-19
+PT-00896,F,70,24.0,True,False,True,4.8,Jamiehaven,HIV;Smoker,2023-03-29
+PT-00897,M,64,28.0,False,False,False,2.77,Lake Peter,None,2023-02-23
+PT-00898,M,63,16.3,False,False,False,6.65,Port Rachaelbury,None,2023-02-21
+PT-00899,M,31,21.9,False,False,True,8.63,Cruzbury,Smoker,2023-01-15
+PT-00900,M,38,26.0,False,False,False,1.11,Littleland,None,2023-03-29
+PT-00901,F,69,21.5,False,False,False,4.3,West Sarahberg,None,2023-03-21
+PT-00902,M,30,21.4,False,False,False,5.71,Valenciashire,None,2023-04-16
+PT-00903,M,35,20.3,False,False,False,8.59,Diazburgh,None,2023-04-26
+PT-00904,M,78,22.3,False,False,False,6.0,Bestland,None,2023-03-23
+PT-00905,M,42,24.1,True,False,False,7.62,New Carlosview,HIV,2023-01-30
+PT-00906,M,50,20.2,False,False,False,4.39,North Sandra,None,2023-01-21
+PT-00907,F,63,17.0,False,False,False,4.9,Hunterhaven,None,2023-04-26
+PT-00908,M,45,18.5,False,False,False,3.93,Hendersonfurt,None,2023-04-25
+PT-00909,F,27,20.3,False,False,False,2.69,Lake Amandaberg,None,2023-03-15
+PT-00910,F,56,20.9,False,False,True,2.8,Christopherland,Smoker,2023-02-18
+PT-00911,M,60,22.6,True,False,False,4.19,Port Eric,HIV,2023-04-06
+PT-00912,M,79,20.3,False,False,True,6.76,Peterland,Smoker,2023-02-23
+PT-00913,M,75,21.6,False,False,True,4.57,Hollybury,Smoker,2023-01-14
+PT-00914,M,57,22.1,True,False,False,6.59,East Christopherchester,HIV,2023-04-29
+PT-00915,M,51,25.5,False,False,False,8.52,South Cherylton,None,2023-01-06
+PT-00916,F,72,23.0,False,False,False,8.32,Elizabethburgh,None,2023-01-25
+PT-00917,F,26,20.4,False,False,False,10.34,North Jeantown,None,2023-04-06
+PT-00918,F,32,22.1,False,False,True,6.31,South Stephanie,Smoker,2023-03-26
+PT-00919,M,31,24.4,False,True,False,5.03,Garyberg,DM,2023-03-16
+PT-00920,M,49,19.2,False,False,False,5.16,Jessicaville,None,2023-02-07
+PT-00921,M,50,23.8,False,True,True,9.58,West Lindsayview,DM;Smoker,2023-02-06
+PT-00922,M,48,24.9,True,False,False,8.77,West Jennifershire,HIV,2023-03-14
+PT-00923,M,46,21.8,False,False,False,4.41,South Spencerstad,None,2023-03-13
+PT-00924,F,53,22.3,False,True,False,6.68,South Micheleburgh,DM,2023-04-10
+PT-00925,F,58,25.3,False,False,True,3.03,Ericville,Smoker,2023-04-23
+PT-00926,F,24,19.5,False,False,False,3.12,East Joycetown,None,2023-02-08
+PT-00927,M,34,23.7,False,False,False,4.73,Port Michellebury,None,2023-01-20
+PT-00928,F,72,19.4,False,False,False,7.91,South Michaelberg,None,2023-02-10
+PT-00929,F,56,22.6,False,False,False,0.0,Port Austin,None,2023-03-12
+PT-00930,M,73,20.5,False,False,False,5.38,Walkerbury,None,2023-02-07
+PT-00931,F,58,22.8,False,True,False,7.11,Moonmouth,DM,2023-03-27
+PT-00932,F,27,21.8,False,False,False,8.05,Margaretshire,None,2023-04-21
+PT-00933,M,77,20.2,False,False,True,5.0,Davidton,Smoker,2023-03-18
+PT-00934,M,65,25.3,False,False,False,9.32,East Linda,None,2023-02-17
+PT-00935,F,81,23.2,False,False,False,5.83,South Caseymouth,None,2023-02-26
+PT-00936,M,24,18.4,True,False,False,6.34,Kiaraport,HIV,2023-03-26
+PT-00937,M,65,19.0,False,True,True,9.55,Christophermouth,DM;Smoker,2023-03-12
+PT-00938,F,20,32.4,False,False,False,9.52,West Jamesshire,None,2023-04-17
+PT-00939,M,32,16.8,False,False,False,5.81,Jodibury,None,2023-03-21
+PT-00940,F,31,15.6,False,False,False,4.79,Richardsonfort,None,2023-02-23
+PT-00941,F,21,18.1,False,False,False,11.01,Lake Rachel,None,2023-03-20
+PT-00942,M,41,21.3,False,False,True,3.52,East Adam,Smoker,2023-02-19
+PT-00943,F,25,25.1,False,False,False,6.96,Johnsonside,None,2023-03-19
+PT-00944,M,19,20.7,False,False,False,11.33,Cynthiatown,None,2023-03-04
+PT-00945,M,27,29.6,False,False,False,11.11,Aaronfurt,None,2023-04-02
+PT-00946,F,51,23.2,False,False,False,0.01,Daltonhaven,None,2023-03-07
+PT-00947,F,65,26.3,False,True,True,8.19,South Travis,DM;Smoker,2023-01-10
+PT-00948,F,34,17.3,False,False,True,9.4,East Jenniferland,Smoker,2023-04-23
+PT-00949,M,75,22.4,False,True,False,0.0,East Phyllishaven,DM,2023-02-04
+PT-00950,F,47,19.2,False,False,False,6.49,Haynesstad,None,2023-02-03
+PT-00951,F,40,22.5,False,False,False,6.37,Villegasland,None,2023-01-13
+PT-00952,M,19,16.7,False,False,True,7.18,New Dennisfurt,Smoker,2023-03-20
+PT-00953,M,54,27.5,False,False,False,3.85,New Ashleychester,None,2023-03-08
+PT-00954,M,84,24.6,False,False,False,8.76,East Kelly,None,2023-02-01
+PT-00955,M,77,23.6,False,False,False,0.0,Sarafurt,None,2023-03-31
+PT-00956,F,36,16.3,False,False,False,6.38,Louisview,None,2023-04-16
+PT-00957,M,19,19.1,False,False,False,4.42,North Sherry,None,2023-02-21
+PT-00958,M,72,21.6,False,False,False,0.37,Port Kayla,None,2023-02-21
+PT-00959,F,50,20.1,False,False,False,2.61,East Danielmouth,None,2023-04-14
+PT-00960,F,30,16.9,False,True,True,5.52,Edwardsville,DM;Smoker,2023-01-17
+PT-00961,M,53,21.1,False,True,False,6.88,Tamiborough,DM,2023-04-25
+PT-00962,M,42,18.1,False,False,False,9.01,Parkerview,None,2023-02-07
+PT-00963,F,70,21.1,False,False,False,2.68,North Ericport,None,2023-04-18
+PT-00964,F,83,26.4,False,False,True,2.22,East Marymouth,Smoker,2023-02-04
+PT-00965,M,19,18.6,False,True,False,3.66,North Jennifer,DM,2023-03-04
+PT-00966,M,64,22.1,False,False,False,2.99,Randyton,None,2023-04-19
+PT-00967,F,76,20.0,False,True,True,0.65,Jorgeburgh,DM;Smoker,2023-04-10
+PT-00968,F,70,23.2,False,False,False,3.64,South Melissaside,None,2023-01-27
+PT-00969,M,59,23.8,False,True,False,5.91,North Steven,DM,2023-01-04
+PT-00970,F,65,26.9,False,False,False,5.68,North Alexander,None,2023-01-30
+PT-00971,F,22,22.1,False,True,False,11.07,East James,DM,2023-04-08
+PT-00972,M,30,25.2,False,False,False,8.59,Watsonland,None,2023-01-06
+PT-00973,M,44,21.2,False,False,False,1.86,Samanthaland,None,2023-04-14
+PT-00974,M,46,18.7,False,False,False,9.05,North Jamesmouth,None,2023-02-06
+PT-00975,M,19,18.2,False,False,False,13.71,North Rebecca,None,2023-03-30
+PT-00976,F,80,19.6,False,True,True,8.87,Davidmouth,DM;Smoker,2023-03-22
+PT-00977,M,43,18.6,False,False,False,5.72,East Sandrachester,None,2023-03-10
+PT-00978,F,79,18.7,False,False,False,2.86,Crawfordfurt,None,2023-04-20
+PT-00979,M,34,17.1,False,False,True,9.13,Thompsonborough,Smoker,2023-03-28
+PT-00980,M,36,19.1,True,False,True,5.33,West Joshua,HIV;Smoker,2023-02-05
+PT-00981,M,47,18.1,False,False,True,7.26,North Christina,Smoker,2023-01-14
+PT-00982,F,71,26.1,False,False,False,9.5,Lake Kenneth,None,2023-03-21
+PT-00983,F,81,22.8,False,True,False,6.15,Andradefort,DM,2023-02-24
+PT-00984,F,77,34.3,False,False,False,7.42,North Joshuaberg,None,2023-02-06
+PT-00985,M,37,26.5,False,False,False,9.67,Gonzalezhaven,None,2023-04-20
+PT-00986,M,22,19.6,False,False,False,7.29,Lake Virginia,None,2023-01-11
+PT-00987,F,53,22.7,False,False,False,6.99,South Kimberlystad,None,2023-03-30
+PT-00988,M,47,26.2,False,False,False,4.81,Stephensfort,None,2023-04-03
+PT-00989,M,66,22.8,False,False,False,5.86,Robertahaven,None,2023-01-26
+PT-00990,F,64,21.6,False,False,True,6.7,Paulburgh,Smoker,2023-03-31
+PT-00991,M,55,24.4,False,False,True,6.63,West Carlatown,Smoker,2023-03-29
+PT-00992,M,56,26.4,False,False,False,5.97,Brianfort,None,2023-01-17
+PT-00993,M,78,23.5,False,False,False,3.67,Katiebury,None,2023-02-19
+PT-00994,F,78,25.5,False,False,False,3.57,North John,None,2023-04-01
+PT-00995,F,57,18.9,False,True,True,6.48,West Amanda,DM;Smoker,2023-02-12
+PT-00996,F,33,17.1,False,False,False,2.91,Port Wendybury,None,2023-04-10
+PT-00997,F,74,22.8,False,False,False,3.37,Kellyburgh,None,2023-02-24
+PT-00998,M,63,22.4,False,False,False,9.18,East Brittany,None,2023-04-06
+PT-00999,M,60,17.8,False,False,False,11.67,Robintown,None,2023-04-26
+PT-01000,M,48,26.4,False,False,True,3.77,Staceyshire,Smoker,2023-02-11
