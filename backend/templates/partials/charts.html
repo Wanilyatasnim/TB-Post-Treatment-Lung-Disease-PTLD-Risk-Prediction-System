@@ -1,0 +1,26 @@
+<script>
+  function renderDoughnut(ctxId, labels, data, title) {
+    const ctx = document.getElementById(ctxId);
+    if (!ctx) return;
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: ['#198754', '#ffc107', '#dc3545', '#0d6efd', '#6c757d'],
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: title
+          },
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  }
+</script>
+

@@ -31,6 +31,31 @@
           {% endfor %}
           </tbody>
         </table>
+        <form class="p-3 border-top" action="/api/regimens/" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="patient" value="{{ patient.id }}">
+          <div class="row g-2">
+            <div class="col"><input name="regimen_id" class="form-control form-control-sm" placeholder="Regimen ID" required></div>
+            <div class="col"><input name="drugs" class="form-control form-control-sm" placeholder="Drugs" required></div>
+          </div>
+          <div class="row g-2 mt-1">
+            <div class="col"><input name="start_date" type="date" class="form-control form-control-sm" placeholder="Start date"></div>
+            <div class="col"><input name="end_date" type="date" class="form-control form-control-sm" placeholder="End date"></div>
+            <div class="col">
+              <select name="outcome" class="form-select form-select-sm">
+                <option value="">Outcome</option>
+                <option value="cured">Cured</option>
+                <option value="completed">Completed</option>
+                <option value="failed">Failed</option>
+                <option value="lost">Lost</option>
+                <option value="died">Died</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-2 d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary">Add Regimen</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -53,6 +78,23 @@
           {% endfor %}
           </tbody>
         </table>
+        <form class="p-3 border-top" action="/api/modifications/" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="patient" value="{{ patient.id }}">
+          <input type="hidden" name="regimen" value="{{ regimens|first.id }}">
+          <div class="row g-2">
+            <div class="col"><input name="modification_id" class="form-control form-control-sm" placeholder="Modification ID" required></div>
+            <div class="col"><input name="modified_drug" class="form-control form-control-sm" placeholder="Drug" required></div>
+            <div class="col"><input name="reason" class="form-control form-control-sm" placeholder="Reason" required></div>
+          </div>
+          <div class="row g-2 mt-1">
+            <div class="col"><input name="date" type="date" class="form-control form-control-sm" placeholder="Date"></div>
+            <div class="col"><input name="new_dosage_mg" type="number" class="form-control form-control-sm" placeholder="Dosage (mg)"></div>
+          </div>
+          <div class="mt-2 d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary">Add Modification</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -79,6 +121,23 @@
           {% endfor %}
           </tbody>
         </table>
+        <form class="p-3 border-top" action="/api/visits/" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="patient" value="{{ patient.id }}">
+          <div class="row g-2">
+            <div class="col"><input name="visit_id" class="form-control form-control-sm" placeholder="Visit ID" required></div>
+            <div class="col"><input name="date" type="date" class="form-control form-control-sm" placeholder="Date"></div>
+            <div class="col"><input name="adherence_pct" type="number" step="0.1" class="form-control form-control-sm" placeholder="Adherence %"></div>
+          </div>
+          <div class="row g-2 mt-1">
+            <div class="col"><input name="smear_result" class="form-control form-control-sm" placeholder="Smear"></div>
+            <div class="col"><input name="adverse_reactions" class="form-control form-control-sm" placeholder="Adverse reactions"></div>
+            <div class="col"><input name="weight_kg" type="number" step="0.1" class="form-control form-control-sm" placeholder="Weight kg"></div>
+          </div>
+          <div class="mt-2 d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary">Add Visit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

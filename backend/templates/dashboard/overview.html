@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <h3 class="mb-3">Dashboard</h3>
 <div class="row g-3 mb-3">
@@ -61,5 +62,37 @@
     </table>
   </div>
 </div>
+
+<div class="row g-3 mt-3">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Risk Breakdown</div>
+      <div class="card-body">
+        <canvas id="riskChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Outcomes</div>
+      <div class="card-body">
+        <canvas id="outcomeChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "partials/charts.html" %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const riskLabels = [{% for item in risk_breakdown %}"{{ item.risk_category|default:"unknown" }}",{% endfor %}];
+    const riskData = [{% for item in risk_breakdown %}{{ item.count }},{% endfor %}];
+    renderDoughnut("riskChart", riskLabels, riskData, "Risk Categories");
+
+    const outcomeLabels = [{% for item in outcomes %}"{{ item.outcome|default:"unknown" }}",{% endfor %}];
+    const outcomeData = [{% for item in outcomes %}{{ item.count }},{% endfor %}];
+    renderDoughnut("outcomeChart", outcomeLabels, outcomeData, "Treatment Outcomes");
+  });
+</script>
 {% endblock %}
 

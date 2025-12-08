@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView, CreateView
 
-from clinical.forms import PatientForm, TreatmentRegimenForm
-from clinical.models import Patient, RiskPrediction, TreatmentRegimen
+from clinical.forms import MonitoringVisitForm, PatientForm, TreatmentModificationForm, TreatmentRegimenForm
+from clinical.models import MonitoringVisit, Patient, RiskPrediction, TreatmentModification, TreatmentRegimen
 
 
 def health(request):
@@ -58,6 +58,9 @@ class PatientDetailView(LoginRequiredMixin, DetailView):
         ctx["modifications"] = patient.modifications.all()
         ctx["visits"] = patient.visits.all()
         ctx["predictions"] = patient.predictions.all().order_by("-timestamp")[:5]
+        ctx["regimen_form"] = TreatmentRegimenForm()
+        ctx["mod_form"] = TreatmentModificationForm()
+        ctx["visit_form"] = MonitoringVisitForm()
         return ctx
 
 
