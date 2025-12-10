@@ -27,6 +27,20 @@ class BasePermission(permissions.IsAuthenticated):
         return True
 
 
+class AllowAnyForPredict(permissions.BasePermission):
+    """
+    Allow prediction endpoint to be accessed without authentication for development.
+    In production, this should require authentication.
+    """
+    
+    def has_permission(self, request, view):
+        # Allow POST to predict endpoint without authentication
+        if view.action == 'predict' and request.method == 'POST':
+            return True
+        # For other actions, require authentication
+        return request.user and request.user.is_authenticated
+
+
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all().order_by("-created_at")
     serializer_class = PatientSerializer
@@ -58,7 +72,7 @@ class MonitoringVisitViewSet(viewsets.ModelViewSet):
 class RiskPredictionViewSet(viewsets.ModelViewSet):
     queryset = RiskPrediction.objects.select_related("patient").all().order_by("-timestamp")
     serializer_class = RiskPredictionSerializer
-    permission_classes = [BasePermission]
+    permission_classes = [AllowAnyForPredict]  # Allow predictions without auth for now
     lookup_field = "prediction_id"
 
     @action(detail=False, methods=["post"])
@@ -108,6 +122,41 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
             timestamp=datetime.utcnow(),
             confidence=result['confidence']
         )
+        
+        # Generate SHAP visualizations
+        from ml.shap_visualizer import get_visualizer
+        try:
+            visualizer = get_visualizer()
+            
+            # Get feature names from predictor metadata
+            feature_names = predictor.feature_cols
+            
+            # Generate waterfall plot
+            waterfall_path = visualizer.generate_waterfall_plot(
+                shap_values_dict=result['shap_values'],
+                feature_values=features,
+                feature_names=feature_names,
+                prediction_id=prediction_id
+            )
+            
+            # Generate force plot (bar chart)
+            force_path = visualizer.generate_force_plot(
+                shap_values_dict=result['shap_values'],
+                feature_values=features,
+                feature_names=feature_names,
+                prediction_id=prediction_id
+            )
+            
+            # Update prediction with plot paths
+            prediction.waterfall_plot = waterfall_path
+            prediction.force_plot = force_path
+            prediction.save()
+            
+        except Exception as e:
+            # Log error but don't fail the request
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"SHAP visualization generation failed: {e}")
         
         return Response(RiskPredictionSerializer(prediction).data, status=status.HTTP_201_CREATED)
     

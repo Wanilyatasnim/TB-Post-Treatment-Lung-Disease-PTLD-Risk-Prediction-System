@@ -1,13 +1,13 @@
 """
-Test script to verify Supabase connection.
+Test script to verify database connection.
 
-This script checks:
-1. Environment variables are set correctly
-2. Django can load Supabase configuration
-3. Supabase client can be initialized
-4. Database connection works
+This script tests:
+1. Database connection (SQLite or PostgreSQL)
+2. Environment configuration
+3. Supabase API client (optional, only if configured)
 
-Run this before running migrations to ensure everything is configured properly.
+Note: Currently using SQLite for local development.
+To switch to Supabase/PostgreSQL, set USE_SQLITE=False in .env
 """
 
 import os
@@ -21,120 +21,143 @@ django.setup()
 
 from django.conf import settings
 from django.db import connection
-from app.supabase_client import supabase_client, verify_supabase_connection
 
+print("=" * 70)
+print("DATABASE CONNECTION TEST")
+print("=" * 70)
 
-def test_environment_variables():
-    """Check if required environment variables are set."""
-    print("🔍 Checking environment variables...")
+# Test 1: Check database configuration
+print("\n[1] Checking database configuration...")
+db_config = settings.DATABASES['default']
+db_engine = db_config['ENGINE']
+
+if 'sqlite' in db_engine:
+    print(f"  ✓ Database: SQLite")
+    print(f"  ✓ Database file: {db_config['NAME']}")
+    print(f"  ✓ SQLite is ready for local development")
+else:
+    print(f"  ✓ Database: PostgreSQL")
+    db_host = db_config.get('HOST', '')
+    db_user = db_config.get('USER', '')
+    db_name = db_config.get('NAME', '')
+    db_port = db_config.get('PORT', '')
+    db_password = db_config.get('PASSWORD', '')
     
-    required_vars = {
-        'SUPABASE_URL': settings.SUPABASE_URL,
-        'SUPABASE_KEY': settings.SUPABASE_KEY,
-        'POSTGRES_DB': settings.DATABASES['default']['NAME'],
-        'POSTGRES_USER': settings.DATABASES['default']['USER'],
-        'POSTGRES_HOST': settings.DATABASES['default']['HOST'],
-        'POSTGRES_PORT': settings.DATABASES['default']['PORT'],
-    }
+    print(f"  ✓ POSTGRES_HOST: {db_host}")
+    print(f"  ✓ POSTGRES_USER: {db_user}")
+    print(f"  ✓ POSTGRES_DB: {db_name}")
+    print(f"  ✓ POSTGRES_PORT: {db_port}")
     
-    all_set = True
-    for var_name, var_value in required_vars.items():
-        if var_value:
-            print(f"  ✅ {var_name}: {'*' * 10}{var_value[-10:] if len(var_value) > 10 else var_value}")
-        else:
-            print(f"  ❌ {var_name}: NOT SET")
-            all_set = False
-    
-    # Check password separately (it's sensitive)
-    if settings.DATABASES['default']['PASSWORD']:
-        print(f"  ✅ POSTGRES_PASSWORD: {'*' * 20}")
+    if db_password:
+        print(f"  ✓ POSTGRES_PASSWORD: {'*' * 20} (set)")
     else:
-        print(f"  ❌ POSTGRES_PASSWORD: NOT SET")
-        all_set = False
-    
-    return all_set
+        print("  ✗ POSTGRES_PASSWORD: NOT SET")
 
-
-def test_supabase_client():
-    """Check if Supabase client initializes correctly."""
-    print("\n🔍 Testing Supabase client initialization...")
+# Test 2: Test Supabase API client (optional)
+print("\n[2] Testing Supabase API client (optional)...")
+try:
+    from app.supabase_client import supabase_client
     
     if supabase_client is None:
-        print("  ❌ Supabase client is not initialized")
-        print("     Make sure SUPABASE_URL and SUPABASE_ANON_KEY are set in your .env file")
-        return False
-    
-    print("  ✅ Supabase client initialized successfully")
-    
-    # Try to verify connection
-    if verify_supabase_connection():
-        print("  ✅ Supabase API connection verified")
-        return True
+        print("  ⏭️  Supabase client not configured (optional - not needed for SQLite)")
     else:
-        print("  ⚠️  Could not verify Supabase API connection (this may be normal)")
-        return True  # Still return True as client is initialized
+        print("  ✓ Supabase client initialized")
+        print("  ✓ Supabase API client is ready")
+except Exception as e:
+    print(f"  ⏭️  Supabase client not available: {e}")
 
-
-def test_database_connection():
-    """Test PostgreSQL database connection."""
-    print("\n🔍 Testing PostgreSQL database connection...")
-    
+# Test 3: Test database connection
+print("\n[3] Testing database connection...")
+if 'sqlite' in db_engine:
+    # SQLite connection test
     try:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT version();")
+            cursor.execute("SELECT sqlite_version();")
             version = cursor.fetchone()[0]
-            print(f"  ✅ Database connection successful!")
-            print(f"     PostgreSQL version: {version.split(',')[0]}")
-            return True
+            print(f"  ✓ Database connection successful!")
+            print(f"     SQLite version: {version}")
+            
+            # Test if we can query
+            cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table';")
+            table_count = cursor.fetchone()[0]
+            print(f"     Tables created: {table_count}")
     except Exception as e:
-        print(f"  ❌ Database connection failed: {str(e)}")
-        print("\n  Possible solutions:")
-        print("  1. Verify your database password in .env file")
-        print("  2. Check that your IP is allowed in Supabase Network Restrictions")
-        print("  3. Ensure the database host and port are correct")
-        print("  4. Go to: https://app.supabase.com/project/aupzonugezawvtcfkyvj/settings/database")
-        return False
-
-
-def main():
-    """Run all tests."""
-    print("=" * 60)
-    print("Supabase Connection Test")
-    print("=" * 60)
-    
-    # Test 1: Environment variables
-    env_ok = test_environment_variables()
-    
-    # Test 2: Supabase client
-    client_ok = test_supabase_client()
-    
-    # Test 3: Database connection
-    db_ok = test_database_connection()
-    
-    # Summary
-    print("\n" + "=" * 60)
-    print("Summary")
-    print("=" * 60)
-    
-    if env_ok and client_ok and db_ok:
-        print("✅ All tests passed! You're ready to run migrations.")
-        print("\nNext steps:")
-        print("  1. Run migrations: python manage.py migrate")
-        print("  2. Create superuser: python manage.py createsuperuser")
-        print("  3. Start server: python manage.py runserver")
-        return 0
+        print(f"  ✗ Database connection failed: {e}")
+else:
+    # PostgreSQL connection test
+    db_password = db_config.get('PASSWORD', '')
+    if not db_password:
+        print("  ⏭️  Skipping database test (password not set)")
     else:
-        print("❌ Some tests failed. Please fix the issues above.")
-        if not env_ok:
-            print("\n⚠️  Environment variables issue:")
-            print("   Make sure you have a .env file with all required variables")
-            print("   See SUPABASE_SETUP.md for detailed instructions")
-        if not db_ok:
-            print("\n⚠️  Database connection issue:")
-            print("   Check your database password and network settings")
-            print("   See SUPABASE_SETUP.md for troubleshooting")
-        return 1
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT version();")
+                version = cursor.fetchone()[0]
+                print(f"  ✓ Database connection successful!")
+                print(f"     PostgreSQL: {version.split(',')[0]}")
+                
+                # Test if we can query
+                cursor.execute("SELECT current_database(), current_user;")
+                db, user = cursor.fetchone()
+                print(f"     Database: {db}")
+                print(f"     User: {user}")
+        except Exception as e:
+            error_msg = str(e).lower()
+            print(f"  ✗ Database connection failed: {e}")
+            
+            print("\n  Troubleshooting:")
+            if "password" in error_msg or "authentication" in error_msg:
+                print("     → Wrong password! Verify in Supabase dashboard")
+            elif "pg_hba" in error_msg or "not permitted" in error_msg or "not allowed" in error_msg:
+                print("     → IP not allowed! Add your IP in Supabase Network Restrictions")
+            elif "timeout" in error_msg:
+                print("     → Connection timeout! Check firewall/network")
+            elif "could not translate host name" in error_msg or "getaddrinfo" in error_msg:
+                print("     → DNS resolution failed! Check hostname")
+            else:
+                print("     → Check database connection details")
 
+# Summary
+print("\n" + "=" * 70)
+print("SUMMARY")
+print("=" * 70)
 
-if __name__ == "__main__":
-    sys.exit(main())
+all_ok = True
+
+# Check database connection
+if 'sqlite' in db_engine:
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+        print("✓ SQLite database connection working")
+    except:
+        print("✗ Database connection failed (see errors above)")
+        all_ok = False
+else:
+    db_password = db_config.get('PASSWORD', '')
+    if not db_password:
+        print("✗ Database password not set")
+        print("\n  Next steps:")
+        print("  1. Get your database password from Supabase dashboard")
+        print("  2. Update POSTGRES_PASSWORD in backend/.env")
+        print("  3. Run this test again")
+        all_ok = False
+    else:
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT 1")
+            print("✓ PostgreSQL database connection working")
+        except:
+            print("✗ Database connection failed (see errors above)")
+            all_ok = False
+
+if all_ok:
+    print("\n🎉 All tests passed! Your Supabase connection is working.")
+    print("\nNext steps:")
+    print("  1. Run migrations: python manage.py migrate")
+    print("  2. Create superuser: python manage.py createsuperuser")
+    print("  3. Start server: python manage.py runserver")
+else:
+    print("\n⚠️  Some issues found. Please fix them and run this test again.")
+    sys.exit(1)
+

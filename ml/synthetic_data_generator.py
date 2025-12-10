@@ -177,3 +177,4 @@ if __name__ == "__main__":
     generate_synthetic_data(args.output_dir, args.num_patients, args.seed)
 
 
+

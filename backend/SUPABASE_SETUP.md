@@ -9,7 +9,7 @@ This guide will help you connect your Django backend to Supabase.
 
 ## Step 1: Get Your Supabase Database Password
 
-1. Go to your Supabase project dashboard: https://app.supabase.com/project/aupzonugezawvtcfkyvj
+1. Go to your Supabase project dashboard: https://app.supabase.com/project/tlyqeuqpbnyzpwssbfcm
 2. Navigate to **Project Settings** > **Database**
 3. Find and copy your **Database Password** (you set this when creating the project)
    - If you forgot it, you can reset it from the same page
@@ -115,7 +115,7 @@ If you want to use Supabase Auth instead of Django's built-in auth:
 
 - [Supabase Python Documentation](https://supabase.com/docs/reference/python/introduction)
 - [Django + Supabase Guide](https://supabase.com/docs/guides/getting-started/tutorials/with-django)
-- Your Supabase Project: https://app.supabase.com/project/aupzonugezawvtcfkyvj
+- Your Supabase Project: https://app.supabase.com/project/tlyqeuqpbnyzpwssbfcm
 
 ## Troubleshooting
 

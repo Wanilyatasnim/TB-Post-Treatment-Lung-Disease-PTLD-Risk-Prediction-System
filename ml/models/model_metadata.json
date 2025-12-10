@@ -1,0 +1,28 @@
+{
+  "feature_cols": [
+    "age",
+    "bmi",
+    "hiv_positive",
+    "diabetes",
+    "smoker",
+    "x_ray_score",
+    "adherence_mean",
+    "adherence_min",
+    "adherence_std",
+    "modification_count",
+    "visit_count"
+  ],
+  "model_version": "v1.0.0",
+  "training_date": "2025-12-09T00:11:03.407722",
+  "training_samples": 700,
+  "test_samples": 150,
+  "performance": {
+    "rf_test_auroc": 1.0,
+    "xgb_test_auroc": 1.0,
+    "lr_test_auroc": 1.0,
+    "ensemble_test_auroc": 1.0,
+    "best_model": "XGBoost",
+    "sensitivity": 1.0,
+    "specificity": 1.0
+  }
+}

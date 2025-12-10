@@ -38,3 +38,4 @@ class RiskPredictionAdmin(admin.ModelAdmin):
     list_filter = ("risk_category",)
 
 
+

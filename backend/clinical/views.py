@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count
+from django.db import models
+from django.db.models import Count, Q, Avg
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -20,6 +21,38 @@ class PatientListView(LoginRequiredMixin, ListView):
     template_name = "patients/list.html"
     context_object_name = "patients"
     paginate_by = 25
+
+    def get_queryset(self):
+        queryset = Patient.objects.all()
+        
+        # Search by patient_id or district
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(
+                models.Q(patient_id__icontains=search) |
+                models.Q(district__icontains=search)
+            )
+        
+        # Filter by sex
+        sex = self.request.GET.get('sex')
+        if sex:
+            queryset = queryset.filter(sex=sex)
+        
+        # Filter by HIV status
+        hiv = self.request.GET.get('hiv')
+        if hiv == '1':
+            queryset = queryset.filter(hiv_positive=True)
+        elif hiv == '0':
+            queryset = queryset.filter(hiv_positive=False)
+        
+        # Filter by diabetes
+        diabetes = self.request.GET.get('diabetes')
+        if diabetes == '1':
+            queryset = queryset.filter(diabetes=True)
+        elif diabetes == '0':
+            queryset = queryset.filter(diabetes=False)
+        
+        return queryset.order_by('-created_at')
 
 
 class PatientCreateView(LoginRequiredMixin, CreateView):
@@ -57,7 +90,19 @@ class PatientDetailView(LoginRequiredMixin, DetailView):
         ctx["regimens"] = patient.regimens.all()
         ctx["modifications"] = patient.modifications.all()
         ctx["visits"] = patient.visits.all()
-        ctx["predictions"] = patient.predictions.all().order_by("-timestamp")[:5]
+        predictions = patient.predictions.all().order_by("-timestamp")[:5]
+        
+        # Sort SHAP values for each prediction (for template display)
+        for pred in predictions:
+            if pred.shap_values:
+                # Sort by absolute value, descending
+                pred.shap_values_sorted = sorted(
+                    pred.shap_values.items(),
+                    key=lambda x: abs(x[1]),
+                    reverse=True
+                )
+        
+        ctx["predictions"] = predictions
         ctx["regimen_form"] = TreatmentRegimenForm()
         ctx["mod_form"] = TreatmentModificationForm()
         ctx["visit_form"] = MonitoringVisitForm()
@@ -71,10 +116,39 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        
+        # Patient statistics
         ctx["total_patients"] = Patient.objects.count()
+        ctx["total_regimens"] = TreatmentRegimen.objects.count()
+        ctx["total_visits"] = MonitoringVisit.objects.count()
+        ctx["total_predictions"] = RiskPrediction.objects.count()
+        
+        # Risk breakdown
         ctx["risk_breakdown"] = (
-            RiskPrediction.objects.values("risk_category").annotate(count=Count("id")).order_by("risk_category")
+            RiskPrediction.objects.values("risk_category")
+            .annotate(count=Count("id"))
+            .order_by("risk_category")
         )
-        ctx["recent_predictions"] = RiskPrediction.objects.order_by("-timestamp")[:10]
+        
+        # High risk patients count
+        high_risk_count = RiskPrediction.objects.filter(risk_category="high").values("patient").distinct().count()
+        ctx["high_risk_patients"] = high_risk_count
+        
+        # Recent predictions
+        ctx["recent_predictions"] = RiskPrediction.objects.select_related("patient").order_by("-timestamp")[:10]
+        
+        # Treatment outcomes
         ctx["outcomes"] = TreatmentRegimen.objects.values("outcome").annotate(count=Count("id"))
+        
+        # Average risk score
+        avg_risk = RiskPrediction.objects.aggregate(avg=Avg("risk_score"))["avg"]
+        ctx["avg_risk_score"] = round(avg_risk, 3) if avg_risk else 0
+        
+        # Patient demographics
+        ctx["male_count"] = Patient.objects.filter(sex="M").count()
+        ctx["female_count"] = Patient.objects.filter(sex="F").count()
+        ctx["hiv_positive_count"] = Patient.objects.filter(hiv_positive=True).count()
+        ctx["diabetes_count"] = Patient.objects.filter(diabetes=True).count()
+        ctx["smoker_count"] = Patient.objects.filter(smoker=True).count()
+        
         return ctx

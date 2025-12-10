@@ -1,65 +1,196 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<h3 class="mb-3">Dashboard</h3>
-<div class="row g-3 mb-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h3 class="mb-0">Dashboard Overview</h3>
+  <a href="{% url 'patients:patient-list' %}" class="btn btn-outline-primary btn-sm">View All Patients</a>
+</div>
+
+<!-- Key Statistics Cards -->
+<div class="row g-3 mb-4">
   <div class="col-md-3">
-    <div class="card text-bg-light">
+    <div class="card border-primary">
       <div class="card-body">
-        <div class="fw-bold">Total Patients</div>
-        <div class="fs-3">{{ total_patients }}</div>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Total Patients</div>
+            <div class="fs-2 fw-bold">{{ total_patients }}</div>
+          </div>
+          <div class="text-primary" style="font-size: 2.5rem;">👥</div>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-md-3">
-    <div class="card text-bg-light">
+    <div class="card border-danger">
       <div class="card-body">
-        <div class="fw-bold">Risk Breakdown</div>
-        <ul class="mb-0">
-          {% for item in risk_breakdown %}
-            <li>{{ item.risk_category }}: {{ item.count }}</li>
-          {% empty %}
-            <li>No predictions yet</li>
-          {% endfor %}
-        </ul>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">High Risk Patients</div>
+            <div class="fs-2 fw-bold text-danger">{{ high_risk_patients }}</div>
+          </div>
+          <div class="text-danger" style="font-size: 2.5rem;">⚠️</div>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-md-3">
-    <div class="card text-bg-light">
+    <div class="card border-success">
       <div class="card-body">
-        <div class="fw-bold">Outcomes</div>
-        <ul class="mb-0">
-          {% for item in outcomes %}
-            <li>{{ item.outcome|default:"(none)" }}: {{ item.count }}</li>
-          {% empty %}
-            <li>No outcomes yet</li>
-          {% endfor %}
-        </ul>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Total Predictions</div>
+            <div class="fs-2 fw-bold text-success">{{ total_predictions }}</div>
+          </div>
+          <div class="text-success" style="font-size: 2.5rem;">📊</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-info">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Avg Risk Score</div>
+            <div class="fs-2 fw-bold text-info">{{ avg_risk_score }}</div>
+          </div>
+          <div class="text-info" style="font-size: 2.5rem;">📈</div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="card">
-  <div class="card-header">Recent Predictions</div>
+<!-- Secondary Statistics -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header bg-light">Patient Demographics</div>
+      <div class="card-body">
+        <div class="mb-2">
+          <strong>Gender:</strong> 
+          <span class="badge bg-primary">{{ male_count }} Male</span>
+          <span class="badge bg-info">{{ female_count }} Female</span>
+        </div>
+        <div class="mb-2">
+          <strong>HIV Positive:</strong> 
+          <span class="badge bg-danger">{{ hiv_positive_count }}</span>
+        </div>
+        <div class="mb-2">
+          <strong>Diabetes:</strong> 
+          <span class="badge bg-warning text-dark">{{ diabetes_count }}</span>
+        </div>
+        <div>
+          <strong>Smokers:</strong> 
+          <span class="badge bg-warning text-dark">{{ smoker_count }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header bg-light">Treatment Statistics</div>
+      <div class="card-body">
+        <div class="mb-2">
+          <strong>Total Regimens:</strong> {{ total_regimens }}
+        </div>
+        <div class="mb-2">
+          <strong>Monitoring Visits:</strong> {{ total_visits }}
+        </div>
+        <div>
+          <strong>Outcomes:</strong>
+          <ul class="mb-0 mt-2">
+            {% for item in outcomes %}
+              <li>{{ item.outcome|default:"(none)" }}: {{ item.count }}</li>
+            {% empty %}
+              <li class="text-muted">No outcomes yet</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header bg-light">Risk Distribution</div>
+      <div class="card-body">
+        {% for item in risk_breakdown %}
+          <div class="mb-2">
+            <div class="d-flex justify-content-between">
+              <span class="text-capitalize">{{ item.risk_category|default:"unknown" }}</span>
+              <strong>{{ item.count }}</strong>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar 
+                {% if item.risk_category == 'low' %}bg-success
+                {% elif item.risk_category == 'medium' %}bg-warning
+                {% else %}bg-danger{% endif %}" 
+                style="width: {% widthratio item.count total_predictions 100 %}%"></div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-muted mb-0">No predictions yet</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Recent Predictions</span>
+    <a href="{% url 'patients:patient-list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+  </div>
   <div class="card-body p-0">
-    <table class="table mb-0 table-sm">
-      <thead><tr><th>ID</th><th>Patient</th><th>Score</th><th>Category</th><th>Timestamp</th></tr></thead>
-      <tbody>
-      {% for p in recent_predictions %}
-        <tr>
-          <td>{{ p.prediction_id }}</td>
-          <td>{{ p.patient.patient_id }}</td>
-          <td>{{ p.risk_score }}</td>
-          <td>{{ p.risk_category }}</td>
-          <td>{{ p.timestamp }}</td>
-        </tr>
-      {% empty %}
-        <tr><td colspan="5" class="text-center">No predictions yet</td></tr>
-      {% endfor %}
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Prediction ID</th>
+            <th>Patient</th>
+            <th>Risk Score</th>
+            <th>Category</th>
+            <th>Confidence</th>
+            <th>Timestamp</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for p in recent_predictions %}
+          <tr>
+            <td><code>{{ p.prediction_id }}</code></td>
+            <td>
+              <a href="{% url 'patients:patient-detail' p.patient.patient_id %}">
+                {{ p.patient.patient_id }}
+              </a>
+            </td>
+            <td><strong>{{ p.risk_score|floatformat:3 }}</strong></td>
+            <td>
+              <span class="badge 
+                {% if p.risk_category == 'low' %}bg-success
+                {% elif p.risk_category == 'medium' %}bg-warning text-dark
+                {% else %}bg-danger{% endif %}">
+                {{ p.risk_category|upper }}
+              </span>
+            </td>
+            <td>{{ p.confidence|floatformat:2|default:"-" }}</td>
+            <td>{{ p.timestamp|date:"Y-m-d H:i"|default:"-" }}</td>
+            <td>
+              <a href="{% url 'patients:patient-detail' p.patient.patient_id %}" 
+                 class="btn btn-sm btn-outline-primary">View</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" class="text-center py-4">
+              <p class="text-muted mb-0">No predictions yet. Generate predictions for patients to see them here.</p>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 

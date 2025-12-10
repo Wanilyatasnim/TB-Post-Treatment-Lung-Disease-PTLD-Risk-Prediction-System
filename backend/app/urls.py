@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.urls import include, path
 from rest_framework.authtoken.views import obtain_auth_token
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 def health(request):
@@ -18,5 +20,9 @@ urlpatterns = [
     path("api/", include("clinical.urls")),
     path("", include(("clinical.urls_patients", "patients"))),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

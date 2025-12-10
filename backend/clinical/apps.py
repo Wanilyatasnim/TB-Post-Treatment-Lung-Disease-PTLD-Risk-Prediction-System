@@ -6,3 +6,4 @@ class ClinicalConfig(AppConfig):
     name = "clinical"
 
 
+

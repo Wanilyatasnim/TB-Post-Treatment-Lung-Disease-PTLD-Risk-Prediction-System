@@ -73,16 +73,34 @@ TEMPLATES = [
 WSGI_APPLICATION = "app.wsgi.application"
 ASGI_APPLICATION = "app.asgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("POSTGRES_DB", default="ptld"),
-        "USER": env("POSTGRES_USER", default="ptld_user"),
-        "PASSWORD": env("POSTGRES_PASSWORD", default="ptld_pass"),
-        "HOST": env("POSTGRES_HOST", default="db"),
-        "PORT": env("POSTGRES_PORT", default="5432"),
+# Database configuration
+# Using SQLite for local development
+# To switch to PostgreSQL/Supabase later, uncomment the PostgreSQL config below
+# and set USE_SQLITE=False in your .env file
+USE_SQLITE = env.bool("USE_SQLITE", default=True)
+
+if USE_SQLITE:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    # PostgreSQL/Supabase configuration (for future migration)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("POSTGRES_DB", default="ptld"),
+            "USER": env("POSTGRES_USER", default="ptld_user"),
+            "PASSWORD": env("POSTGRES_PASSWORD", default="ptld_pass"),
+            "HOST": env("POSTGRES_HOST", default="db"),
+            "PORT": env("POSTGRES_PORT", default="5432"),
+            "OPTIONS": {
+                "sslmode": "require",
+            },
+        }
+    }
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -101,6 +119,10 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Media files (uploads, generated plots)
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

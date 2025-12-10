@@ -10,3 +10,4 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ("username", "email", "clinic")
 
 
+

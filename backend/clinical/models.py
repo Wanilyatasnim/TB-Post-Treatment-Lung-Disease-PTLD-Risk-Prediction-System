@@ -79,6 +79,10 @@ class RiskPrediction(TimestampedModel):
     shap_values = models.JSONField(null=True, blank=True)
     timestamp = models.DateTimeField(null=True, blank=True)
     confidence = models.FloatField(null=True, blank=True)
+    
+    # SHAP visualization plots
+    waterfall_plot = models.CharField(max_length=255, null=True, blank=True)
+    force_plot = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.prediction_id} ({self.risk_category})"

@@ -42,3 +42,4 @@ class RiskPredictionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+

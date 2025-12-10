@@ -12,7 +12,21 @@ venv/
 # Django/DB
 *.sqlite3
 db.sqlite3
+backend/db.sqlite3
+backend/db.sqlite3-journal
 media/
+backend/media/
+staticfiles/
+backend/staticfiles/
+
+# Environment files
+.env
+backend/.env
+*.env
+
+# Large model files (optional - uncomment if you want to exclude them)
+# *.pkl
+# ml/models/*.pkl
 
 # IDE/editor
 .vscode/
@@ -34,5 +48,6 @@ htmlcov/
 # Docker
 *.log
 .DS_Store
+
 
 

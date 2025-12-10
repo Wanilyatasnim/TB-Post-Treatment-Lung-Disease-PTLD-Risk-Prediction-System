@@ -47,14 +47,18 @@ def get_supabase_client() -> Client:
 
 
 # Global client instance
+# Supabase client is optional - only initialized if credentials are provided
+# This allows the app to run with SQLite without Supabase
 try:
     supabase_client: Client = get_supabase_client()
-except ValueError as e:
+except (ValueError, Exception) as e:
     # Allow Django to start even if Supabase is not configured
-    # This is useful for running migrations or other management commands
-    import warnings
-    warnings.warn(f"Supabase client not initialized: {e}")
+    # This is useful for running with SQLite or when Supabase is not needed
     supabase_client = None
+    # Only warn if Supabase credentials were actually provided
+    if getattr(settings, 'SUPABASE_URL', None) or getattr(settings, 'SUPABASE_KEY', None):
+        import warnings
+        warnings.warn(f"Supabase client not initialized: {e}")
 
 
 # Helper functions for common operations

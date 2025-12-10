@@ -32,4 +32,5 @@
 - Keep PII off the repo; use synthetic data locally for demos.
 - Ensure seeds for reproducibility; log parameters for each run.
 
+ ## db supabase pass: xL1RY28aZkgn8sdN
 

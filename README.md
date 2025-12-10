@@ -26,3 +26,4 @@ docker-compose up --build
 Use `ml/synthetic_data_generator.py` to create 1,000 fake patient/treatment records matching the schema for parallel backend/frontend development. Outputs CSVs with consistent keys.
 
 
+
