@@ -245,6 +245,55 @@
                         <p class="mb-0"><strong>Confidence:</strong> {{ p.confidence|floatformat:2 }}</p>
                       </div>
                       
+                      <!-- Clinical Recommendations -->
+                      {% if p.recommendations %}
+                      <div class="col-md-12 mb-3">
+                        <h6 class="fw-bold mb-3">Clinical Recommendations</h6>
+                        <p class="text-muted small mb-3">
+                          Personalized recommendations based on risk prediction and patient factors.
+                        </p>
+                        <div class="accordion" id="recommendationsAccordion{{ forloop.counter }}">
+                          {% for rec in p.recommendations %}
+                          <div class="card mb-2 border-{% if rec.priority == 'high' %}danger{% elif rec.priority == 'medium' %}warning{% else %}info{% endif %}">
+                            <div class="card-header bg-{% if rec.priority == 'high' %}danger{% elif rec.priority == 'medium' %}warning{% else %}info{% endif %} bg-opacity-10" 
+                                 id="recHeading{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+                              <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                  <h6 class="mb-0">
+                                    <span class="badge bg-{% if rec.priority == 'high' %}danger{% elif rec.priority == 'medium' %}warning{% else %}info{% endif %} me-2">
+                                      {{ rec.priority|upper }}
+                                    </span>
+                                    {{ rec.title }}
+                                  </h6>
+                                  <small class="text-muted">{{ rec.category|title }} • {{ rec.description }}</small>
+                                </div>
+                                <button class="btn btn-sm btn-outline-secondary" type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#recCollapse{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
+                                        aria-expanded="false">
+                                  <i class="bi bi-chevron-down"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div id="recCollapse{{ forloop.parentloop.counter }}_{{ forloop.counter }}" 
+                                 class="collapse" 
+                                 aria-labelledby="recHeading{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
+                                 data-bs-parent="#recommendationsAccordion{{ forloop.parentloop.counter }}">
+                              <div class="card-body">
+                                <strong>Recommended Actions:</strong>
+                                <ul class="mb-0 mt-2">
+                                  {% for action in rec.actions %}
+                                  <li>{{ action }}</li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      {% endif %}
+                      
                       {% if p.waterfall_plot or p.force_plot %}
                       <div class="col-md-12">
                         <h6 class="fw-bold mb-3">SHAP Explainability Visualizations</h6>

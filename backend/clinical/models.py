@@ -83,8 +83,44 @@ class RiskPrediction(TimestampedModel):
     # SHAP visualization plots
     waterfall_plot = models.CharField(max_length=255, null=True, blank=True)
     force_plot = models.CharField(max_length=255, null=True, blank=True)
+    
+    # Clinical recommendations
+    recommendations = models.JSONField(null=True, blank=True, help_text="Clinical recommendations based on risk prediction")
 
     def __str__(self) -> str:
         return f"{self.prediction_id} ({self.risk_category})"
 
 
+class AuditLog(TimestampedModel):
+    """
+    Audit log for tracking user actions and system events.
+    """
+    ACTION_CHOICES = [
+        ('create', 'Create'),
+        ('update', 'Update'),
+        ('delete', 'Delete'),
+        ('view', 'View'),
+        ('predict', 'Generate Prediction'),
+        ('export', 'Export Data'),
+        ('login', 'Login'),
+        ('logout', 'Logout'),
+    ]
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="audit_logs")
+    action = models.CharField(max_length=20, choices=ACTION_CHOICES)
+    model_name = models.CharField(max_length=50, help_text="Model/entity that was acted upon")
+    object_id = models.CharField(max_length=100, blank=True, help_text="ID of the object")
+    description = models.TextField(help_text="Description of the action")
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(blank=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['-created_at']),
+            models.Index(fields=['user', '-created_at']),
+            models.Index(fields=['action', '-created_at']),
+        ]
+    
+    def __str__(self) -> str:
+        return f"{self.user} - {self.action} - {self.model_name} - {self.created_at}"

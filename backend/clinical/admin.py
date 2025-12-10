@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from clinical.models import MonitoringVisit, Patient, RiskPrediction, TreatmentModification, TreatmentRegimen
+from clinical.models import AuditLog, MonitoringVisit, Patient, RiskPrediction, TreatmentModification, TreatmentRegimen
 
 
 @admin.register(Patient)
@@ -36,6 +36,21 @@ class RiskPredictionAdmin(admin.ModelAdmin):
     list_display = ("prediction_id", "patient", "risk_score", "risk_category", "model_version", "timestamp")
     search_fields = ("prediction_id", "patient__patient_id", "model_version")
     list_filter = ("risk_category",)
+
+
+@admin.register(AuditLog)
+class AuditLogAdmin(admin.ModelAdmin):
+    list_display = ("user", "action", "model_name", "object_id", "created_at", "ip_address")
+    list_filter = ("action", "model_name", "created_at")
+    search_fields = ("user__username", "object_id", "description")
+    readonly_fields = ("user", "action", "model_name", "object_id", "description", "ip_address", "user_agent", "created_at", "updated_at")
+    date_hierarchy = "created_at"
+    
+    def has_add_permission(self, request):
+        return False  # Audit logs should only be created by the system
+    
+    def has_change_permission(self, request, obj=None):
+        return False  # Audit logs should not be modified
 
 
 

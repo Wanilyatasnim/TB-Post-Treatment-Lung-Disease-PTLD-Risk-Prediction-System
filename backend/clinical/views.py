@@ -8,6 +8,8 @@ from django.views.generic import DetailView, ListView, TemplateView, UpdateView,
 
 from clinical.forms import MonitoringVisitForm, PatientForm, TreatmentModificationForm, TreatmentRegimenForm
 from clinical.models import MonitoringVisit, Patient, RiskPrediction, TreatmentModification, TreatmentRegimen
+from clinical.export import export_patients_csv, export_predictions_csv, export_patient_report_pdf
+from clinical.audit import log_action
 
 
 def health(request):
@@ -152,3 +154,38 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         ctx["smoker_count"] = Patient.objects.filter(smoker=True).count()
         
         return ctx
+
+
+class ExportPatientsView(LoginRequiredMixin, ListView):
+    """Export patients to CSV."""
+    login_url = "/admin/login/"
+    model = Patient
+    
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        return export_patients_csv(queryset, user=request.user, request=request)
+    
+    def get_queryset(self):
+        return Patient.objects.all()
+
+
+class ExportPredictionsView(LoginRequiredMixin, ListView):
+    """Export predictions to CSV."""
+    login_url = "/admin/login/"
+    model = RiskPrediction
+    
+    def get(self, request, *args, **kwargs):
+        queryset = RiskPrediction.objects.select_related('patient').all().order_by('-timestamp')
+        return export_predictions_csv(queryset, user=request.user, request=request)
+
+
+class ExportPatientReportView(LoginRequiredMixin, DetailView):
+    """Export patient report."""
+    login_url = "/admin/login/"
+    model = Patient
+    lookup_field = "patient_id"
+    
+    def get(self, request, *args, **kwargs):
+        patient = self.get_object()
+        predictions = patient.predictions.all().order_by('-timestamp')
+        return export_patient_report_pdf(patient, predictions, user=request.user, request=request)

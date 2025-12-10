@@ -13,66 +13,83 @@ from clinical.serializers import (
     TreatmentModificationSerializer,
     TreatmentRegimenSerializer,
 )
+from clinical.permissions import PatientPermission, PredictionPermission, IsClinician
+from clinical.audit import log_action
 
 
-class BasePermission(permissions.IsAuthenticated):
-    """
-    RBAC placeholder: extend with per-role checks later.
-    """
-
-    def has_permission(self, request, view):
-        if not super().has_permission(request, view):
-            return False
-        # Example: allow all authenticated for now; hook per-role logic here.
-        return True
-
-
-class AllowAnyForPredict(permissions.BasePermission):
-    """
-    Allow prediction endpoint to be accessed without authentication for development.
-    In production, this should require authentication.
-    """
-    
-    def has_permission(self, request, view):
-        # Allow POST to predict endpoint without authentication
-        if view.action == 'predict' and request.method == 'POST':
-            return True
-        # For other actions, require authentication
-        return request.user and request.user.is_authenticated
 
 
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all().order_by("-created_at")
     serializer_class = PatientSerializer
-    permission_classes = [BasePermission]
+    permission_classes = [PatientPermission]
     lookup_field = "patient_id"
+    
+    def perform_create(self, serializer):
+        """Create patient and log action."""
+        instance = serializer.save(created_by=self.request.user if self.request.user.is_authenticated else None)
+        log_action(
+            user=self.request.user if self.request.user.is_authenticated else None,
+            action='create',
+            model_name='Patient',
+            object_id=instance.patient_id,
+            description=f'Created patient {instance.patient_id}',
+            request=self.request
+        )
+        return instance
+    
+    def perform_update(self, serializer):
+        """Update patient and log action."""
+        instance = serializer.save()
+        log_action(
+            user=self.request.user if self.request.user.is_authenticated else None,
+            action='update',
+            model_name='Patient',
+            object_id=instance.patient_id,
+            description=f'Updated patient {instance.patient_id}',
+            request=self.request
+        )
+        return instance
+    
+    def perform_destroy(self, instance):
+        """Delete patient and log action."""
+        patient_id = instance.patient_id
+        log_action(
+            user=self.request.user if self.request.user.is_authenticated else None,
+            action='delete',
+            model_name='Patient',
+            object_id=patient_id,
+            description=f'Deleted patient {patient_id}',
+            request=self.request
+        )
+        instance.delete()
 
 
 class TreatmentRegimenViewSet(viewsets.ModelViewSet):
     queryset = TreatmentRegimen.objects.select_related("patient").all().order_by("-start_date")
     serializer_class = TreatmentRegimenSerializer
-    permission_classes = [BasePermission]
+    permission_classes = [IsClinician]
     lookup_field = "regimen_id"
 
 
 class TreatmentModificationViewSet(viewsets.ModelViewSet):
     queryset = TreatmentModification.objects.select_related("patient", "regimen").all().order_by("-date")
     serializer_class = TreatmentModificationSerializer
-    permission_classes = [BasePermission]
+    permission_classes = [IsClinician]
     lookup_field = "modification_id"
 
 
 class MonitoringVisitViewSet(viewsets.ModelViewSet):
     queryset = MonitoringVisit.objects.select_related("patient").all().order_by("-date")
     serializer_class = MonitoringVisitSerializer
-    permission_classes = [BasePermission]
+    permission_classes = [IsClinician]
     lookup_field = "visit_id"
 
 
 class RiskPredictionViewSet(viewsets.ModelViewSet):
     queryset = RiskPrediction.objects.select_related("patient").all().order_by("-timestamp")
     serializer_class = RiskPredictionSerializer
-    permission_classes = [AllowAnyForPredict]  # Allow predictions without auth for now
+    permission_classes = [PredictionPermission]
     lookup_field = "prediction_id"
 
     @action(detail=False, methods=["post"])
@@ -110,6 +127,22 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         
+        # Generate recommendations
+        from ml.recommendation_engine import get_recommendation_engine
+        recommendations = []
+        try:
+            recommendation_engine = get_recommendation_engine()
+            recommendations = recommendation_engine.generate_recommendations(
+                risk_category=result['risk_category'],
+                risk_score=result['risk_score'],
+                patient_features=features,
+                shap_values=result['shap_values']
+            )
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Recommendation generation failed: {e}")
+        
         # Save prediction to database
         prediction_id = f"PR-{patient_id}-{int(datetime.utcnow().timestamp())}"
         prediction = RiskPrediction.objects.create(
@@ -120,7 +153,18 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
             model_version=result['model_version'],
             shap_values=result['shap_values'],
             timestamp=datetime.utcnow(),
-            confidence=result['confidence']
+            confidence=result['confidence'],
+            recommendations=recommendations if recommendations else None
+        )
+        
+        # Log prediction generation
+        log_action(
+            user=request.user if request.user.is_authenticated else None,
+            action='predict',
+            model_name='RiskPrediction',
+            object_id=prediction_id,
+            description=f'Generated prediction for patient {patient_id}. Risk: {result["risk_category"]} ({result["risk_score"]:.3f})',
+            request=request
         )
         
         # Generate SHAP visualizations
