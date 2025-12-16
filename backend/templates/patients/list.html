@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load filters %}
 
 {% block title %}Select Patient to change | PTLD System{% endblock %}
 
@@ -12,33 +13,132 @@
 <div id="changelist" class="module filtered">
     <div id="changelist-filter">
         <h2>Filter</h2>
+        
         <h3>By Sex</h3>
         <ul class="filter-list">
             <li{% if request.GET.sex == 'M' %} class="selected"{% endif %}>
-                <a href="?sex=M{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">Male</a>
+                <a href="{% build_filter_url sex='M' %}">Male</a>
             </li>
             <li{% if request.GET.sex == 'F' %} class="selected"{% endif %}>
-                <a href="?sex=F{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">Female</a>
+                <a href="{% build_filter_url sex='F' %}">Female</a>
+            </li>
+            <li{% if not request.GET.sex %} class="selected"{% endif %}>
+                <a href="{% build_filter_url sex=None %}">All</a>
             </li>
         </ul>
+        
+        <h3>By Age Group</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.age_group == '0_19' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url age_group='0_19' %}">0-19</a>
+            </li>
+            <li{% if request.GET.age_group == '20_29' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url age_group='20_29' %}">20-29</a>
+            </li>
+            <li{% if request.GET.age_group == '30_39' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url age_group='30_39' %}">30-39</a>
+            </li>
+            <li{% if request.GET.age_group == '40_49' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url age_group='40_49' %}">40-49</a>
+            </li>
+            <li{% if request.GET.age_group == '50_59' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url age_group='50_59' %}">50-59</a>
+            </li>
+            <li{% if request.GET.age_group == '60_plus' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url age_group='60_plus' %}">60+</a>
+            </li>
+            <li{% if not request.GET.age_group %} class="selected"{% endif %}>
+                <a href="{% build_filter_url age_group=None %}">All</a>
+            </li>
+        </ul>
+        
         <h3>By HIV Status</h3>
         <ul class="filter-list">
             <li{% if request.GET.hiv == '1' %} class="selected"{% endif %}>
-                <a href="?hiv=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">Yes</a>
+                <a href="{% build_filter_url hiv='1' %}">Yes</a>
             </li>
             <li{% if request.GET.hiv == '0' %} class="selected"{% endif %}>
-                <a href="?hiv=0{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">No</a>
+                <a href="{% build_filter_url hiv='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.hiv %} class="selected"{% endif %}>
+                <a href="{% build_filter_url hiv=None %}">All</a>
             </li>
         </ul>
+        
         <h3>By Diabetes</h3>
         <ul class="filter-list">
             <li{% if request.GET.diabetes == '1' %} class="selected"{% endif %}>
-                <a href="?diabetes=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}">Yes</a>
+                <a href="{% build_filter_url diabetes='1' %}">Yes</a>
             </li>
             <li{% if request.GET.diabetes == '0' %} class="selected"{% endif %}>
-                <a href="?diabetes=0{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}">No</a>
+                <a href="{% build_filter_url diabetes='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.diabetes %} class="selected"{% endif %}>
+                <a href="{% build_filter_url diabetes=None %}">All</a>
             </li>
         </ul>
+        
+        <h3>By Smoking</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.smoker == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url smoker='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.smoker == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url smoker='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.smoker %} class="selected"{% endif %}>
+                <a href="{% build_filter_url smoker=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Treatment Status</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.treated_before == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url treated_before='1' %}">Treated Before</a>
+            </li>
+            <li{% if request.GET.treated_before == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url treated_before='0' %}">Not Treated</a>
+            </li>
+            <li{% if not request.GET.treated_before %} class="selected"{% endif %}>
+                <a href="{% build_filter_url treated_before=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Regimen Change</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.regimen_change == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url regimen_change='1' %}">Has Changes</a>
+            </li>
+            <li{% if request.GET.regimen_change == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url regimen_change='0' %}">No Changes</a>
+            </li>
+            <li{% if not request.GET.regimen_change %} class="selected"{% endif %}>
+                <a href="{% build_filter_url regimen_change=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By District</h3>
+        <ul class="filter-list">
+            {% for district in districts|slice:":10" %}
+            <li{% if request.GET.district == district %} class="selected"{% endif %}>
+                <a href="{% build_filter_url district=district %}">{{ district }}</a>
+            </li>
+            {% empty %}
+            <li><span class="quiet">No districts</span></li>
+            {% endfor %}
+            {% if districts|length > 10 %}
+            <li><span class="quiet">... and {{ districts|length|add:"-10" }} more</span></li>
+            {% endif %}
+            <li{% if not request.GET.district %} class="selected"{% endif %}>
+                <a href="{% build_filter_url district=None %}">All</a>
+            </li>
+        </ul>
+        
+        {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change or request.GET.district %}
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd;">
+            <a href="{% url 'patients:patient-list' %}" class="button" style="display: block; text-align: center; padding: 8px;">Clear All Filters</a>
+        </div>
+        {% endif %}
     </div>
     
     <div id="changelist-form">
@@ -47,7 +147,7 @@
                 <label for="searchbar"><img src="{% static 'admin/img/search.svg' %}" alt="Search"></label>
                 <input type="text" size="40" name="search" value="{{ request.GET.search }}" id="searchbar" autofocus placeholder="Search by Patient ID or District...">
                 <input type="submit" value="Search">
-                {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes %}
+                {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change or request.GET.district %}
                 <a href="{% url 'patients:patient-list' %}" class="small quiet" style="margin-left: 10px;">Clear all filters</a>
                 {% endif %}
             </div>
@@ -225,12 +325,12 @@
                             </th>
                             <td class="field-race_color"><span class="quiet">-</span></td>
                             <td class="field-age_group">
-                                {% if patient.age < 20 %}0-19
-                                {% elif patient.age < 30 %}20-29
-                                {% elif patient.age < 40 %}30-39
-                                {% elif patient.age < 50 %}40-49
-                                {% elif patient.age < 60 %}50-59
-                                {% else %}60+{% endif %}
+                                {% if patient.age < 20 %}0_19
+                                {% elif patient.age < 30 %}20_29
+                                {% elif patient.age < 40 %}30_39
+                                {% elif patient.age < 50 %}40_49
+                                {% elif patient.age < 60 %}50_59
+                                {% else %}60_plus{% endif %}
                             </td>
                             <td class="field-sex">{{ patient.sex }}</td>
                             <td class="field-pregnant">
@@ -240,13 +340,11 @@
                             <td class="field-occupation"><span class="quiet">-</span></td>
                             <td class="field-previous_treatment"><span class="quiet">-</span></td>
                             <td class="field-treated_before">
-                                {% if patient.regimens.exists %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="No">{% endif %}
+                                {% if patient.has_regimens %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="No">{% endif %}
                             </td>
                             <td class="field-current_situation">
-                                {% if patient.regimens.exists %}
-                                    {% with latest=patient.regimens.first %}
-                                        {{ latest.outcome|default:"-" }}
-                                    {% endwith %}
+                                {% if patient.has_regimens and patient.first_regimen %}
+                                    {{ patient.first_regimen.0.outcome|default:"-" }}
                                 {% else %}
                                     <span class="quiet">-</span>
                                 {% endif %}
@@ -256,10 +354,8 @@
                             <td class="field-classification"><span class="quiet">-</span></td>
                             <td class="field-discovery"><span class="quiet">-</span></td>
                             <td class="field-bacilloscopy">
-                                {% if patient.visits.exists %}
-                                    {% with latest=patient.visits.first %}
-                                        {{ latest.smear_result|default:"-" }}
-                                    {% endwith %}
+                                {% if patient.first_visit and patient.first_visit|length > 0 %}
+                                    {{ patient.first_visit.0.smear_result|default:"-" }}
                                 {% else %}
                                     <span class="quiet">-</span>
                                 {% endif %}
@@ -305,29 +401,29 @@
                             <td class="field-sick_contacts"><span class="quiet">0</span></td>
                             <td class="field-treatment_institution"><span class="quiet">-</span></td>
                             <td class="field-initial_regimen">
-                                {% if patient.regimens.exists %}
-                                    {{ patient.regimens.first.drugs|default:"-" }}
+                                {% if patient.has_regimens and patient.first_regimen and patient.first_regimen|length > 0 %}
+                                    {{ patient.first_regimen.0.drugs|default:"-" }}
                                 {% else %}
                                     <span class="quiet">-</span>
                                 {% endif %}
                             </td>
                             <td class="field-regimen_change">
-                                {% if patient.modifications.exists %}
+                                {% if patient.has_modifications %}
                                     <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes">
                                 {% else %}
                                     <img src="{% static 'admin/img/icon-no.svg' %}" alt="No">
                                 {% endif %}
                             </td>
                             <td class="field-current_regimen">
-                                {% if patient.regimens.exists %}
-                                    {{ patient.regimens.first.drugs|default:"-" }}
+                                {% if patient.has_regimens and patient.first_regimen and patient.first_regimen|length > 0 %}
+                                    {{ patient.first_regimen.0.drugs|default:"-" }}
                                 {% else %}
                                     <span class="quiet">-</span>
                                 {% endif %}
                             </td>
                             <td class="field-reason_change">
-                                {% if patient.modifications.exists %}
-                                    {{ patient.modifications.first.reason|default:"-" }}
+                                {% if patient.has_modifications and patient.first_modification and patient.first_modification|length > 0 %}
+                                    {{ patient.first_modification.0.reason|default:"-" }}
                                 {% else %}
                                     <span class="quiet">-</span>
                                 {% endif %}
@@ -392,12 +488,15 @@
     position: absolute;
     right: 0;
     top: 0;
-    width: 200px;
+    width: 220px;
     background: #f8f9fa;
     border-left: 1px solid #ddd;
     padding: 10px;
     font-size: 12px;
     min-height: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    z-index: 10;
 }
 
 #changelist-filter h2 {
@@ -453,6 +552,7 @@
 #changelist-form {
     margin-right: 220px;
     position: relative;
+    overflow-x: auto;
 }
 
 #changelist-search {
@@ -509,12 +609,15 @@
 
 .results {
     overflow-x: auto;
+    max-width: 100%;
 }
 
 #result_list {
     width: 100%;
+    min-width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 11px;
+    table-layout: auto;
 }
 
 #result_list thead th {
@@ -528,8 +631,18 @@
 }
 
 #result_list thead th.sortable {
-    background: #f5f5f5 url({% static 'admin/img/sorting-icons.svg' %}) no-repeat right 8px center;
+    background: #f5f5f5;
     padding-right: 25px;
+    position: relative;
+}
+#result_list thead th.sortable::after {
+    content: "⇅";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #417690;
+    font-size: 10px;
 }
 
 #result_list thead th.sortable .text a {
@@ -620,13 +733,21 @@
 }
 
 .object-tools .addlink {
-    background: #417690 url({% static 'admin/img/icon-addlink.svg' %}) 0 1px no-repeat;
-    padding: 10px 12px 10px 26px;
+    background: #417690;
+    padding: 10px 12px 10px 28px;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
     font-size: 13px;
     font-weight: 400;
+    position: relative;
+}
+.object-tools .addlink::before {
+    content: "+";
+    position: absolute;
+    left: 10px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .object-tools .addlink:hover {

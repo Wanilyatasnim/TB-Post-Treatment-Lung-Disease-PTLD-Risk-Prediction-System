@@ -26,11 +26,21 @@ class PatientListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # Optimize queryset to prevent N+1 queries
-        queryset = Patient.objects.select_related('created_by').prefetch_related(
-            'regimens',
-            'modifications',
-            'visits'
-        ).all()
+        # Use annotations to check existence without extra queries
+        from django.db.models import Exists, OuterRef, Prefetch
+        
+        queryset = Patient.objects.select_related('created_by').annotate(
+            has_regimens=Exists(
+                TreatmentRegimen.objects.filter(patient_id=OuterRef('pk'))
+            ),
+            has_modifications=Exists(
+                TreatmentModification.objects.filter(patient_id=OuterRef('pk'))
+            ),
+        ).prefetch_related(
+            Prefetch('regimens', queryset=TreatmentRegimen.objects.only('patient_id', 'drugs', 'outcome', 'start_date').order_by('-start_date')[:1], to_attr='first_regimen'),
+            Prefetch('modifications', queryset=TreatmentModification.objects.only('patient_id', 'reason', 'date').order_by('-date')[:1], to_attr='first_modification'),
+            Prefetch('visits', queryset=MonitoringVisit.objects.only('patient_id', 'smear_result', 'date').order_by('-date')[:1], to_attr='first_visit'),
+        )
         
         # Search by patient_id or district
         search = self.request.GET.get('search')
@@ -59,7 +69,89 @@ class PatientListView(LoginRequiredMixin, ListView):
         elif diabetes == '0':
             queryset = queryset.filter(diabetes=False)
         
+        # Filter by smoker
+        smoker = self.request.GET.get('smoker')
+        if smoker == '1':
+            queryset = queryset.filter(smoker=True)
+        elif smoker == '0':
+            queryset = queryset.filter(smoker=False)
+        
+        # Filter by age group
+        age_group = self.request.GET.get('age_group')
+        if age_group:
+            if age_group == '0_19':
+                queryset = queryset.filter(age__lt=20)
+            elif age_group == '20_29':
+                queryset = queryset.filter(age__gte=20, age__lt=30)
+            elif age_group == '30_39':
+                queryset = queryset.filter(age__gte=30, age__lt=40)
+            elif age_group == '40_49':
+                queryset = queryset.filter(age__gte=40, age__lt=50)
+            elif age_group == '50_59':
+                queryset = queryset.filter(age__gte=50, age__lt=60)
+            elif age_group == '60_plus':
+                queryset = queryset.filter(age__gte=60)
+        
+        # Filter by age range
+        age_min = self.request.GET.get('age_min')
+        age_max = self.request.GET.get('age_max')
+        if age_min:
+            try:
+                queryset = queryset.filter(age__gte=int(age_min))
+            except ValueError:
+                pass
+        if age_max:
+            try:
+                queryset = queryset.filter(age__lte=int(age_max))
+            except ValueError:
+                pass
+        
+        # Filter by treated before (has regimens)
+        treated_before = self.request.GET.get('treated_before')
+        if treated_before == '1':
+            queryset = queryset.filter(regimens__isnull=False).distinct()
+        elif treated_before == '0':
+            queryset = queryset.filter(regimens__isnull=True)
+        
+        # Filter by regimen change (has modifications)
+        regimen_change = self.request.GET.get('regimen_change')
+        if regimen_change == '1':
+            queryset = queryset.filter(modifications__isnull=False).distinct()
+        elif regimen_change == '0':
+            queryset = queryset.filter(modifications__isnull=True)
+        
+        # Filter by X-Ray score range
+        xray_min = self.request.GET.get('xray_min')
+        xray_max = self.request.GET.get('xray_max')
+        if xray_min:
+            try:
+                queryset = queryset.filter(x_ray_score__gte=float(xray_min))
+            except (ValueError, TypeError):
+                pass
+        if xray_max:
+            try:
+                queryset = queryset.filter(x_ray_score__lte=float(xray_max))
+            except (ValueError, TypeError):
+                pass
+        
+        # Filter by district
+        district = self.request.GET.get('district')
+        if district:
+            queryset = queryset.filter(district__icontains=district)
+        
         return queryset.order_by('-created_at')
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        # Cache districts query - only fetch if not already cached
+        from django.core.cache import cache
+        districts_cache_key = 'patient_districts_list'
+        districts = cache.get(districts_cache_key)
+        if districts is None:
+            districts = list(Patient.objects.exclude(district='').values_list('district', flat=True).distinct().order_by('district'))
+            cache.set(districts_cache_key, districts, 300)  # Cache for 5 minutes
+        ctx['districts'] = districts
+        return ctx
 
 
 class PatientCreateView(LoginRequiredMixin, CreateView):
