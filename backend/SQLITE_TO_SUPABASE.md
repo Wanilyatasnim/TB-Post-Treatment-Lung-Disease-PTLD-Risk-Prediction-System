@@ -88,3 +88,4 @@ If you need to switch back to SQLite:
 - Supabase requires `psycopg2-binary` package
 - Both configurations are ready - just toggle `USE_SQLITE` in `.env`
 
+

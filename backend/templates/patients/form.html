@@ -1,14 +1,95 @@
 {% extends "base.html" %}
-{% block content %}
-<h3 class="mb-3">{{ form.instance.pk|yesno:"Edit Patient,Add Patient" }}</h3>
-<form method="post" class="card p-3">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <div class="d-flex gap-2">
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a class="btn btn-secondary" href="/">Cancel</a>
-  </div>
-</form>
+{% load static %}
+
+{% block title %}{{ form.instance.pk|yesno:"Change,Add" }} Patient | PTLD System{% endblock %}
+
+{% block breadcrumbs %}
+<a href="{% url 'patients:patient-list' %}">Home</a>
+&rsaquo; <a href="{% url 'patients:patient-list' %}">Patients</a>
+&rsaquo; {{ form.instance.pk|yesno:"Change,Add" }}
 {% endblock %}
 
+{% block content %}
+<h1>{{ form.instance.pk|yesno:"Change,Add" }} Patient</h1>
 
+<ul class="object-tools">
+    <li>
+        <a href="{% url 'patients:patient-list' %}">← Back to list</a>
+    </li>
+</ul>
+
+<form method="post" id="patient_form" novalidate>
+    {% csrf_token %}
+    
+    <div class="module aligned">
+        <h2>Patient Information</h2>
+        
+        {% if form.non_field_errors %}
+        <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        {% for field in form %}
+        <div class="form-row{% if field.errors %} errors{% endif %}">
+            <div>
+                {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <label for="{{ field.id_for_label }}" class="required">
+                    {{ field.label }}:
+                </label>
+                {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="submit-row">
+        <input type="submit" value="Save" class="default" name="_save">
+        <input type="submit" value="Save and add another" name="_addanother">
+        <input type="submit" value="Save and continue editing" name="_continue">
+        <p class="deletelink-box">
+            <a href="{% url 'patients:patient-list' %}" class="deletelink">Cancel</a>
+        </p>
+    </div>
+</form>
+
+<style>
+.errorlist {
+    color: #ba2121;
+    background: #fff;
+    border: 1px solid #ba2121;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 0 0 10px 0;
+    list-style: none;
+}
+.errorlist li {
+    margin: 0;
+    padding: 0;
+}
+.form-row.errors {
+    background: #fff3cd;
+    border-left: 3px solid #ffc107;
+}
+.help {
+    font-size: 11px;
+    color: #666;
+    margin: 5px 0 0 0;
+}
+.deletelink-box {
+    float: right;
+    margin: 0;
+}
+</style>
+{% endblock %}

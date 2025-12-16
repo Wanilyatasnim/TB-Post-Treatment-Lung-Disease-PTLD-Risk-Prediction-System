@@ -17,7 +17,7 @@ def health(request):
 
 
 class PatientListView(LoginRequiredMixin, ListView):
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     redirect_field_name = "next"
     model = Patient
     template_name = "patients/list.html"
@@ -25,7 +25,12 @@ class PatientListView(LoginRequiredMixin, ListView):
     paginate_by = 25
 
     def get_queryset(self):
-        queryset = Patient.objects.all()
+        # Optimize queryset to prevent N+1 queries
+        queryset = Patient.objects.select_related('created_by').prefetch_related(
+            'regimens',
+            'modifications',
+            'visits'
+        ).all()
         
         # Search by patient_id or district
         search = self.request.GET.get('search')
@@ -58,7 +63,7 @@ class PatientListView(LoginRequiredMixin, ListView):
 
 
 class PatientCreateView(LoginRequiredMixin, CreateView):
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     redirect_field_name = "next"
     model = Patient
     form_class = PatientForm
@@ -67,7 +72,7 @@ class PatientCreateView(LoginRequiredMixin, CreateView):
 
 
 class PatientUpdateView(LoginRequiredMixin, UpdateView):
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     redirect_field_name = "next"
     model = Patient
     form_class = PatientForm
@@ -78,7 +83,7 @@ class PatientUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class PatientDetailView(LoginRequiredMixin, DetailView):
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     redirect_field_name = "next"
     model = Patient
     slug_field = "patient_id"
@@ -89,10 +94,11 @@ class PatientDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         patient = self.get_object()
-        ctx["regimens"] = patient.regimens.all()
-        ctx["modifications"] = patient.modifications.all()
-        ctx["visits"] = patient.visits.all()
-        predictions = patient.predictions.all().order_by("-timestamp")[:5]
+        # Optimize queries to prevent N+1
+        ctx["regimens"] = patient.regimens.all().order_by('-start_date')
+        ctx["modifications"] = patient.modifications.all().order_by('-date')
+        ctx["visits"] = patient.visits.all().order_by('-date')
+        predictions = patient.predictions.select_related('patient').order_by("-timestamp")[:5]
         
         # Sort SHAP values for each prediction (for template display)
         for pred in predictions:
@@ -112,7 +118,7 @@ class PatientDetailView(LoginRequiredMixin, DetailView):
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     redirect_field_name = "next"
     template_name = "dashboard/overview.html"
 
@@ -158,7 +164,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 class ExportPatientsView(LoginRequiredMixin, ListView):
     """Export patients to CSV."""
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     model = Patient
     
     def get(self, request, *args, **kwargs):
@@ -171,7 +177,7 @@ class ExportPatientsView(LoginRequiredMixin, ListView):
 
 class ExportPredictionsView(LoginRequiredMixin, ListView):
     """Export predictions to CSV."""
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     model = RiskPrediction
     
     def get(self, request, *args, **kwargs):
@@ -181,7 +187,7 @@ class ExportPredictionsView(LoginRequiredMixin, ListView):
 
 class ExportPatientReportView(LoginRequiredMixin, DetailView):
     """Export patient report."""
-    login_url = "/admin/login/"
+    login_url = "/accounts/login/"
     model = Patient
     lookup_field = "patient_id"
     

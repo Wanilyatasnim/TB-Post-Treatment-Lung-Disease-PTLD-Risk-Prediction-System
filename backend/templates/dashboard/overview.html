@@ -1,229 +1,313 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block title %}Dashboard | PTLD System{% endblock %}
+
+{% block breadcrumbs %}
+<a href="{% url 'patients:patient-list' %}">Home</a>
+&rsaquo; Dashboard
+{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h3 class="mb-0">Dashboard Overview</h3>
-  <a href="{% url 'patients:patient-list' %}" class="btn btn-outline-primary btn-sm">View All Patients</a>
-</div>
+<h1>Dashboard Overview</h1>
 
-<!-- Key Statistics Cards -->
-<div class="row g-3 mb-4">
-  <div class="col-md-3">
-    <div class="card border-primary">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="text-muted small">Total Patients</div>
-            <div class="fs-2 fw-bold">{{ total_patients }}</div>
-          </div>
-          <div class="text-primary" style="font-size: 2.5rem;">👥</div>
-        </div>
-      </div>
+<div id="content-main">
+    <div class="module">
+        <table>
+            <caption>
+                <a href="{% url 'patients:patient-list' %}" class="section">Key Statistics</a>
+            </caption>
+            <tr>
+                <th scope="row">Total Patients</th>
+                <td><strong>{{ total_patients }}</strong></td>
+                <td><a href="{% url 'patients:patient-list' %}" class="viewlink">View all</a></td>
+            </tr>
+            <tr>
+                <th scope="row">High Risk Patients</th>
+                <td><strong style="color: #ba2121;">{{ high_risk_patients }}</strong></td>
+                <td><a href="{% url 'patients:patient-list' %}?risk=high" class="viewlink">View all</a></td>
+            </tr>
+            <tr>
+                <th scope="row">Total Predictions</th>
+                <td><strong>{{ total_predictions }}</strong></td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th scope="row">Average Risk Score</th>
+                <td><strong>{{ avg_risk_score }}</strong></td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th scope="row">Total Treatment Regimens</th>
+                <td><strong>{{ total_regimens }}</strong></td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th scope="row">Monitoring Visits</th>
+                <td><strong>{{ total_visits }}</strong></td>
+                <td>-</td>
+            </tr>
+        </table>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card border-danger">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="text-muted small">High Risk Patients</div>
-            <div class="fs-2 fw-bold text-danger">{{ high_risk_patients }}</div>
-          </div>
-          <div class="text-danger" style="font-size: 2.5rem;">⚠️</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card border-success">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="text-muted small">Total Predictions</div>
-            <div class="fs-2 fw-bold text-success">{{ total_predictions }}</div>
-          </div>
-          <div class="text-success" style="font-size: 2.5rem;">📊</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card border-info">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="text-muted small">Avg Risk Score</div>
-            <div class="fs-2 fw-bold text-info">{{ avg_risk_score }}</div>
-          </div>
-          <div class="text-info" style="font-size: 2.5rem;">📈</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Secondary Statistics -->
-<div class="row g-3 mb-4">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header bg-light">Patient Demographics</div>
-      <div class="card-body">
-        <div class="mb-2">
-          <strong>Gender:</strong> 
-          <span class="badge bg-primary">{{ male_count }} Male</span>
-          <span class="badge bg-info">{{ female_count }} Female</span>
-        </div>
-        <div class="mb-2">
-          <strong>HIV Positive:</strong> 
-          <span class="badge bg-danger">{{ hiv_positive_count }}</span>
-        </div>
-        <div class="mb-2">
-          <strong>Diabetes:</strong> 
-          <span class="badge bg-warning text-dark">{{ diabetes_count }}</span>
-        </div>
-        <div>
-          <strong>Smokers:</strong> 
-          <span class="badge bg-warning text-dark">{{ smoker_count }}</span>
-        </div>
-      </div>
+    <div class="module">
+        <table>
+            <caption>
+                <a href="#" class="section">Risk Distribution</a>
+            </caption>
+            <tbody>
+                {% for item in risk_breakdown %}
+                <tr>
+                    <th scope="row" style="text-transform: capitalize;">
+                        {{ item.risk_category|default:"unknown" }} Risk
+                    </th>
+                    <td>
+                        <strong>{{ item.count }}</strong>
+                        {% if total_predictions > 0 %}
+                        <span style="color: #666; font-size: 11px;">
+                            ({% widthratio item.count total_predictions 100 %}%)
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div style="width: 200px; height: 20px; background: #f0f0f0; border: 1px solid #ddd; display: inline-block; vertical-align: middle;">
+                            <div style="height: 100%; width: {% widthratio item.count total_predictions 100 %}%; 
+                                background: {% if item.risk_category == 'low' %}#28a745
+                                {% elif item.risk_category == 'medium' %}#ffc107
+                                {% else %}#dc3545{% endif %};"></div>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center"><span class="quiet">No predictions yet</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header bg-light">Treatment Statistics</div>
-      <div class="card-body">
-        <div class="mb-2">
-          <strong>Total Regimens:</strong> {{ total_regimens }}
-        </div>
-        <div class="mb-2">
-          <strong>Monitoring Visits:</strong> {{ total_visits }}
-        </div>
-        <div>
-          <strong>Outcomes:</strong>
-          <ul class="mb-0 mt-2">
-            {% for item in outcomes %}
-              <li>{{ item.outcome|default:"(none)" }}: {{ item.count }}</li>
-            {% empty %}
-              <li class="text-muted">No outcomes yet</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header bg-light">Risk Distribution</div>
-      <div class="card-body">
-        {% for item in risk_breakdown %}
-          <div class="mb-2">
-            <div class="d-flex justify-content-between">
-              <span class="text-capitalize">{{ item.risk_category|default:"unknown" }}</span>
-              <strong>{{ item.count }}</strong>
-            </div>
-            <div class="progress" style="height: 8px;">
-              <div class="progress-bar 
-                {% if item.risk_category == 'low' %}bg-success
-                {% elif item.risk_category == 'medium' %}bg-warning
-                {% else %}bg-danger{% endif %}" 
-                style="width: {% widthratio item.count total_predictions 100 %}%"></div>
-            </div>
-          </div>
-        {% empty %}
-          <p class="text-muted mb-0">No predictions yet</p>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="card mb-4">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <span>Recent Predictions</span>
-    <a href="{% url 'patients:patient-list' %}" class="btn btn-sm btn-outline-primary">View All</a>
-  </div>
-  <div class="card-body p-0">
-    <div class="table-responsive">
-      <table class="table table-hover mb-0">
-        <thead class="table-light">
-          <tr>
-            <th>Prediction ID</th>
-            <th>Patient</th>
-            <th>Risk Score</th>
-            <th>Category</th>
-            <th>Confidence</th>
-            <th>Timestamp</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for p in recent_predictions %}
-          <tr>
-            <td><code>{{ p.prediction_id }}</code></td>
-            <td>
-              <a href="{% url 'patients:patient-detail' p.patient.patient_id %}">
-                {{ p.patient.patient_id }}
-              </a>
-            </td>
-            <td><strong>{{ p.risk_score|floatformat:3 }}</strong></td>
-            <td>
-              <span class="badge 
-                {% if p.risk_category == 'low' %}bg-success
-                {% elif p.risk_category == 'medium' %}bg-warning text-dark
-                {% else %}bg-danger{% endif %}">
-                {{ p.risk_category|upper }}
-              </span>
-            </td>
-            <td>{{ p.confidence|floatformat:2|default:"-" }}</td>
-            <td>{{ p.timestamp|date:"Y-m-d H:i"|default:"-" }}</td>
-            <td>
-              <a href="{% url 'patients:patient-detail' p.patient.patient_id %}" 
-                 class="btn btn-sm btn-outline-primary">View</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="7" class="text-center py-4">
-              <p class="text-muted mb-0">No predictions yet. Generate predictions for patients to see them here.</p>
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+    <div class="module">
+        <table>
+            <caption>
+                <a href="#" class="section">Patient Demographics</a>
+            </caption>
+            <tr>
+                <th scope="row">Male</th>
+                <td><strong>{{ male_count }}</strong></td>
+            </tr>
+            <tr>
+                <th scope="row">Female</th>
+                <td><strong>{{ female_count }}</strong></td>
+            </tr>
+            <tr>
+                <th scope="row">HIV Positive</th>
+                <td>
+                    <strong>{{ hiv_positive_count }}</strong>
+                    {% if total_patients > 0 %}
+                    <span style="color: #666; font-size: 11px;">
+                        ({% widthratio hiv_positive_count total_patients 100 %}%)
+                    </span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Diabetes</th>
+                <td>
+                    <strong>{{ diabetes_count }}</strong>
+                    {% if total_patients > 0 %}
+                    <span style="color: #666; font-size: 11px;">
+                        ({% widthratio diabetes_count total_patients 100 %}%)
+                    </span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Smokers</th>
+                <td>
+                    <strong>{{ smoker_count }}</strong>
+                    {% if total_patients > 0 %}
+                    <span style="color: #666; font-size: 11px;">
+                        ({% widthratio smoker_count total_patients 100 %}%)
+                    </span>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </div>
-  </div>
-</div>
 
-<div class="row g-3 mt-3">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">Risk Breakdown</div>
-      <div class="card-body">
-        <canvas id="riskChart" height="200"></canvas>
-      </div>
+    <div class="module">
+        <table>
+            <caption>
+                <a href="#" class="section">Treatment Outcomes</a>
+            </caption>
+            <tbody>
+                {% for item in outcomes %}
+                <tr>
+                    <th scope="row" style="text-transform: capitalize;">
+                        {{ item.outcome|default:"(none)" }}
+                    </th>
+                    <td><strong>{{ item.count }}</strong></td>
+                    <td>
+                        {% if total_regimens > 0 %}
+                        <div style="width: 200px; height: 20px; background: #f0f0f0; border: 1px solid #ddd; display: inline-block; vertical-align: middle;">
+                            <div style="height: 100%; width: {% widthratio item.count total_regimens 100 %}%; background: #417690;"></div>
+                        </div>
+                        <span style="color: #666; font-size: 11px; margin-left: 5px;">
+                            {% widthratio item.count total_regimens 100 %}%
+                        </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center"><span class="quiet">No outcomes yet</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">Outcomes</div>
-      <div class="card-body">
-        <canvas id="outcomeChart" height="200"></canvas>
-      </div>
+
+    <div class="module">
+        <h2>Recent Predictions</h2>
+        <table id="result_list">
+            <thead>
+                <tr>
+                    <th scope="col" class="sortable column-prediction_id">
+                        <div class="text">Prediction ID</div>
+                    </th>
+                    <th scope="col" class="sortable column-patient">
+                        <div class="text">Patient</div>
+                    </th>
+                    <th scope="col" class="sortable column-risk_score">
+                        <div class="text">Risk Score</div>
+                    </th>
+                    <th scope="col" class="sortable column-risk_category">
+                        <div class="text">Category</div>
+                    </th>
+                    <th scope="col" class="sortable column-confidence">
+                        <div class="text">Confidence</div>
+                    </th>
+                    <th scope="col" class="sortable column-timestamp">
+                        <div class="text">Timestamp</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in recent_predictions %}
+                <tr class="{% cycle 'row1' 'row2' %}">
+                    <th class="field-prediction_id"><code>{{ p.prediction_id }}</code></th>
+                    <td class="field-patient">
+                        <a href="{% url 'patients:patient-detail' p.patient.patient_id %}">{{ p.patient.patient_id }}</a>
+                    </td>
+                    <td class="field-risk_score">
+                        <strong>{{ p.risk_score|floatformat:3 }}</strong>
+                    </td>
+                    <td class="field-risk_category">
+                        <span style="padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;
+                            {% if p.risk_category == 'low' %}background: #28a745; color: #fff;
+                            {% elif p.risk_category == 'medium' %}background: #ffc107; color: #000;
+                            {% else %}background: #dc3545; color: #fff;{% endif %}">
+                            {{ p.risk_category|upper }}
+                        </span>
+                    </td>
+                    <td class="field-confidence">{{ p.confidence|floatformat:2|default:"-" }}</td>
+                    <td class="field-timestamp">{{ p.timestamp|date:"Y-m-d H:i"|default:"-" }}</td>
+                </tr>
+                {% empty %}
+                <tr class="row1">
+                    <td colspan="6" class="text-center">
+                        <p class="errornote">No predictions yet. Generate predictions for patients to see them here.</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="paginator">
+            <a href="{% url 'patients:patient-list' %}" class="viewlink">View all patients →</a>
+        </p>
     </div>
-  </div>
+
+    <div class="module" style="display: flex; gap: 20px;">
+        <div style="flex: 1;">
+            <h2>Risk Breakdown Chart</h2>
+            <canvas id="riskChart" style="max-width: 100%;"></canvas>
+        </div>
+        <div style="flex: 1;">
+            <h2>Treatment Outcomes Chart</h2>
+            <canvas id="outcomeChart" style="max-width: 100%;"></canvas>
+        </div>
+    </div>
 </div>
 
 {% include "partials/charts.html" %}
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     const riskLabels = [{% for item in risk_breakdown %}"{{ item.risk_category|default:"unknown" }}",{% endfor %}];
     const riskData = [{% for item in risk_breakdown %}{{ item.count }},{% endfor %}];
-    renderDoughnut("riskChart", riskLabels, riskData, "Risk Categories");
+    const riskColors = [{% for item in risk_breakdown %}
+        {% if item.risk_category == 'low' %}'#28a745'
+        {% elif item.risk_category == 'medium' %}'#ffc107'
+        {% else %}'#dc3545'{% endif %},{% endfor %}];
+    
+    if (riskLabels.length > 0 && riskData.length > 0) {
+        renderDoughnut("riskChart", riskLabels, riskData, "Risk Categories", riskColors);
+    }
 
     const outcomeLabels = [{% for item in outcomes %}"{{ item.outcome|default:"unknown" }}",{% endfor %}];
     const outcomeData = [{% for item in outcomes %}{{ item.count }},{% endfor %}];
-    renderDoughnut("outcomeChart", outcomeLabels, outcomeData, "Treatment Outcomes");
-  });
+    
+    if (outcomeLabels.length > 0 && outcomeData.length > 0) {
+        renderDoughnut("outcomeChart", outcomeLabels, outcomeData, "Treatment Outcomes");
+    }
+});
 </script>
-{% endblock %}
 
+<style>
+.module {
+    margin-bottom: 20px;
+}
+.module table {
+    width: 100%;
+}
+.module table caption {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 15px;
+    background: #79aec8;
+    color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+.module table caption a.section {
+    color: #fff;
+    text-decoration: none;
+}
+.module table th {
+    background: #f5f5f5;
+    padding: 10px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid #ddd;
+    width: 200px;
+}
+.module table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.module table tr:hover {
+    background: #f9f9f9;
+}
+.viewlink {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath fill='%23417690' d='M0 0h10v10H0z'/%3E%3C/svg%3E") 0 1px no-repeat;
+    padding-left: 16px;
+    color: #417690;
+    text-decoration: none;
+}
+.viewlink:hover {
+    text-decoration: underline;
+}
+#result_list {
+    margin-top: 10px;
+}
+</style>
+{% endblock %}

@@ -160,3 +160,4 @@ def export_patient_report_pdf(patient: Patient, predictions: QuerySet = None, us
     
     return response
 
+

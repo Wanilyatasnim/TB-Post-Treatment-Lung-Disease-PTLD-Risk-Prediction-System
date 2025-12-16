@@ -1,524 +1,353 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ patient.patient_id }} | PTLD System{% endblock %}
+
+{% block breadcrumbs %}
+<a href="{% url 'patients:patient-list' %}">Home</a>
+&rsaquo; <a href="{% url 'patients:patient-list' %}">Patients</a>
+&rsaquo; {{ patient.patient_id }}
+{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h3 class="mb-1">Patient {{ patient.patient_id }}</h3>
-    <p class="text-muted mb-0">
-      <span class="badge bg-secondary">{{ patient.sex }}</span>
-      Age: {{ patient.age }} years
-      {% if patient.district %} | District: {{ patient.district }}{% endif %}
-      {% if patient.bmi %} | BMI: {{ patient.bmi|floatformat:1 }}{% endif %}
-    </p>
-  </div>
-  <div>
-    <a class="btn btn-outline-secondary btn-sm" href="{% url 'patients:patient-list' %}">
-      ← Back to list
-    </a>
-    <a class="btn btn-outline-primary btn-sm" href="{% url 'patients:patient-edit' patient.patient_id %}">
-      Edit Patient
-    </a>
-  </div>
+<h1>Patient: {{ patient.patient_id }}</h1>
+
+<ul class="object-tools">
+    <li>
+        <a href="{% url 'patients:patient-edit' patient.patient_id %}" class="changelink">Change</a>
+    </li>
+    <li>
+        <a href="{% url 'patients:patient-list' %}">← Back to list</a>
+    </li>
+</ul>
+
+<div class="module">
+    <h2>Patient Information</h2>
+    <table>
+        <tr>
+            <th>Patient ID:</th>
+            <td>{{ patient.patient_id }}</td>
+        </tr>
+        <tr>
+            <th>Sex:</th>
+            <td>{{ patient.sex }}</td>
+        </tr>
+        <tr>
+            <th>Age:</th>
+            <td>{{ patient.age }} years</td>
+        </tr>
+        <tr>
+            <th>BMI:</th>
+            <td>{% if patient.bmi %}{{ patient.bmi|floatformat:1 }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>HIV Positive:</th>
+            <td>
+                {% if patient.hiv_positive %}
+                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">
+                {% else %}
+                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="False">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Diabetes:</th>
+            <td>
+                {% if patient.diabetes %}
+                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">
+                {% else %}
+                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="False">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Smoker:</th>
+            <td>
+                {% if patient.smoker %}
+                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">
+                {% else %}
+                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="False">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>X-Ray Score:</th>
+            <td>{% if patient.x_ray_score %}{{ patient.x_ray_score|floatformat:1 }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>District:</th>
+            <td>{{ patient.district|default:"-" }}</td>
+        </tr>
+        <tr>
+            <th>Comorbidities:</th>
+            <td>{{ patient.comorbidities|default:"-" }}</td>
+        </tr>
+        <tr>
+            <th>Baseline Date:</th>
+            <td>{% if patient.baseline_date %}{{ patient.baseline_date }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+        </tr>
+    </table>
 </div>
 
-<!-- Patient Summary Cards -->
-<div class="row g-3 mb-4">
-  <div class="col-md-3">
-    <div class="card border-primary">
-      <div class="card-body">
-        <div class="text-muted small">Comorbidities</div>
-        <div class="mt-2">
-          {% if patient.hiv_positive %}<span class="badge bg-danger me-1">HIV+</span>{% endif %}
-          {% if patient.diabetes %}<span class="badge bg-warning text-dark me-1">Diabetes</span>{% endif %}
-          {% if patient.smoker %}<span class="badge bg-warning text-dark me-1">Smoker</span>{% endif %}
-          {% if not patient.hiv_positive and not patient.diabetes and not patient.smoker %}
-            <span class="text-muted">None</span>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card border-info">
-      <div class="card-body">
-        <div class="text-muted small">X-Ray Score</div>
-        <div class="fs-4 fw-bold">{{ patient.x_ray_score|default:"N/A" }}</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card border-success">
-      <div class="card-body">
-        <div class="text-muted small">Total Regimens</div>
-        <div class="fs-4 fw-bold">{{ regimens|length }}</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card border-warning">
-      <div class="card-body">
-        <div class="text-muted small">Monitoring Visits</div>
-        <div class="fs-4 fw-bold">{{ visits|length }}</div>
-      </div>
-    </div>
-  </div>
+<div class="module">
+    <h2>Treatment Regimens</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Regimen ID</th>
+                <th>Drugs</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Outcome</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in regimens %}
+            <tr>
+                <td>{{ r.regimen_id }}</td>
+                <td>{{ r.drugs }}</td>
+                <td>{% if r.start_date %}{{ r.start_date }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+                <td>{% if r.end_date %}{{ r.end_date }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+                <td>{{ r.outcome|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center"><span class="quiet">No regimens</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
-<div class="row g-3">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">Regimens</div>
-      <div class="card-body p-0">
-        <table class="table mb-0 table-sm">
-          <thead><tr><th>ID</th><th>Drugs</th><th>Start</th><th>End</th><th>Outcome</th></tr></thead>
-          <tbody>
-          {% for r in regimens %}
+<div class="module">
+    <h2>Treatment Modifications</h2>
+    <table>
+        <thead>
             <tr>
-              <td>{{ r.regimen_id }}</td>
-              <td>{{ r.drugs }}</td>
-              <td>{{ r.start_date }}</td>
-              <td>{{ r.end_date }}</td>
-              <td>{{ r.outcome }}</td>
+                <th>Modification ID</th>
+                <th>Modified Drug</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>New Dosage (mg)</th>
             </tr>
-          {% empty %}
-            <tr><td colspan="5" class="text-center">No regimens</td></tr>
-          {% endfor %}
-          </tbody>
-        </table>
-        <form class="p-3 border-top" action="/api/regimens/" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="patient" value="{{ patient.id }}">
-          <div class="row g-2">
-            <div class="col"><input name="regimen_id" class="form-control form-control-sm" placeholder="Regimen ID" required></div>
-            <div class="col"><input name="drugs" class="form-control form-control-sm" placeholder="Drugs" required></div>
-          </div>
-          <div class="row g-2 mt-1">
-            <div class="col"><input name="start_date" type="date" class="form-control form-control-sm" placeholder="Start date"></div>
-            <div class="col"><input name="end_date" type="date" class="form-control form-control-sm" placeholder="End date"></div>
-            <div class="col">
-              <select name="outcome" class="form-select form-select-sm">
-                <option value="">Outcome</option>
-                <option value="cured">Cured</option>
-                <option value="completed">Completed</option>
-                <option value="failed">Failed</option>
-                <option value="lost">Lost</option>
-                <option value="died">Died</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-2 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary">Add Regimen</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">Modifications</div>
-      <div class="card-body p-0">
-        <table class="table mb-0 table-sm">
-          <thead><tr><th>ID</th><th>Drug</th><th>Reason</th><th>Date</th></tr></thead>
-          <tbody>
-          {% for m in modifications %}
+        </thead>
+        <tbody>
+            {% for m in modifications %}
             <tr>
-              <td>{{ m.modification_id }}</td>
-              <td>{{ m.modified_drug }}</td>
-              <td>{{ m.reason }}</td>
-              <td>{{ m.date }}</td>
+                <td>{{ m.modification_id }}</td>
+                <td>{{ m.modified_drug }}</td>
+                <td>{{ m.reason }}</td>
+                <td>{% if m.date %}{{ m.date }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+                <td>{% if m.new_dosage_mg %}{{ m.new_dosage_mg }}{% else %}<span class="quiet">-</span>{% endif %}</td>
             </tr>
-          {% empty %}
-            <tr><td colspan="4" class="text-center">No modifications</td></tr>
-          {% endfor %}
-          </tbody>
-        </table>
-        <form class="p-3 border-top" action="/api/modifications/" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="patient" value="{{ patient.id }}">
-          <input type="hidden" name="regimen" value="{{ regimens|first.id }}">
-          <div class="row g-2">
-            <div class="col"><input name="modification_id" class="form-control form-control-sm" placeholder="Modification ID" required></div>
-            <div class="col"><input name="modified_drug" class="form-control form-control-sm" placeholder="Drug" required></div>
-            <div class="col"><input name="reason" class="form-control form-control-sm" placeholder="Reason" required></div>
-          </div>
-          <div class="row g-2 mt-1">
-            <div class="col"><input name="date" type="date" class="form-control form-control-sm" placeholder="Date"></div>
-            <div class="col"><input name="new_dosage_mg" type="number" class="form-control form-control-sm" placeholder="Dosage (mg)"></div>
-          </div>
-          <div class="mt-2 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary">Add Modification</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center"><span class="quiet">No modifications</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
-<div class="row g-3 mt-1">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">Monitoring Visits</div>
-      <div class="card-body p-0">
-        <table class="table mb-0 table-sm">
-          <thead><tr><th>ID</th><th>Date</th><th>Adherence %</th><th>Smear</th><th>Adverse</th></tr></thead>
-          <tbody>
-          {% for v in visits %}
+<div class="module">
+    <h2>Monitoring Visits</h2>
+    <table>
+        <thead>
             <tr>
-              <td>{{ v.visit_id }}</td>
-              <td>{{ v.date }}</td>
-              <td>{{ v.adherence_pct }}</td>
-              <td>{{ v.smear_result }}</td>
-              <td>{{ v.adverse_reactions }}</td>
+                <th>Visit ID</th>
+                <th>Date</th>
+                <th>Adherence %</th>
+                <th>Smear Result</th>
+                <th>Adverse Reactions</th>
+                <th>Weight (kg)</th>
             </tr>
-          {% empty %}
-            <tr><td colspan="5" class="text-center">No visits</td></tr>
-          {% endfor %}
-          </tbody>
-        </table>
-        <form class="p-3 border-top" action="/api/visits/" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="patient" value="{{ patient.id }}">
-          <div class="row g-2">
-            <div class="col"><input name="visit_id" class="form-control form-control-sm" placeholder="Visit ID" required></div>
-            <div class="col"><input name="date" type="date" class="form-control form-control-sm" placeholder="Date"></div>
-            <div class="col"><input name="adherence_pct" type="number" step="0.1" class="form-control form-control-sm" placeholder="Adherence %"></div>
-          </div>
-          <div class="row g-2 mt-1">
-            <div class="col"><input name="smear_result" class="form-control form-control-sm" placeholder="Smear"></div>
-            <div class="col"><input name="adverse_reactions" class="form-control form-control-sm" placeholder="Adverse reactions"></div>
-            <div class="col"><input name="weight_kg" type="number" step="0.1" class="form-control form-control-sm" placeholder="Weight kg"></div>
-          </div>
-          <div class="mt-2 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary">Add Visit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-12 mt-3">
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Risk Predictions & Explainability</span>
-        <button id="generatePredictionBtn" class="btn btn-sm btn-primary" 
-                onclick="generatePrediction('{{ patient.patient_id }}')">
-          <span id="predictionBtnText">Generate New Prediction</span>
-          <span id="predictionBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+        </thead>
+        <tbody>
+            {% for v in visits %}
+            <tr>
+                <td>{{ v.visit_id }}</td>
+                <td>{% if v.date %}{{ v.date }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+                <td>{% if v.adherence_pct %}{{ v.adherence_pct|floatformat:1 }}%{% else %}<span class="quiet">-</span>{% endif %}</td>
+                <td>{{ v.smear_result|default:"-" }}</td>
+                <td>{{ v.adverse_reactions|default:"-" }}</td>
+                <td>{% if v.weight_kg %}{{ v.weight_kg|floatformat:1 }}{% else %}<span class="quiet">-</span>{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center"><span class="quiet">No visits</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="module">
+    <h2>Risk Predictions & Explainability</h2>
+    <div style="padding: 15px;">
+        <button id="generatePredictionBtn" class="button default" onclick="generatePrediction('{{ patient.patient_id }}')">
+            <span id="predictionBtnText">Generate New Prediction</span>
+            <span id="predictionBtnSpinner" style="display: none;">...</span>
         </button>
-      </div>
-      <div class="card-body">
+        
         {% if predictions %}
-          <div class="accordion" id="predictionsAccordion">
+        <div style="margin-top: 20px;">
             {% for p in predictions %}
-              <div class="accordion-item mb-2">
-                <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                  <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" 
-                          data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" 
-                          aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" 
-                          aria-controls="collapse{{ forloop.counter }}">
-                    <div class="d-flex align-items-center w-100 justify-content-between pe-3">
-                      <div>
-                        <strong>{{ p.prediction_id }}</strong> - 
-                        <span class="badge 
-                          {% if p.risk_category == 'low' %}bg-success
-                          {% elif p.risk_category == 'medium' %}bg-warning text-dark
-                          {% else %}bg-danger{% endif %}">
-                          {{ p.risk_category|upper }}
-                        </span>
-                        <span class="ms-2 text-muted">Risk Score: {{ p.risk_score|floatformat:3 }}</span>
-                      </div>
-                      <div class="text-muted small">
-                        <span class="me-3">Confidence: {{ p.confidence|floatformat:2 }}</span>
-                        <span>{{ p.timestamp|date:"Y-m-d H:i" }}</span>
-                      </div>
+            <div style="border: 1px solid #ddd; margin-bottom: 15px; border-radius: 4px;">
+                <h3 style="background: #f5f5f5; padding: 10px; margin: 0; border-bottom: 1px solid #ddd; font-size: 14px;">
+                    {{ p.prediction_id }} - 
+                    <span style="padding: 2px 8px; border-radius: 3px; font-size: 12px; 
+                        {% if p.risk_category == 'low' %}background: #28a745; color: #fff;
+                        {% elif p.risk_category == 'medium' %}background: #ffc107; color: #000;
+                        {% else %}background: #dc3545; color: #fff;{% endif %}">
+                        {{ p.risk_category|upper }}
+                    </span>
+                    <span style="color: #666; font-weight: normal;">Risk Score: {{ p.risk_score|floatformat:3 }}</span>
+                    <span style="float: right; color: #666; font-size: 12px; font-weight: normal;">{{ p.timestamp|date:"Y-m-d H:i" }}</span>
+                </h3>
+                <div style="padding: 15px;">
+                    <p><strong>Model Version:</strong> {{ p.model_version }}</p>
+                    <p><strong>Confidence:</strong> {{ p.confidence|floatformat:2 }}</p>
+                    
+                    {% if p.recommendations %}
+                    <div style="margin-top: 15px;">
+                        <h4 style="font-size: 13px; margin-bottom: 10px;">Clinical Recommendations</h4>
+                        {% for rec in p.recommendations %}
+                        <div style="border-left: 3px solid {% if rec.priority == 'high' %}#dc3545{% elif rec.priority == 'medium' %}#ffc107{% else %}#17a2b8{% endif %}; padding-left: 10px; margin-bottom: 10px;">
+                            <strong>{{ rec.title }}</strong> <span style="font-size: 11px; color: #666;">({{ rec.priority|upper }})</span>
+                            <p style="margin: 5px 0; color: #666; font-size: 12px;">{{ rec.description }}</p>
+                            {% if rec.actions %}
+                            <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                                {% for action in rec.actions %}
+                                <li>{{ action }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                     </div>
-                  </button>
-                </h2>
-                <div id="collapse{{ forloop.counter }}" 
-                     class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" 
-                     aria-labelledby="heading{{ forloop.counter }}" 
-                     data-bs-parent="#predictionsAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-12 mb-3">
-                        <h6 class="fw-bold">Model Information</h6>
-                        <p class="mb-1"><strong>Model Version:</strong> {{ p.model_version }}</p>
-                        <p class="mb-1"><strong>Risk Score:</strong> {{ p.risk_score|floatformat:4 }} ({{ p.risk_category }})</p>
-                        <p class="mb-0"><strong>Confidence:</strong> {{ p.confidence|floatformat:2 }}</p>
-                      </div>
-                      
-                      <!-- Clinical Recommendations -->
-                      {% if p.recommendations %}
-                      <div class="col-md-12 mb-3">
-                        <h6 class="fw-bold mb-3">Clinical Recommendations</h6>
-                        <p class="text-muted small mb-3">
-                          Personalized recommendations based on risk prediction and patient factors.
-                        </p>
-                        <div class="accordion" id="recommendationsAccordion{{ forloop.counter }}">
-                          {% for rec in p.recommendations %}
-                          <div class="card mb-2 border-{% if rec.priority == 'high' %}danger{% elif rec.priority == 'medium' %}warning{% else %}info{% endif %}">
-                            <div class="card-header bg-{% if rec.priority == 'high' %}danger{% elif rec.priority == 'medium' %}warning{% else %}info{% endif %} bg-opacity-10" 
-                                 id="recHeading{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                  <h6 class="mb-0">
-                                    <span class="badge bg-{% if rec.priority == 'high' %}danger{% elif rec.priority == 'medium' %}warning{% else %}info{% endif %} me-2">
-                                      {{ rec.priority|upper }}
-                                    </span>
-                                    {{ rec.title }}
-                                  </h6>
-                                  <small class="text-muted">{{ rec.category|title }} • {{ rec.description }}</small>
-                                </div>
-                                <button class="btn btn-sm btn-outline-secondary" type="button" 
-                                        data-bs-toggle="collapse" 
-                                        data-bs-target="#recCollapse{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
-                                        aria-expanded="false">
-                                  <i class="bi bi-chevron-down"></i>
-                                </button>
-                              </div>
-                            </div>
-                            <div id="recCollapse{{ forloop.parentloop.counter }}_{{ forloop.counter }}" 
-                                 class="collapse" 
-                                 aria-labelledby="recHeading{{ forloop.parentloop.counter }}_{{ forloop.counter }}"
-                                 data-bs-parent="#recommendationsAccordion{{ forloop.parentloop.counter }}">
-                              <div class="card-body">
-                                <strong>Recommended Actions:</strong>
-                                <ul class="mb-0 mt-2">
-                                  {% for action in rec.actions %}
-                                  <li>{{ action }}</li>
-                                  {% endfor %}
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          {% endfor %}
-                        </div>
-                      </div>
-                      {% endif %}
-                      
-                      {% if p.waterfall_plot or p.force_plot %}
-                      <div class="col-md-12">
-                        <h6 class="fw-bold mb-3">SHAP Explainability Visualizations</h6>
-                        <p class="text-muted small mb-3">
-                          These visualizations show which patient features contributed most to this prediction.
-                          Red features increase risk, blue features decrease risk.
-                        </p>
-                        
-                        <ul class="nav nav-tabs" id="shapTabs{{ forloop.counter }}" role="tablist">
-                          {% if p.waterfall_plot %}
-                          <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="waterfall-tab{{ forloop.counter }}" 
-                                    data-bs-toggle="tab" data-bs-target="#waterfall{{ forloop.counter }}" 
-                                    type="button" role="tab">Waterfall Plot</button>
-                          </li>
-                          {% endif %}
-                          {% if p.force_plot %}
-                          <li class="nav-item" role="presentation">
-                            <button class="nav-link {% if not p.waterfall_plot %}active{% endif %}" 
-                                    id="force-tab{{ forloop.counter }}" 
-                                    data-bs-toggle="tab" data-bs-target="#force{{ forloop.counter }}" 
-                                    type="button" role="tab">Feature Impact</button>
-                          </li>
-                          {% endif %}
-                        </ul>
-                        
-                        <div class="tab-content border border-top-0 p-3" id="shapTabContent{{ forloop.counter }}">
-                          {% if p.waterfall_plot %}
-                          <div class="tab-pane fade show active" id="waterfall{{ forloop.counter }}" role="tabpanel">
-                            <div class="text-center">
-                              <img src="/{{ p.waterfall_plot }}" alt="SHAP Waterfall Plot" class="img-fluid" style="max-width: 100%; height: auto;">
-                              <p class="text-muted small mt-2">
-                                Waterfall plot showing how each feature contributes to the final risk prediction
-                              </p>
-                            </div>
-                          </div>
-                          {% endif %}
-                          {% if p.force_plot %}
-                          <div class="tab-pane fade {% if not p.waterfall_plot %}show active{% endif %}" 
-                               id="force{{ forloop.counter }}" role="tabpanel">
-                            <div class="text-center">
-                              <img src="/{{ p.force_plot }}" alt="SHAP Force Plot" class="img-fluid" style="max-width: 100%; height: auto;">
-                              <p class="text-muted small mt-2">
-                                Feature impact chart showing the magnitude of each feature's contribution
-                              </p>
-                            </div>
-                          </div>
-                          {% endif %}
-                        </div>
-                      </div>
-                                    {% else %}
-                      <div class="col-md-12">
-                        <div class="alert alert-info">
-                          SHAP visualizations are not available for this prediction. 
-                          Generate a new prediction to see feature explanations.
-                        </div>
-                      </div>
-                      {% endif %}
-                      
-                      <!-- Feature Importance Table -->
-                      {% if p.shap_values %}
-                      <div class="col-md-12 mt-3">
-                        <h6 class="fw-bold mb-3">Feature Importance (SHAP Values)</h6>
-                        <p class="text-muted small mb-3">
-                          Features sorted by impact magnitude. Positive values increase risk, negative values decrease risk.
-                        </p>
-                        <div class="table-responsive">
-                          <table class="table table-sm table-bordered">
-                            <thead class="table-light">
-                              <tr>
-                                <th>Rank</th>
-                                <th>Feature</th>
-                                <th>SHAP Value</th>
-                                <th>Impact</th>
-                                <th>Visual</th>
-                              </tr>
+                    {% endif %}
+                    
+                    {% if p.shap_values %}
+                    <div style="margin-top: 15px;">
+                        <h4 style="font-size: 13px; margin-bottom: 10px;">Feature Importance (SHAP Values)</h4>
+                        <table style="width: 100%; font-size: 12px;">
+                            <thead>
+                                <tr style="background: #f5f5f5;">
+                                    <th style="padding: 8px;">Feature</th>
+                                    <th style="padding: 8px;">SHAP Value</th>
+                                    <th style="padding: 8px;">Impact</th>
+                                </tr>
                             </thead>
                             <tbody>
-                              {% if p.shap_values_sorted %}
-                                {% for feature, value in p.shap_values_sorted %}
-                                <tr>
-                                  <td><strong>#{{ forloop.counter }}</strong></td>
-                                  <td><code>{{ feature }}</code></td>
-                                  <td class="{% if value > 0 %}text-danger{% elif value < 0 %}text-success{% endif %} fw-bold">
-                                    {{ value|floatformat:4 }}
-                                  </td>
-                                  <td>
-                                    {% if value > 0 %}
-                                      <span class="badge bg-danger">↑ Increases Risk</span>
-                                    {% elif value < 0 %}
-                                      <span class="badge bg-success">↓ Decreases Risk</span>
-                                    {% else %}
-                                      <span class="badge bg-secondary">Neutral</span>
-                                    {% endif %}
-                                  </td>
-                                  <td>
-                                    <div class="progress" style="height: 24px;">
-                                      {% with abs_value=value|floatformat:0|add:0|abs %}
-                                      <div class="progress-bar {% if value > 0 %}bg-danger{% else %}bg-success{% endif %}" 
-                                           style="width: {% widthratio abs_value 1 100 %}%">
-                                        {{ value|floatformat:3 }}
-                                      </div>
-                                      {% endwith %}
-                                    </div>
-                                  </td>
-                                </tr>
-                                {% endfor %}
-                              {% else %}
-                                {% for feature, value in p.shap_values.items %}
-                                <tr>
-                                  <td>-</td>
-                                  <td><code>{{ feature }}</code></td>
-                                  <td class="{% if value > 0 %}text-danger{% elif value < 0 %}text-success{% endif %}">
-                                    {{ value|floatformat:4 }}
-                                  </td>
-                                  <td>
-                                    {% if value > 0 %}
-                                      <span class="badge bg-danger">Increases Risk</span>
-                                    {% elif value < 0 %}
-                                      <span class="badge bg-success">Decreases Risk</span>
-                                    {% else %}
-                                      <span class="badge bg-secondary">Neutral</span>
-                                    {% endif %}
-                                  </td>
-                                  <td>-</td>
-                                </tr>
-                                {% endfor %}
-                              {% endif %}
+                                {% if p.shap_values_sorted %}
+                                    {% for feature, value in p.shap_values_sorted|slice:":10" %}
+                                    <tr>
+                                        <td style="padding: 8px;"><code>{{ feature }}</code></td>
+                                        <td style="padding: 8px; {% if value > 0 %}color: #dc3545;{% elif value < 0 %}color: #28a745;{% endif %} font-weight: bold;">
+                                            {{ value|floatformat:4 }}
+                                        </td>
+                                        <td style="padding: 8px;">
+                                            {% if value > 0 %}
+                                                <span style="background: #dc3545; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 11px;">↑ Increases Risk</span>
+                                            {% elif value < 0 %}
+                                                <span style="background: #28a745; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 11px;">↓ Decreases Risk</span>
+                                            {% else %}
+                                                <span style="background: #6c757d; color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 11px;">Neutral</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
                             </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      {% endif %}
+                        </table>
                     </div>
-                  </div>
+                    {% endif %}
+                    
+                    {% if p.waterfall_plot or p.force_plot %}
+                    <div style="margin-top: 15px;">
+                        <h4 style="font-size: 13px; margin-bottom: 10px;">SHAP Visualizations</h4>
+                        {% if p.waterfall_plot %}
+                        <div style="margin-bottom: 15px;">
+                            <img src="/{{ p.waterfall_plot }}" alt="SHAP Waterfall Plot" style="max-width: 100%; height: auto; border: 1px solid #ddd;">
+                        </div>
+                        {% endif %}
+                        {% if p.force_plot %}
+                        <div>
+                            <img src="/{{ p.force_plot }}" alt="SHAP Force Plot" style="max-width: 100%; height: auto; border: 1px solid #ddd;">
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </div>
-              </div>
+            </div>
             {% endfor %}
-          </div>
+        </div>
         {% else %}
-          <div class="alert alert-info text-center">
-            <p class="mb-0">No predictions yet. Click "Generate New Prediction" to create a risk assessment for this patient.</p>
-          </div>
+        <div style="padding: 15px; text-align: center; color: #666;">
+            <p>No predictions yet. Click "Generate New Prediction" to create a risk assessment for this patient.</p>
+        </div>
         {% endif %}
         
-        <!-- Alert container for messages -->
-        <div id="predictionAlert" class="alert d-none mt-3"></div>
-      </div>
+        <div id="predictionAlert" style="display: none; margin-top: 15px; padding: 10px; border-radius: 4px;"></div>
     </div>
-  </div>
 </div>
 
 <script>
 function generatePrediction(patientId) {
-  const btn = document.getElementById('generatePredictionBtn');
-  const btnText = document.getElementById('predictionBtnText');
-  const btnSpinner = document.getElementById('predictionBtnSpinner');
-  const alertDiv = document.getElementById('predictionAlert');
-  
-  // Disable button and show spinner
-  btn.disabled = true;
-  btnText.textContent = 'Generating...';
-  btnSpinner.classList.remove('d-none');
-  alertDiv.classList.add('d-none');
-  
-  // Get CSRF token
-  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
-                   getCookie('csrftoken');
-  
-  // Make AJAX request
-  fetch('/api/predictions/predict/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken
-    },
-    body: JSON.stringify({
-      patient_id: patientId
-    }),
-    credentials: 'same-origin'
-  })
-  .then(response => {
-    if (!response.ok) {
-      return response.json().then(err => Promise.reject(err));
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Success - reload page to show new prediction
-    alertDiv.className = 'alert alert-success mt-3';
-    alertDiv.innerHTML = '<strong>Success!</strong> Prediction generated. Reloading page...';
-    alertDiv.classList.remove('d-none');
+    const btn = document.getElementById('generatePredictionBtn');
+    const btnText = document.getElementById('predictionBtnText');
+    const btnSpinner = document.getElementById('predictionBtnSpinner');
+    const alertDiv = document.getElementById('predictionAlert');
     
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
-  })
-  .catch(error => {
-    // Error handling
-    btn.disabled = false;
-    btnText.textContent = 'Generate New Prediction';
-    btnSpinner.classList.add('d-none');
+    btn.disabled = true;
+    btnText.textContent = 'Generating...';
+    btnSpinner.style.display = 'inline';
+    alertDiv.style.display = 'none';
     
-    alertDiv.className = 'alert alert-danger mt-3';
-    alertDiv.innerHTML = '<strong>Error:</strong> ' + (error.detail || error.message || 'Failed to generate prediction');
-    alertDiv.classList.remove('d-none');
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || getCookie('csrftoken');
     
-    console.error('Prediction error:', error);
-  });
+    fetch('/api/predictions/predict/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({ patient_id: patientId }),
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => Promise.reject(err));
+        }
+        return response.json();
+    })
+    .then(data => {
+        alertDiv.style.cssText = 'display: block; margin-top: 15px; padding: 10px; border-radius: 4px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb;';
+        alertDiv.innerHTML = '<strong>Success!</strong> Prediction generated. Reloading page...';
+        setTimeout(() => window.location.reload(), 1500);
+    })
+    .catch(error => {
+        btn.disabled = false;
+        btnText.textContent = 'Generate New Prediction';
+        btnSpinner.style.display = 'none';
+        alertDiv.style.cssText = 'display: block; margin-top: 15px; padding: 10px; border-radius: 4px; background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;';
+        alertDiv.innerHTML = '<strong>Error:</strong> ' + (error.detail || error.message || 'Failed to generate prediction');
+    });
 }
 
 function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
-  }
-  return cookieValue;
+    return cookieValue;
 }
 </script>
 {% endblock %}
-

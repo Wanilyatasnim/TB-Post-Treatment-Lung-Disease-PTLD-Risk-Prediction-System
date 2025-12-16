@@ -100,3 +100,4 @@
 - Search and filters work with queryset filtering
 - Dashboard statistics are calculated in real-time
 
+

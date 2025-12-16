@@ -1,27 +1,46 @@
 <script>
-  function renderDoughnut(ctxId, labels, data, title) {
+  function renderDoughnut(ctxId, labels, data, title, customColors = null) {
     const ctx = document.getElementById(ctxId);
     if (!ctx) return;
+    
+    const defaultColors = ['#198754', '#ffc107', '#dc3545', '#0d6efd', '#6c757d', '#17a2b8', '#6f42c1'];
+    const colors = customColors && customColors.length === data.length ? customColors : defaultColors;
+    
     new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: labels,
         datasets: [{
           data: data,
-          backgroundColor: ['#198754', '#ffc107', '#dc3545', '#0d6efd', '#6c757d'],
+          backgroundColor: colors.slice(0, data.length),
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: true,
         plugins: {
           title: {
             display: true,
-            text: title
+            text: title,
+            font: {
+              size: 14,
+              weight: 'bold'
+            }
           },
-          legend: { position: 'bottom' }
+          legend: { 
+            position: 'bottom',
+            labels: {
+              font: {
+                size: 11
+              },
+              padding: 10
+            }
+          }
         }
       }
     });
   }
 </script>
+
 
 
