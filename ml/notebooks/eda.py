@@ -92,35 +92,37 @@ sex_counts = patients_df['sex'].value_counts()
 print(f"\nSex Distribution:")
 print(sex_counts)
 
-# BMI analysis
-print(f"\nBMI Statistics:")
-print(patients_df['bmi'].describe())
+# Age group analysis (replacing BMI)
+print(f"\nAge Distribution:")
+print(f"   Min: {patients_df['age'].min()}, Max: {patients_df['age'].max()}, Median: {patients_df['age'].median()}")
 
-plt.figure(figsize=(12, 5))
-plt.subplot(1, 2, 1)
-plt.hist(patients_df['bmi'], bins=30, edgecolor='black', alpha=0.7, color='green')
-plt.axvline(patients_df['bmi'].median(), color='red', linestyle='--', 
-            label=f'Median: {patients_df["bmi"].median():.1f}')
-plt.xlabel('BMI')
-plt.ylabel('Frequency')
-plt.title('BMI Distribution')
-plt.legend()
-plt.grid(alpha=0.3)
+# Days in treatment analysis (replacing BMI)
+if 'days_in_treatment' in patients_df.columns:
+    plt.figure(figsize=(12, 5))
+    plt.subplot(1, 2, 1)
+    plt.hist(patients_df['days_in_treatment'].dropna(), bins=30, edgecolor='black', alpha=0.7, color='green')
+    plt.axvline(patients_df['days_in_treatment'].median(), color='red', linestyle='--', 
+                label=f'Median: {patients_df["days_in_treatment"].median():.0f} days')
+    plt.xlabel('Days in Treatment')
+    plt.ylabel('Frequency')
+    plt.title('Treatment Duration Distribution')
+    plt.legend()
+    plt.grid(alpha=0.3)
 
-plt.subplot(1, 2, 2)
-bmi_categories = pd.cut(patients_df['bmi'], bins=[0, 18.5, 25, 30, 100], 
-                        labels=['Underweight', 'Normal', 'Overweight', 'Obese'])
-bmi_cat_counts = bmi_categories.value_counts()
-plt.bar(range(len(bmi_cat_counts)), bmi_cat_counts.values, color='teal', alpha=0.7)
-plt.xticks(range(len(bmi_cat_counts)), bmi_cat_counts.index, rotation=45)
-plt.ylabel('Count')
-plt.title('BMI Categories')
-plt.grid(alpha=0.3, axis='y')
+    plt.subplot(1, 2, 2)
+    treatment_categories = pd.cut(patients_df['days_in_treatment'].dropna(), bins=[0, 120, 180, 240, 365], 
+                            labels=['<4 months', '4-6 months', '6-8 months', '8-12 months'])
+    treat_cat_counts = treatment_categories.value_counts()
+    plt.bar(range(len(treat_cat_counts)), treat_cat_counts.values, color='teal', alpha=0.7)
+    plt.xticks(range(len(treat_cat_counts)), treat_cat_counts.index, rotation=45)
+    plt.ylabel('Count')
+    plt.title('Treatment Duration Categories')
+    plt.grid(alpha=0.3, axis='y')
 
-plt.tight_layout()
-plt.savefig('../data/synthetic/eda_bmi_analysis.png', dpi=300, bbox_inches='tight')
-print("  Saved: eda_bmi_analysis.png")
-plt.close()
+    plt.tight_layout()
+    plt.savefig('../data/synthetic/eda_treatment_duration_analysis.png', dpi=300, bbox_inches='tight')
+    print("  Saved: eda_treatment_duration_analysis.png")
+    plt.close()
 
 # ============================================================================
 # 3. COMORBIDITY ANALYSIS
@@ -232,15 +234,53 @@ pred_features = predictions_df[['patient_id', 'risk_score', 'risk_category']].co
 full_df = patients_df.merge(visit_features, on='patient_id', how='left')
 full_df = full_df.merge(mod_counts, on='patient_id', how='left')
 full_df = full_df.merge(pred_features, on='patient_id', how='left')
-full_df = full_df.merge(regimens_df[['patient_id', 'outcome']], on='patient_id', how='left')
+full_df = full_df.merge(regimens_df[['patient_id', 'outcome']], on='patient_id', how='left', suffixes=('', '_regimen'))
 
 full_df['modification_count'] = full_df['modification_count'].fillna(0)
 full_df['adherence_std'] = full_df['adherence_std'].fillna(0)
+full_df['adherence_mean'] = full_df['adherence_mean'].fillna(0.9)
+full_df['adherence_min'] = full_df['adherence_min'].fillna(0.85)
+full_df['visit_count'] = full_df['visit_count'].fillna(0)
 
-# Correlation matrix
-numeric_features = ['age', 'bmi', 'hiv_positive', 'diabetes', 'smoker', 'x_ray_score',
-                   'adherence_mean', 'adherence_min', 'modification_count', 
-                   'visit_count', 'risk_score']
+# Convert boolean fields to int for correlation
+bool_fields = ['hiv_positive', 'diabetes', 'smoker', 'aids_comorbidity', 
+               'alcoholism_comorbidity', 'mental_disorder_comorbidity', 
+               'drug_addiction_comorbidity', 'supervised_treatment', 
+               'occupational_disease', 'rifampicin', 'isoniazid', 'ethambutol',
+               'streptomycin', 'pyrazinamide', 'ethionamide']
+for field in bool_fields:
+    if field in full_df.columns:
+        full_df[field] = full_df[field].astype(int) if full_df[field].dtype == 'bool' else full_df[field].fillna(0).astype(int)
+
+# Convert bacilloscopy to numeric (positive=1, negative=0)
+bacilloscopy_fields = ['bacilloscopy_month_1', 'bacilloscopy_month_2', 'bacilloscopy_month_3']
+for field in bacilloscopy_fields:
+    if field in full_df.columns:
+        full_df[f'{field}_numeric'] = full_df[field].apply(
+            lambda x: 1 if x and any(pos in str(x).lower() for pos in ['positive', '+', 'pos', '1', '2', '3']) else 0
+        )
+
+# Calculate comorbidity count
+full_df['comorbidity_count'] = (
+    full_df.get('hiv_positive', 0).fillna(0).astype(int) +
+    full_df.get('diabetes', 0).fillna(0).astype(int) +
+    full_df.get('smoker', 0).fillna(0).astype(int) +
+    full_df.get('aids_comorbidity', 0).fillna(0).astype(int) +
+    full_df.get('alcoholism_comorbidity', 0).fillna(0).astype(int) +
+    full_df.get('mental_disorder_comorbidity', 0).fillna(0).astype(int) +
+    full_df.get('drug_addiction_comorbidity', 0).fillna(0).astype(int)
+)
+
+# Correlation matrix - use new TB dataset features
+numeric_features = ['age', 'hiv_positive', 'diabetes', 'smoker', 'aids_comorbidity',
+                   'alcoholism_comorbidity', 'mental_disorder_comorbidity', 
+                   'drug_addiction_comorbidity', 'comorbidity_count',
+                   'bacilloscopy_month_3_numeric', 'supervised_treatment',
+                   'adherence_mean', 'adherence_min', 'adherence_std', 
+                   'modification_count', 'visit_count', 'days_in_treatment', 'risk_score']
+
+# Filter to only existing columns
+numeric_features = [f for f in numeric_features if f in full_df.columns]
 
 corr_matrix = full_df[numeric_features].corr()
 
@@ -285,12 +325,22 @@ print("="*60)
 print(f"\n1. PATIENT DEMOGRAPHICS:")
 print(f"   • Total patients: {len(patients_df):,}")
 print(f"   • Age range: {patients_df['age'].min()}-{patients_df['age'].max()} years (median: {patients_df['age'].median():.0f})")
-print(f"   • Mean BMI: {patients_df['bmi'].mean():.2f}")
+if 'notification_date' in patients_df.columns:
+    print(f"   • Notification date range: {patients_df['notification_date'].min()} to {patients_df['notification_date'].max()}")
 
 print(f"\n2. COMORBIDITY BURDEN:")
-print(f"   • HIV positive: {patients_df['hiv_positive'].sum()} ({patients_df['hiv_positive'].sum()/len(patients_df)*100:.1f}%)")
-print(f"   • Diabetes: {patients_df['diabetes'].sum()} ({patients_df['diabetes'].sum()/len(patients_df)*100:.1f}%)")
-print(f"   • Smokers: {patients_df['smoker'].sum()} ({patients_df['smoker'].sum()/len(patients_df)*100:.1f}%)")
+if 'hiv_positive' in patients_df.columns:
+    hiv_count = patients_df['hiv_positive'].sum() if patients_df['hiv_positive'].dtype == 'bool' else (patients_df['hiv_positive'] == 1).sum()
+    print(f"   • HIV positive: {hiv_count} ({hiv_count/len(patients_df)*100:.1f}%)")
+if 'diabetes' in patients_df.columns:
+    diabetes_count = patients_df['diabetes'].sum() if patients_df['diabetes'].dtype == 'bool' else (patients_df['diabetes'] == 1).sum()
+    print(f"   • Diabetes: {diabetes_count} ({diabetes_count/len(patients_df)*100:.1f}%)")
+if 'smoker' in patients_df.columns:
+    smoker_count = patients_df['smoker'].sum() if patients_df['smoker'].dtype == 'bool' else (patients_df['smoker'] == 1).sum()
+    print(f"   • Smokers: {smoker_count} ({smoker_count/len(patients_df)*100:.1f}%)")
+if 'aids_comorbidity' in patients_df.columns:
+    aids_count = patients_df['aids_comorbidity'].sum() if patients_df['aids_comorbidity'].dtype == 'bool' else (patients_df['aids_comorbidity'] == 1).sum()
+    print(f"   • AIDS: {aids_count} ({aids_count/len(patients_df)*100:.1f}%)")
 
 print(f"\n3. TREATMENT PATTERNS:")
 print(f"   • Modifications: {len(modifications_df)} ({modifications_df['patient_id'].nunique()/len(patients_df)*100:.1f}% of patients)")

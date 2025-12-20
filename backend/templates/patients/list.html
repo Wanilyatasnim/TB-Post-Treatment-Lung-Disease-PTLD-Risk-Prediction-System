@@ -143,75 +143,43 @@
                     <thead>
                         <tr>
                             <th scope="col" class="sortable column-patient_id">
-                                <div class="text"><a href="?o=1">ID</a></div>
+                                <div class="text"><a href="?o=1">Patient ID</a></div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-race_color">
-                                <div class="text">Race/Color</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-age_group">
-                                <div class="text">Age Group</div>
+                            <th scope="col" class="sortable column-notification_date">
+                                <div class="text">Notification Date</div>
                                 <div class="clear"></div>
                             </th>
                             <th scope="col" class="sortable column-sex">
                                 <div class="text"><a href="?o=2">Sex</a></div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-pregnant">
-                                <div class="text">Pregnant</div>
+                            <th scope="col" class="sortable column-age">
+                                <div class="text"><a href="?o=3">Age</a></div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-education">
-                                <div class="text">Education</div>
+                            <th scope="col" class="sortable column-race">
+                                <div class="text">Race</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-occupation">
-                                <div class="text">Occupation</div>
+                            <th scope="col" class="sortable column-state">
+                                <div class="text">State</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-previous_treatment">
-                                <div class="text">Previous Treatment</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-treated_before">
-                                <div class="text">Treated Before</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-current_situation">
-                                <div class="text">Current Situation</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-case_type">
-                                <div class="text">Case Type</div>
+                            <th scope="col" class="sortable column-treatment">
+                                <div class="text">Treatment</div>
                                 <div class="clear"></div>
                             </th>
                             <th scope="col" class="sortable column-clinical_form">
                                 <div class="text">Clinical Form</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-classification">
-                                <div class="text">Classification</div>
+                            <th scope="col" class="sortable column-chest_x_ray">
+                                <div class="text">Chest X-Ray</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-discovery">
-                                <div class="text">Discovery</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-bacilloscopy">
-                                <div class="text">Bacilloscopy</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-sputum_culture">
-                                <div class="text">Sputum Culture</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-x_ray">
-                                <div class="text">X-Ray</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-necropsy">
-                                <div class="text">Necropsy</div>
+                            <th scope="col" class="sortable column-tuberculin_test">
+                                <div class="text">Tuberculin Test</div>
                                 <div class="clear"></div>
                             </th>
                             <th scope="col" class="sortable column-hiv">
@@ -226,6 +194,10 @@
                                 <div class="text">Diabetes</div>
                                 <div class="clear"></div>
                             </th>
+                            <th scope="col" class="sortable column-smoking">
+                                <div class="text">Smoking</div>
+                                <div class="clear"></div>
+                            </th>
                             <th scope="col" class="sortable column-alcoholism">
                                 <div class="text">Alcoholism</div>
                                 <div class="clear"></div>
@@ -238,64 +210,48 @@
                                 <div class="text">Drug Addiction</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-smoking">
-                                <div class="text">Smoking</div>
+                            <th scope="col" class="sortable column-bacilloscopy_sputum">
+                                <div class="text">Bacilloscopy Sputum</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-total_contacts">
-                                <div class="text">Total Contacts</div>
+                            <th scope="col" class="sortable column-sputum_culture">
+                                <div class="text">Sputum Culture</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-contacts_examined">
-                                <div class="text">Contacts Examined</div>
+                            <th scope="col" class="sortable column-bacilloscopy_month_3">
+                                <div class="text">Bacilloscopy M3 ⭐</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-sick_contacts">
-                                <div class="text">Sick Contacts</div>
+                            <th scope="col" class="sortable column-bacilloscopy_month_4">
+                                <div class="text">Bacilloscopy M4 ⭐</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-treatment_institution">
-                                <div class="text">Treatment Institution</div>
+                            <th scope="col" class="sortable column-rifampicin">
+                                <div class="text">Rifampicin</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-initial_regimen">
-                                <div class="text">Initial Regimen</div>
+                            <th scope="col" class="sortable column-isoniazid">
+                                <div class="text">Isoniazid</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-regimen_change">
-                                <div class="text">Regimen Change</div>
+                            <th scope="col" class="sortable column-ethambutol">
+                                <div class="text">Ethambutol</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-current_regimen">
-                                <div class="text">Current Regimen</div>
+                            <th scope="col" class="sortable column-supervised_treatment">
+                                <div class="text">Supervised Treatment</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-reason_change">
-                                <div class="text">Reason Change</div>
+                            <th scope="col" class="sortable column-occupational_disease">
+                                <div class="text">Occupational Disease</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-treatment_type">
-                                <div class="text">Treatment Type</div>
+                            <th scope="col" class="sortable column-days_in_treatment">
+                                <div class="text">Days In Treatment</div>
                                 <div class="clear"></div>
                             </th>
-                            <th scope="col" class="sortable column-primary_doses">
-                                <div class="text">Primary Doses</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-secondary_doses">
-                                <div class="text">Secondary Doses</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-age">
-                                <div class="text"><a href="?o=3">Age</a></div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-resistance">
-                                <div class="text">Resistance</div>
-                                <div class="clear"></div>
-                            </th>
-                            <th scope="col" class="sortable column-hospitalization">
-                                <div class="text">Hospitalization Reason</div>
+                            <th scope="col" class="sortable column-outcome_status">
+                                <div class="text">Outcome Status</div>
                                 <div class="clear"></div>
                             </th>
                         </tr>
@@ -306,52 +262,17 @@
                             <th class="field-patient_id">
                                 <a href="{% url 'patients:patient-detail' patient.patient_id %}">{{ patient.patient_id }}</a>
                             </th>
-                            <td class="field-race_color"><span class="quiet">-</span></td>
-                            <td class="field-age_group">
-                                {% if patient.age < 20 %}0_19
-                                {% elif patient.age < 30 %}20_29
-                                {% elif patient.age < 40 %}30_39
-                                {% elif patient.age < 50 %}40_49
-                                {% elif patient.age < 60 %}50_59
-                                {% else %}60_plus{% endif %}
+                            <td class="field-notification_date">
+                                {% if patient.notification_date %}{{ patient.notification_date|date:"Y-m-d" }}{% else %}<span class="quiet">-</span>{% endif %}
                             </td>
                             <td class="field-sex">{{ patient.sex }}</td>
-                            <td class="field-pregnant">
-                                {% if patient.sex == 'F' %}<span class="quiet">-</span>{% else %}<span class="quiet">N/A</span>{% endif %}
-                            </td>
-                            <td class="field-education"><span class="quiet">-</span></td>
-                            <td class="field-occupation"><span class="quiet">-</span></td>
-                            <td class="field-previous_treatment"><span class="quiet">-</span></td>
-                            <td class="field-treated_before">
-                                {% if patient.has_regimens %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="No">{% endif %}
-                            </td>
-                            <td class="field-current_situation">
-                                {% if patient.has_regimens and patient.first_regimen %}
-                                    {{ patient.first_regimen.0.outcome|default:"-" }}
-                                {% else %}
-                                    <span class="quiet">-</span>
-                                {% endif %}
-                            </td>
-                            <td class="field-case_type"><span class="quiet">-</span></td>
-                            <td class="field-clinical_form"><span class="quiet">-</span></td>
-                            <td class="field-classification"><span class="quiet">-</span></td>
-                            <td class="field-discovery"><span class="quiet">-</span></td>
-                            <td class="field-bacilloscopy">
-                                {% if patient.first_visit and patient.first_visit|length > 0 %}
-                                    {{ patient.first_visit.0.smear_result|default:"-" }}
-                                {% else %}
-                                    <span class="quiet">-</span>
-                                {% endif %}
-                            </td>
-                            <td class="field-sputum_culture"><span class="quiet">-</span></td>
-                            <td class="field-x_ray">
-                                {% if patient.chest_x_ray %}
-                                    {{ patient.chest_x_ray }}
-                                {% else %}
-                                    <span class="quiet">-</span>
-                                {% endif %}
-                            </td>
-                            <td class="field-necropsy"><span class="quiet">-</span></td>
+                            <td class="field-age">{{ patient.age }}</td>
+                            <td class="field-race">{{ patient.race|default:"-" }}</td>
+                            <td class="field-state">{{ patient.state|default:"-" }}</td>
+                            <td class="field-treatment">{{ patient.treatment|default:"-" }}</td>
+                            <td class="field-clinical_form">{{ patient.clinical_form|default:"-" }}</td>
+                            <td class="field-chest_x_ray">{{ patient.chest_x_ray|default:"-" }}</td>
+                            <td class="field-tuberculin_test">{{ patient.tuberculin_test|default:"-" }}</td>
                             <td class="field-hiv">
                                 {% if patient.hiv_positive %}
                                     <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="HIV Positive">
@@ -359,7 +280,13 @@
                                     <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="HIV Negative">
                                 {% endif %}
                             </td>
-                            <td class="field-aids"><span class="quiet">-</span></td>
+                            <td class="field-aids">
+                                {% if patient.aids_comorbidity %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="AIDS Comorbidity">
+                                {% else %}
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="No AIDS">
+                                {% endif %}
+                            </td>
                             <td class="field-diabetes">
                                 {% if patient.diabetes %}
                                     <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="Has Diabetes">
@@ -367,9 +294,6 @@
                                     <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="No Diabetes">
                                 {% endif %}
                             </td>
-                            <td class="field-alcoholism"><span class="quiet">-</span></td>
-                            <td class="field-mental_disorder"><span class="quiet">-</span></td>
-                            <td class="field-drug_addiction"><span class="quiet">-</span></td>
                             <td class="field-smoking">
                                 {% if patient.smoker %}
                                     <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="Smoker">
@@ -377,48 +301,82 @@
                                     <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="Non-smoker">
                                 {% endif %}
                             </td>
-                            <td class="field-total_contacts"><span class="quiet">0</span></td>
-                            <td class="field-contacts_examined"><span class="quiet">0</span></td>
-                            <td class="field-sick_contacts"><span class="quiet">0</span></td>
-                            <td class="field-treatment_institution"><span class="quiet">-</span></td>
-                            <td class="field-initial_regimen">
-                                {% if patient.has_regimens and patient.first_regimen and patient.first_regimen|length > 0 %}
-                                    {{ patient.first_regimen.0.drugs|default:"-" }}
+                            <td class="field-alcoholism">
+                                {% if patient.alcoholism_comorbidity %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="Alcoholism Comorbidity">
                                 {% else %}
-                                    <span class="quiet">-</span>
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="No Alcoholism">
                                 {% endif %}
                             </td>
-                            <td class="field-regimen_change">
-                                {% if patient.has_modifications %}
+                            <td class="field-mental_disorder">
+                                {% if patient.mental_disorder_comorbidity %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="Mental Disorder Comorbidity">
+                                {% else %}
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="No Mental Disorder">
+                                {% endif %}
+                            </td>
+                            <td class="field-drug_addiction">
+                                {% if patient.drug_addiction_comorbidity %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="Drug Addiction Comorbidity">
+                                {% else %}
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="No Drug Addiction">
+                                {% endif %}
+                            </td>
+                            <td class="field-bacilloscopy_sputum">{{ patient.bacilloscopy_sputum|default:"-" }}</td>
+                            <td class="field-sputum_culture">{{ patient.sputum_culture|default:"-" }}</td>
+                            <td class="field-bacilloscopy_month_3" style="background: #e7f3ff;">
+                                <strong>{{ patient.bacilloscopy_month_3|default:"-" }}</strong>
+                            </td>
+                            <td class="field-bacilloscopy_month_4" style="background: #e7f3ff;">
+                                <strong>{{ patient.bacilloscopy_month_4|default:"-" }}</strong>
+                            </td>
+                            <td class="field-rifampicin">
+                                {% if patient.rifampicin %}
                                     <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes">
                                 {% else %}
                                     <img src="{% static 'admin/img/icon-no.svg' %}" alt="No">
                                 {% endif %}
                             </td>
-                            <td class="field-current_regimen">
-                                {% if patient.has_regimens and patient.first_regimen and patient.first_regimen|length > 0 %}
-                                    {{ patient.first_regimen.0.drugs|default:"-" }}
+                            <td class="field-isoniazid">
+                                {% if patient.isoniazid %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes">
+                                {% else %}
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No">
+                                {% endif %}
+                            </td>
+                            <td class="field-ethambutol">
+                                {% if patient.ethambutol %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes">
+                                {% else %}
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No">
+                                {% endif %}
+                            </td>
+                            <td class="field-supervised_treatment">
+                                {% if patient.supervised_treatment %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="Supervised Treatment">
+                                {% else %}
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="Not Supervised">
+                                {% endif %}
+                            </td>
+                            <td class="field-occupational_disease">
+                                {% if patient.occupational_disease %}
+                                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="Yes" title="Occupational Disease">
+                                {% else %}
+                                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="No" title="Not Occupational">
+                                {% endif %}
+                            </td>
+                            <td class="field-days_in_treatment">{{ patient.days_in_treatment|default:"-" }}</td>
+                            <td class="field-outcome_status">
+                                {% if patient.outcome_status %}
+                                    <strong>{{ patient.get_outcome_status_display|default:patient.outcome_status }}</strong>
                                 {% else %}
                                     <span class="quiet">-</span>
                                 {% endif %}
                             </td>
-                            <td class="field-reason_change">
-                                {% if patient.has_modifications and patient.first_modification and patient.first_modification|length > 0 %}
-                                    {{ patient.first_modification.0.reason|default:"-" }}
-                                {% else %}
-                                    <span class="quiet">-</span>
-                                {% endif %}
-                            </td>
-                            <td class="field-treatment_type"><span class="quiet">-</span></td>
-                            <td class="field-primary_doses"><span class="quiet">0</span></td>
-                            <td class="field-secondary_doses"><span class="quiet">0</span></td>
-                            <td class="field-age">{{ patient.age }}</td>
-                            <td class="field-resistance"><span class="quiet">-</span></td>
-                            <td class="field-hospitalization"><span class="quiet">-</span></td>
                         </tr>
                         {% empty %}
                         <tr class="row1">
-                            <td colspan="42" class="text-center">
+                            <td colspan="28" class="text-center">
                                 <p class="errornote">No patients found.</p>
                             </td>
                         </tr>
