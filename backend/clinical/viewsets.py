@@ -207,6 +207,7 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
     def _extract_patient_features(self, patient):
         """
         Extract features from patient record for ML prediction.
+        Uses data from months 1-3 as prediction start point is month 3-4.
         
         Args:
             patient: Patient model instance
@@ -216,7 +217,7 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
         """
         import numpy as np
         
-        # Get visit statistics
+        # Get visit statistics from MonitoringVisit (if available)
         visits = patient.visits.all()
         adherence_values = list(visits.values_list('adherence_pct', flat=True))
         
@@ -227,6 +228,7 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
             adherence_std = float(np.std(adherence_values))
         else:
             # Default values if no visits yet
+            # Could also calculate from days_in_treatment if available
             adherence_mean = 90.0
             adherence_min = 85.0
             adherence_std = 5.0
@@ -237,18 +239,71 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
         # Count visits
         visit_count = visits.count()
         
+        # Extract bacilloscopy results for months 1-3 (available at prediction start)
+        # Convert to binary/numeric features if needed
+        def bacilloscopy_to_numeric(value):
+            """Convert bacilloscopy result to numeric (positive=1, negative/blank=0)"""
+            if not value:
+                return 0
+            value_lower = str(value).lower()
+            if any(pos in value_lower for pos in ['positive', '+', 'pos', '1']):
+                return 1
+            return 0
+        
+        bacilloscopy_m1 = bacilloscopy_to_numeric(patient.bacilloscopy_month_1)
+        bacilloscopy_m2 = bacilloscopy_to_numeric(patient.bacilloscopy_month_2)
+        bacilloscopy_m3 = bacilloscopy_to_numeric(patient.bacilloscopy_month_3)
+        
+        # Calculate bacilloscopy trend (improvement/stability)
+        # Positive values indicate improvement (fewer positives over time)
+        bacilloscopy_trend = bacilloscopy_m1 - bacilloscopy_m3  # Improvement from M1 to M3
+        
+        # Calculate total comorbidity count
+        comorbidity_count = (
+            int(patient.aids_comorbidity) +
+            int(patient.alcoholism_comorbidity) +
+            int(patient.diabetes) +
+            int(patient.mental_disorder_comorbidity) +
+            int(patient.drug_addiction_comorbidity) +
+            int(patient.smoker) +
+            (1 if patient.other_comorbidity else 0)
+        )
+        
+        # Extract X-ray score from chest_x_ray field if x_ray_score not available
+        x_ray_score = patient.x_ray_score
+        if not x_ray_score and patient.chest_x_ray:
+            # Try to extract numeric score from chest_x_ray string
+            try:
+                import re
+                match = re.search(r'(\d+\.?\d*)', str(patient.chest_x_ray))
+                if match:
+                    x_ray_score = float(match.group(1))
+            except:
+                pass
+        
+        # Return features compatible with current model (backward compatible)
+        # NOTE: When retraining with new dataset, these features can be expanded
         return {
             'age': int(patient.age),
             'bmi': float(patient.bmi) if patient.bmi else 22.0,
             'hiv_positive': int(patient.hiv_positive),
             'diabetes': int(patient.diabetes),
             'smoker': int(patient.smoker),
-            'x_ray_score': float(patient.x_ray_score) if patient.x_ray_score else 5.0,
+            'x_ray_score': float(x_ray_score) if x_ray_score else 5.0,
             'adherence_mean': adherence_mean,
             'adherence_min': adherence_min,
             'adherence_std': adherence_std,
             'modification_count': modification_count,
-            'visit_count': visit_count
+            'visit_count': visit_count,
+            # Additional features from new dataset (for future model retraining)
+            # These are calculated but not yet used by current model
+            'bacilloscopy_m1': bacilloscopy_m1,
+            'bacilloscopy_m2': bacilloscopy_m2,
+            'bacilloscopy_m3': bacilloscopy_m3,
+            'bacilloscopy_trend': bacilloscopy_trend,
+            'comorbidity_count': comorbidity_count,
+            'days_in_treatment': int(patient.days_in_treatment) if patient.days_in_treatment else 90,
+            'supervised_treatment': int(patient.supervised_treatment),
         }
 
 

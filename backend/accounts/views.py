@@ -52,3 +52,7 @@ class CustomLogoutView(RedirectView):
         return redirect(self.url)
 
 
+
+
+
+

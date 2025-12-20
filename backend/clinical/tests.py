@@ -269,3 +269,7 @@ class LogoutViewTest(TestCase):
         self.assertEqual(response.status_code, 302)  # Should redirect to login
 
 
+
+
+
+

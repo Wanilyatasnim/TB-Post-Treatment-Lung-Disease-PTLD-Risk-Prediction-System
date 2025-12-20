@@ -86,6 +86,204 @@
             <th>Baseline Date:</th>
             <td>{% if patient.baseline_date %}{{ patient.baseline_date }}{% else %}<span class="quiet">-</span>{% endif %}</td>
         </tr>
+        {% if patient.notification_date %}
+        <tr>
+            <th>Notification Date:</th>
+            <td>{{ patient.notification_date }}</td>
+        </tr>
+        {% endif %}
+        {% if patient.race %}
+        <tr>
+            <th>Race:</th>
+            <td>{{ patient.race }}</td>
+        </tr>
+        {% endif %}
+        {% if patient.state %}
+        <tr>
+            <th>State:</th>
+            <td>{{ patient.state }}</td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+
+<div class="module">
+    <h2>TB-Specific Information</h2>
+    <table>
+        {% if patient.treatment %}
+        <tr>
+            <th>Treatment:</th>
+            <td>{{ patient.treatment }}</td>
+        </tr>
+        {% endif %}
+        {% if patient.clinical_form %}
+        <tr>
+            <th>Clinical Form:</th>
+            <td>{{ patient.clinical_form }}</td>
+        </tr>
+        {% endif %}
+        {% if patient.chest_x_ray %}
+        <tr>
+            <th>Chest X-Ray:</th>
+            <td>{{ patient.chest_x_ray }}</td>
+        </tr>
+        {% endif %}
+        {% if patient.tuberculin_test %}
+        <tr>
+            <th>Tuberculin Test:</th>
+            <td>{{ patient.tuberculin_test }}</td>
+        </tr>
+        {% endif %}
+        {% if patient.sputum_culture %}
+        <tr>
+            <th>Sputum Culture:</th>
+            <td>{{ patient.sputum_culture }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Supervised Treatment:</th>
+            <td>
+                {% if patient.supervised_treatment %}
+                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">
+                {% else %}
+                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="False">
+                {% endif %}
+            </td>
+        </tr>
+        {% if patient.days_in_treatment %}
+        <tr>
+            <th>Days in Treatment:</th>
+            <td>{{ patient.days_in_treatment }} days</td>
+        </tr>
+        {% endif %}
+        {% if patient.outcome_status %}
+        <tr>
+            <th>Outcome Status:</th>
+            <td><strong>{{ patient.get_outcome_status_display|default:patient.outcome_status }}</strong></td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+
+<div class="module">
+    <h2>Comorbidities</h2>
+    <table>
+        <tr>
+            <th>AIDS:</th>
+            <td>{% if patient.aids_comorbidity %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Alcoholism:</th>
+            <td>{% if patient.alcoholism_comorbidity %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Drug Addiction:</th>
+            <td>{% if patient.drug_addiction_comorbidity %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Mental Disorder:</th>
+            <td>{% if patient.mental_disorder_comorbidity %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        {% if patient.other_comorbidity %}
+        <tr>
+            <th>Other Comorbidity:</th>
+            <td>{{ patient.other_comorbidity }}</td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+
+<div class="module">
+    <h2>Treatment Drugs</h2>
+    <table>
+        <tr>
+            <th>Rifampicin:</th>
+            <td>{% if patient.rifampicin %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Isoniazid:</th>
+            <td>{% if patient.isoniazid %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Ethambutol:</th>
+            <td>{% if patient.ethambutol %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Streptomycin:</th>
+            <td>{% if patient.streptomycin %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Pyrazinamide:</th>
+            <td>{% if patient.pyrazinamide %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Ethionamide:</th>
+            <td>{% if patient.ethionamide %}<img src="{% static 'admin/img/icon-yes.svg' %}" alt="True">{% else %}<img src="{% static 'admin/img/icon-no.svg' %}" alt="False">{% endif %}</td>
+        </tr>
+        {% if patient.other_drugs %}
+        <tr>
+            <th>Other Drugs:</th>
+            <td>{{ patient.other_drugs }}</td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+
+<div class="module">
+    <h2>Monthly Bacilloscopy Results (Months 1-6)</h2>
+    <p style="padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; margin-bottom: 10px;">
+        <strong>Note:</strong> Prediction starts at months 3-4, using data from months 1-3.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Bacilloscopy Result</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Initial</strong></td>
+                <td>{{ patient.bacilloscopy_sputum|default:"-" }}</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><strong>Initial 2</strong></td>
+                <td>{{ patient.bacilloscopy_sputum_2|default:"-" }}</td>
+                <td>-</td>
+            </tr>
+            <tr {% if patient.bacilloscopy_month_1 %}style="background: #e7f3ff;"{% endif %}>
+                <td><strong>Month 1</strong></td>
+                <td>{{ patient.bacilloscopy_month_1|default:"-" }}</td>
+                <td>{% if patient.bacilloscopy_month_1 %}<span style="color: #0066cc;">✓ Available</span>{% else %}<span class="quiet">Not recorded</span>{% endif %}</td>
+            </tr>
+            <tr {% if patient.bacilloscopy_month_2 %}style="background: #e7f3ff;"{% endif %}>
+                <td><strong>Month 2</strong></td>
+                <td>{{ patient.bacilloscopy_month_2|default:"-" }}</td>
+                <td>{% if patient.bacilloscopy_month_2 %}<span style="color: #0066cc;">✓ Available</span>{% else %}<span class="quiet">Not recorded</span>{% endif %}</td>
+            </tr>
+            <tr {% if patient.bacilloscopy_month_3 %}style="background: #d4edda; font-weight: bold;"{% endif %}>
+                <td><strong>Month 3</strong> ⭐</td>
+                <td><strong>{{ patient.bacilloscopy_month_3|default:"-" }}</strong></td>
+                <td>{% if patient.bacilloscopy_month_3 %}<span style="color: #28a745; font-weight: bold;">✓ Available (Prediction Start)</span>{% else %}<span class="quiet">Not recorded</span>{% endif %}</td>
+            </tr>
+            <tr {% if patient.bacilloscopy_month_4 %}style="background: #d4edda; font-weight: bold;"{% endif %}>
+                <td><strong>Month 4</strong> ⭐</td>
+                <td><strong>{{ patient.bacilloscopy_month_4|default:"-" }}</strong></td>
+                <td>{% if patient.bacilloscopy_month_4 %}<span style="color: #28a745; font-weight: bold;">✓ Available (Prediction Start)</span>{% else %}<span class="quiet">Not recorded</span>{% endif %}</td>
+            </tr>
+            <tr>
+                <td><strong>Month 5</strong></td>
+                <td>{{ patient.bacilloscopy_month_5|default:"-" }}</td>
+                <td>{% if patient.bacilloscopy_month_5 %}<span style="color: #0066cc;">✓ Available</span>{% else %}<span class="quiet">Not recorded</span>{% endif %}</td>
+            </tr>
+            <tr>
+                <td><strong>Month 6</strong></td>
+                <td>{{ patient.bacilloscopy_month_6|default:"-" }}</td>
+                <td>{% if patient.bacilloscopy_month_6 %}<span style="color: #0066cc;">✓ Available</span>{% else %}<span class="quiet">Not recorded</span>{% endif %}</td>
+            </tr>
+        </tbody>
     </table>
 </div>
 

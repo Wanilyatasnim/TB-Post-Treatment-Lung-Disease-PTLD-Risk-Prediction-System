@@ -6,7 +6,29 @@ from clinical.models import MonitoringVisit, Patient, TreatmentModification, Tre
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ["patient_id", "sex", "age", "bmi", "hiv_positive", "diabetes", "smoker", "x_ray_score", "district", "comorbidities", "baseline_date"]
+        fields = [
+            # Basic Demographics
+            "patient_id", "notification_date", "sex", "age", "race", "state", "district",
+            # Baseline Clinical
+            "treatment", "chest_x_ray", "tuberculin_test", "clinical_form", "baseline_date",
+            # Comorbidities
+            "hiv_positive", "diabetes", "smoker", "aids_comorbidity", "alcoholism_comorbidity",
+            "mental_disorder_comorbidity", "drug_addiction_comorbidity", "other_comorbidity",
+            # Initial Laboratory Tests
+            "bacilloscopy_sputum", "bacilloscopy_sputum_2", "bacilloscopy_other", "sputum_culture",
+            # Monthly Bacilloscopy (Months 1-6)
+            "bacilloscopy_month_1", "bacilloscopy_month_2", "bacilloscopy_month_3",
+            "bacilloscopy_month_4", "bacilloscopy_month_5", "bacilloscopy_month_6",
+            # Treatment Drugs
+            "rifampicin", "isoniazid", "ethambutol", "streptomycin", "pyrazinamide",
+            "ethionamide", "other_drugs",
+            # Treatment Characteristics
+            "supervised_treatment", "occupational_disease", "days_in_treatment",
+            # Outcome
+            "outcome_status",
+            # Legacy/Additional
+            "bmi", "x_ray_score", "comorbidities"
+        ]
 
 
 class TreatmentRegimenForm(forms.ModelForm):

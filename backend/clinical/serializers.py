@@ -44,3 +44,7 @@ class RiskPredictionSerializer(serializers.ModelSerializer):
 
 
 
+
+
+
+
