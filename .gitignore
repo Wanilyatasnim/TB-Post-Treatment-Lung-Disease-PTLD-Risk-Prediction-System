@@ -1,53 +1,71 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Virtual environments
-.env
-.venv
+*.so
+.Python
 env/
 venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Django/DB
-*.sqlite3
+# Django
+*.log
+local_settings.py
 db.sqlite3
-backend/db.sqlite3
-backend/db.sqlite3-journal
-media/
-backend/media/
-staticfiles/
-backend/staticfiles/
+db.sqlite3-journal
+/media
+/staticfiles
+/static
 
-# Environment files
+# Environment variables
 .env
-backend/.env
-*.env
+.env.local
+.env.*.local
 
-# Large model files (optional - uncomment if you want to exclude them)
-# *.pkl
-# ml/models/*.pkl
-
-# IDE/editor
+# IDE
 .vscode/
 .idea/
-
-# Python packaging
-build/
-dist/
-*.egg-info/
-
-# Node / frontend
-node_modules/
-
-# Coverage / reports
-.coverage
-coverage.xml
-htmlcov/
-
-# Docker
-*.log
+*.swp
+*.swo
+*~
 .DS_Store
 
+# Jupyter Notebook
+.ipynb_checkpoints
 
+# ML Models (if large)
+*.h5
+*.hdf5
 
+# Documentation builds
+docs/_build/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
