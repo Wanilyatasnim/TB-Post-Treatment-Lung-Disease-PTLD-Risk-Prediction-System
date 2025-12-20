@@ -91,6 +91,176 @@
             </li>
         </ul>
         
+        <h3>By AIDS</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.aids == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url aids='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.aids == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url aids='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.aids %} class="selected"{% endif %}>
+                <a href="{% build_filter_url aids=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Alcoholism</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.alcoholism == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url alcoholism='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.alcoholism == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url alcoholism='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.alcoholism %} class="selected"{% endif %}>
+                <a href="{% build_filter_url alcoholism=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Mental Disorder</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.mental_disorder == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url mental_disorder='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.mental_disorder == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url mental_disorder='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.mental_disorder %} class="selected"{% endif %}>
+                <a href="{% build_filter_url mental_disorder=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Drug Addiction</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.drug_addiction == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url drug_addiction='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.drug_addiction == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url drug_addiction='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.drug_addiction %} class="selected"{% endif %}>
+                <a href="{% build_filter_url drug_addiction=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By State</h3>
+        <ul class="filter-list">
+            {% for state_val in states %}
+            <li{% if request.GET.state == state_val %} class="selected"{% endif %}>
+                <a href="{% build_filter_url state=state_val %}">{{ state_val }}</a>
+            </li>
+            {% empty %}
+            <li><span class="quiet">No states available</span></li>
+            {% endfor %}
+            <li{% if not request.GET.state %} class="selected"{% endif %}>
+                <a href="{% build_filter_url state=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Outcome Status</h3>
+        <ul class="filter-list">
+            {% for value, label in outcome_choices %}
+            <li{% if request.GET.outcome == value %} class="selected"{% endif %}>
+                <a href="{% build_filter_url outcome=value %}">{{ label }}</a>
+            </li>
+            {% endfor %}
+            <li{% if not request.GET.outcome %} class="selected"{% endif %}>
+                <a href="{% build_filter_url outcome=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Clinical Form</h3>
+        <ul class="filter-list">
+            {% for form_val in clinical_forms %}
+            <li{% if request.GET.clinical_form == form_val %} class="selected"{% endif %}>
+                <a href="{% build_filter_url clinical_form=form_val %}">{{ form_val }}</a>
+            </li>
+            {% empty %}
+            <li><span class="quiet">No forms available</span></li>
+            {% endfor %}
+            <li{% if not request.GET.clinical_form %} class="selected"{% endif %}>
+                <a href="{% build_filter_url clinical_form=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Supervised Treatment</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.supervised == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url supervised='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.supervised == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url supervised='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.supervised %} class="selected"{% endif %}>
+                <a href="{% build_filter_url supervised=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>Bacilloscopy Month 3 ⭐</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.bacillo_m3 == 'positive' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url bacillo_m3='positive' %}">Positive</a>
+            </li>
+            <li{% if request.GET.bacillo_m3 == 'negative' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url bacillo_m3='negative' %}">Negative</a>
+            </li>
+            <li{% if not request.GET.bacillo_m3 %} class="selected"{% endif %}>
+                <a href="{% build_filter_url bacillo_m3=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>Bacilloscopy Month 4 ⭐</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.bacillo_m4 == 'positive' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url bacillo_m4='positive' %}">Positive</a>
+            </li>
+            <li{% if request.GET.bacillo_m4 == 'negative' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url bacillo_m4='negative' %}">Negative</a>
+            </li>
+            <li{% if not request.GET.bacillo_m4 %} class="selected"{% endif %}>
+                <a href="{% build_filter_url bacillo_m4=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Rifampicin</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.rifampicin == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url rifampicin='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.rifampicin == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url rifampicin='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.rifampicin %} class="selected"{% endif %}>
+                <a href="{% build_filter_url rifampicin=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Isoniazid</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.isoniazid == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url isoniazid='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.isoniazid == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url isoniazid='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.isoniazid %} class="selected"{% endif %}>
+                <a href="{% build_filter_url isoniazid=None %}">All</a>
+            </li>
+        </ul>
+        
+        <h3>By Ethambutol</h3>
+        <ul class="filter-list">
+            <li{% if request.GET.ethambutol == '1' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url ethambutol='1' %}">Yes</a>
+            </li>
+            <li{% if request.GET.ethambutol == '0' %} class="selected"{% endif %}>
+                <a href="{% build_filter_url ethambutol='0' %}">No</a>
+            </li>
+            <li{% if not request.GET.ethambutol %} class="selected"{% endif %}>
+                <a href="{% build_filter_url ethambutol=None %}">All</a>
+            </li>
+        </ul>
+        
         <h3>By Treatment Status</h3>
         <ul class="filter-list">
             <li{% if request.GET.treated_before == '1' %} class="selected"{% endif %}>
@@ -117,7 +287,7 @@
             </li>
         </ul>
         
-        {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change %}
+        {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change or request.GET.aids or request.GET.alcoholism or request.GET.mental_disorder or request.GET.drug_addiction or request.GET.state or request.GET.outcome or request.GET.clinical_form or request.GET.supervised or request.GET.bacillo_m3 or request.GET.bacillo_m4 or request.GET.rifampicin or request.GET.isoniazid or request.GET.ethambutol %}
         <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd;">
             <a href="{% url 'patients:patient-list' %}" class="button" style="display: block; text-align: center; padding: 8px;">Clear All Filters</a>
         </div>
@@ -130,7 +300,7 @@
                 <label for="searchbar"><img src="{% static 'admin/img/search.svg' %}" alt="Search"></label>
                 <input type="text" size="40" name="search" value="{{ request.GET.search }}" id="searchbar" autofocus placeholder="Search by Patient ID or State...">
                 <input type="submit" value="Search">
-                {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change %}
+                {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change or request.GET.aids or request.GET.alcoholism or request.GET.mental_disorder or request.GET.drug_addiction or request.GET.state or request.GET.outcome or request.GET.clinical_form or request.GET.supervised or request.GET.bacillo_m3 or request.GET.bacillo_m4 or request.GET.rifampicin or request.GET.isoniazid or request.GET.ethambutol %}
                 <a href="{% url 'patients:patient-list' %}" class="small quiet" style="margin-left: 10px;">Clear all filters</a>
                 {% endif %}
             </div>
@@ -387,8 +557,8 @@
             
             <p class="paginator">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">previous</a>
+                    <a href="{% build_filter_url page=1 %}">&laquo; first</a>
+                    <a href="{% build_filter_url page=page_obj.previous_page_number %}">previous</a>
                 {% endif %}
                 
                 <span class="this-page">
@@ -396,8 +566,8 @@
                 </span>
                 
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sex %}&sex={{ request.GET.sex }}{% endif %}{% if request.GET.hiv %}&hiv={{ request.GET.hiv }}{% endif %}{% if request.GET.diabetes %}&diabetes={{ request.GET.diabetes }}{% endif %}">last &raquo;</a>
+                    <a href="{% build_filter_url page=page_obj.next_page_number %}">next</a>
+                    <a href="{% build_filter_url page=page_obj.paginator.num_pages %}">last &raquo;</a>
                 {% endif %}
                 
                 {{ page_obj.paginator.count }} patient{{ page_obj.paginator.count|pluralize }}

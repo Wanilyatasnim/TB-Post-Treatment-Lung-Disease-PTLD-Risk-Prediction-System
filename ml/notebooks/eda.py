@@ -261,14 +261,23 @@ for field in bacilloscopy_fields:
         )
 
 # Calculate comorbidity count
+def safe_column_sum(df, col_name, default=0):
+    """Safely get column and convert to int, returning default if column doesn't exist."""
+    if col_name in df.columns:
+        return df[col_name].fillna(0).astype(int)
+    else:
+        return pd.Series([default] * len(df), index=df.index)
+
 full_df['comorbidity_count'] = (
-    full_df.get('hiv_positive', 0).fillna(0).astype(int) +
-    full_df.get('diabetes', 0).fillna(0).astype(int) +
-    full_df.get('smoker', 0).fillna(0).astype(int) +
-    full_df.get('aids_comorbidity', 0).fillna(0).astype(int) +
-    full_df.get('alcoholism_comorbidity', 0).fillna(0).astype(int) +
-    full_df.get('mental_disorder_comorbidity', 0).fillna(0).astype(int) +
-    full_df.get('drug_addiction_comorbidity', 0).fillna(0).astype(int)
+    safe_column_sum(full_df, 'hiv_positive') +
+    safe_column_sum(full_df, 'diabetes') +
+    safe_column_sum(full_df, 'smoker') +
+    safe_column_sum(full_df, 'aids_comorbidity') +
+    safe_column_sum(full_df, 'alcoholism_comorbidity') +
+    safe_column_sum(full_df, 'mental_disorder_comorbidity') +
+    safe_column_sum(full_df, 'drug_addiction_comorbidity') +
+    (full_df['other_comorbidity'].notna() & (full_df['other_comorbidity'] != '')).astype(int)
+    if 'other_comorbidity' in full_df.columns else pd.Series([0] * len(full_df), index=full_df.index)
 )
 
 # Correlation matrix - use new TB dataset features

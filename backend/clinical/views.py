@@ -120,21 +120,126 @@ class PatientListView(LoginRequiredMixin, ListView):
         elif regimen_change == '0':
             queryset = queryset.filter(modifications__isnull=True)
         
-        # Filter by X-Ray score range
-        xray_min = self.request.GET.get('xray_min')
-        xray_max = self.request.GET.get('xray_max')
-        if xray_min:
-            try:
-                queryset = queryset.filter(x_ray_score__gte=float(xray_min))
-            except (ValueError, TypeError):
-                pass
-        if xray_max:
-            try:
-                queryset = queryset.filter(x_ray_score__lte=float(xray_max))
-            except (ValueError, TypeError):
-                pass
+        # Filter by State
+        state = self.request.GET.get('state')
+        if state:
+            queryset = queryset.filter(state__icontains=state)
+        
+        # Filter by Outcome Status
+        outcome = self.request.GET.get('outcome')
+        if outcome:
+            queryset = queryset.filter(outcome_status=outcome)
+        
+        # Filter by Supervised Treatment
+        supervised = self.request.GET.get('supervised')
+        if supervised == '1':
+            queryset = queryset.filter(supervised_treatment=True)
+        elif supervised == '0':
+            queryset = queryset.filter(supervised_treatment=False)
+        
+        # Filter by Clinical Form
+        clinical_form = self.request.GET.get('clinical_form')
+        if clinical_form:
+            queryset = queryset.filter(clinical_form__icontains=clinical_form)
+        
+        # Filter by Bacilloscopy Month 3 (prediction start point)
+        bacillo_m3 = self.request.GET.get('bacillo_m3')
+        if bacillo_m3 == 'positive':
+            queryset = queryset.filter(
+                models.Q(bacilloscopy_month_3__icontains='positive') |
+                models.Q(bacilloscopy_month_3__icontains='+') |
+                models.Q(bacilloscopy_month_3__icontains='pos')
+            )
+        elif bacillo_m3 == 'negative':
+            queryset = queryset.filter(
+                models.Q(bacilloscopy_month_3__icontains='negative') |
+                models.Q(bacilloscopy_month_3__icontains='-') |
+                models.Q(bacilloscopy_month_3__icontains='neg') |
+                models.Q(bacilloscopy_month_3='')
+            )
+        
+        # Filter by Bacilloscopy Month 4
+        bacillo_m4 = self.request.GET.get('bacillo_m4')
+        if bacillo_m4 == 'positive':
+            queryset = queryset.filter(
+                models.Q(bacilloscopy_month_4__icontains='positive') |
+                models.Q(bacilloscopy_month_4__icontains='+') |
+                models.Q(bacilloscopy_month_4__icontains='pos')
+            )
+        elif bacillo_m4 == 'negative':
+            queryset = queryset.filter(
+                models.Q(bacilloscopy_month_4__icontains='negative') |
+                models.Q(bacilloscopy_month_4__icontains='-') |
+                models.Q(bacilloscopy_month_4__icontains='neg') |
+                models.Q(bacilloscopy_month_4='')
+            )
+        
+        # Filter by AIDS Comorbidity
+        aids = self.request.GET.get('aids')
+        if aids == '1':
+            queryset = queryset.filter(aids_comorbidity=True)
+        elif aids == '0':
+            queryset = queryset.filter(aids_comorbidity=False)
+        
+        # Filter by Alcoholism Comorbidity
+        alcoholism = self.request.GET.get('alcoholism')
+        if alcoholism == '1':
+            queryset = queryset.filter(alcoholism_comorbidity=True)
+        elif alcoholism == '0':
+            queryset = queryset.filter(alcoholism_comorbidity=False)
+        
+        # Filter by Mental Disorder Comorbidity
+        mental_disorder = self.request.GET.get('mental_disorder')
+        if mental_disorder == '1':
+            queryset = queryset.filter(mental_disorder_comorbidity=True)
+        elif mental_disorder == '0':
+            queryset = queryset.filter(mental_disorder_comorbidity=False)
+        
+        # Filter by Drug Addiction Comorbidity
+        drug_addiction = self.request.GET.get('drug_addiction')
+        if drug_addiction == '1':
+            queryset = queryset.filter(drug_addiction_comorbidity=True)
+        elif drug_addiction == '0':
+            queryset = queryset.filter(drug_addiction_comorbidity=False)
+        
+        # Filter by Rifampicin
+        rifampicin = self.request.GET.get('rifampicin')
+        if rifampicin == '1':
+            queryset = queryset.filter(rifampicin=True)
+        elif rifampicin == '0':
+            queryset = queryset.filter(rifampicin=False)
+        
+        # Filter by Isoniazid
+        isoniazid = self.request.GET.get('isoniazid')
+        if isoniazid == '1':
+            queryset = queryset.filter(isoniazid=True)
+        elif isoniazid == '0':
+            queryset = queryset.filter(isoniazid=False)
+        
+        # Filter by Ethambutol
+        ethambutol = self.request.GET.get('ethambutol')
+        if ethambutol == '1':
+            queryset = queryset.filter(ethambutol=True)
+        elif ethambutol == '0':
+            queryset = queryset.filter(ethambutol=False)
         
         return queryset.order_by('-created_at')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get distinct values for filter dropdowns
+        context['states'] = Patient.objects.exclude(state='').order_by('state').values_list('state', flat=True).distinct()[:50]
+        context['clinical_forms'] = Patient.objects.exclude(clinical_form='').order_by('clinical_form').values_list('clinical_form', flat=True).distinct()[:20]
+        # Outcome choices from model field definition
+        context['outcome_choices'] = [
+            ('cured', 'Cured'),
+            ('completed', 'Completed'),
+            ('failed', 'Failed'),
+            ('lost', 'Lost'),
+            ('died', 'Died'),
+            ('transferred', 'Transferred'),
+        ]
+        return context
 
 
 class PatientCreateView(LoginRequiredMixin, CreateView):

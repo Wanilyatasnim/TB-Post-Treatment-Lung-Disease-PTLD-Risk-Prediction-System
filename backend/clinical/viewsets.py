@@ -282,14 +282,17 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
                 pass
         
         # Return features compatible with current model (backward compatible)
-        # NOTE: When retraining with new dataset, these features can be expanded
+        # ⚠️ WARNING: Current ML model expects OLD features (BMI, x_ray_score) that are NOT in new TB dataset
+        # These are provided as defaults/estimates for backward compatibility
+        # TODO: Retrain model with new TB dataset features to use actual patient data
+        # See ML_MODEL_FEATURE_MISMATCH.md for details
         return {
             'age': int(patient.age),
-            'bmi': 22.0,  # Default value - BMI not in new dataset
+            'bmi': 22.0,  # ⚠️ DEFAULT - BMI not in new TB dataset (no weight/height fields). This is a placeholder.
             'hiv_positive': int(patient.hiv_positive),
             'diabetes': int(patient.diabetes),
             'smoker': int(patient.smoker),
-            'x_ray_score': float(x_ray_numeric) if x_ray_numeric else 5.0,  # Extract from chest_x_ray or use default
+            'x_ray_score': float(x_ray_numeric) if x_ray_numeric else 5.0,  # ⚠️ ESTIMATED - Extracted from chest_x_ray text or default. Not actual numeric score field.
             'adherence_mean': adherence_mean,
             'adherence_min': adherence_min,
             'adherence_std': adherence_std,
