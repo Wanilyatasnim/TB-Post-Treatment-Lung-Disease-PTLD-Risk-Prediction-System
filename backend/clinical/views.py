@@ -42,12 +42,12 @@ class PatientListView(LoginRequiredMixin, ListView):
             Prefetch('visits', queryset=MonitoringVisit.objects.only('patient_id', 'smear_result', 'date').order_by('-date')[:1], to_attr='first_visit'),
         )
         
-        # Search by patient_id or district
+        # Search by patient_id or state
         search = self.request.GET.get('search')
         if search:
             queryset = queryset.filter(
                 models.Q(patient_id__icontains=search) |
-                models.Q(district__icontains=search)
+                models.Q(state__icontains=search)
             )
         
         # Filter by sex
@@ -134,24 +134,7 @@ class PatientListView(LoginRequiredMixin, ListView):
             except (ValueError, TypeError):
                 pass
         
-        # Filter by district
-        district = self.request.GET.get('district')
-        if district:
-            queryset = queryset.filter(district__icontains=district)
-        
         return queryset.order_by('-created_at')
-    
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        # Cache districts query - only fetch if not already cached
-        from django.core.cache import cache
-        districts_cache_key = 'patient_districts_list'
-        districts = cache.get(districts_cache_key)
-        if districts is None:
-            districts = list(Patient.objects.exclude(district='').values_list('district', flat=True).distinct().order_by('district'))
-            cache.set(districts_cache_key, districts, 300)  # Cache for 5 minutes
-        ctx['districts'] = districts
-        return ctx
 
 
 class PatientCreateView(LoginRequiredMixin, CreateView):

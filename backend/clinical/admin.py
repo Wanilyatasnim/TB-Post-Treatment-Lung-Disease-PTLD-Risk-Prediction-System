@@ -6,7 +6,7 @@ from clinical.models import AuditLog, MonitoringVisit, Patient, RiskPrediction, 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
     list_display = ("patient_id", "sex", "age", "notification_date", "state", "hiv_positive", "outcome_status", "days_in_treatment")
-    search_fields = ("patient_id", "district", "state", "race", "comorbidities")
+    search_fields = ("patient_id", "state", "race")
     list_filter = (
         "sex", 
         "hiv_positive", 
@@ -19,16 +19,16 @@ class PatientAdmin(admin.ModelAdmin):
     )
     fieldsets = (
         ("Basic Demographics", {
-            "fields": ("patient_id", "notification_date", "sex", "age", "race", "state", "district")
+            "fields": ("patient_id", "notification_date", "sex", "age", "race", "state")
         }),
         ("Clinical Information", {
-            "fields": ("treatment", "clinical_form", "chest_x_ray", "tuberculin_test", "baseline_date")
+            "fields": ("treatment", "clinical_form", "chest_x_ray", "tuberculin_test")
         }),
         ("Comorbidities", {
             "fields": (
                 "hiv_positive", "diabetes", "smoker", "aids_comorbidity",
                 "alcoholism_comorbidity", "mental_disorder_comorbidity",
-                "drug_addiction_comorbidity", "other_comorbidity", "comorbidities"
+                "drug_addiction_comorbidity", "other_comorbidity"
             )
         }),
         ("Laboratory Tests - Initial", {
@@ -49,10 +49,6 @@ class PatientAdmin(admin.ModelAdmin):
         }),
         ("Treatment Characteristics", {
             "fields": ("supervised_treatment", "occupational_disease", "days_in_treatment", "outcome_status")
-        }),
-        ("Additional Information", {
-            "fields": ("bmi", "x_ray_score"),
-            "classes": ("collapse",)
         }),
         ("System", {
             "fields": ("created_by", "created_at", "updated_at"),

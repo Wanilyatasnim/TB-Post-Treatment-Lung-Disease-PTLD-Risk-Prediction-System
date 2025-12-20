@@ -269,15 +269,15 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
             (1 if patient.other_comorbidity else 0)
         )
         
-        # Extract X-ray score from chest_x_ray field if x_ray_score not available
-        x_ray_score = patient.x_ray_score
-        if not x_ray_score and patient.chest_x_ray:
+        # Extract numeric value from chest_x_ray field if available
+        x_ray_numeric = None
+        if patient.chest_x_ray:
             # Try to extract numeric score from chest_x_ray string
             try:
                 import re
                 match = re.search(r'(\d+\.?\d*)', str(patient.chest_x_ray))
                 if match:
-                    x_ray_score = float(match.group(1))
+                    x_ray_numeric = float(match.group(1))
             except:
                 pass
         
@@ -285,11 +285,11 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
         # NOTE: When retraining with new dataset, these features can be expanded
         return {
             'age': int(patient.age),
-            'bmi': float(patient.bmi) if patient.bmi else 22.0,
+            'bmi': 22.0,  # Default value - BMI not in new dataset
             'hiv_positive': int(patient.hiv_positive),
             'diabetes': int(patient.diabetes),
             'smoker': int(patient.smoker),
-            'x_ray_score': float(x_ray_score) if x_ray_score else 5.0,
+            'x_ray_score': float(x_ray_numeric) if x_ray_numeric else 5.0,  # Extract from chest_x_ray or use default
             'adherence_mean': adherence_mean,
             'adherence_min': adherence_min,
             'adherence_std': adherence_std,

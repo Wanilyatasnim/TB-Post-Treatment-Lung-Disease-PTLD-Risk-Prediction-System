@@ -18,14 +18,12 @@ class Patient(TimestampedModel):
     age = models.PositiveIntegerField()
     race = models.CharField(max_length=50, blank=True, help_text="Patient race/ethnicity")
     state = models.CharField(max_length=100, blank=True, help_text="State or region")
-    district = models.CharField(max_length=255, blank=True)
     
     # Baseline Clinical Information
     treatment = models.CharField(max_length=50, blank=True, help_text="Treatment type/regimen")
     chest_x_ray = models.CharField(max_length=50, blank=True, help_text="Chest X-ray results")
     tuberculin_test = models.CharField(max_length=50, blank=True, help_text="Tuberculin test results")
     clinical_form = models.CharField(max_length=50, blank=True, help_text="Clinical form of TB")
-    baseline_date = models.DateField(null=True, blank=True)
     
     # Comorbidities
     hiv_positive = models.BooleanField(default=False, help_text="HIV status (maps from HIV field)")
@@ -80,10 +78,7 @@ class Patient(TimestampedModel):
         help_text="Final treatment outcome status"
     )
     
-    # Legacy/Additional Fields (keeping for backward compatibility)
-    bmi = models.FloatField(null=True, blank=True)
-    x_ray_score = models.FloatField(null=True, blank=True)
-    comorbidities = models.TextField(blank=True, help_text="Additional comorbidities notes")
+    # System Fields
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="patients")
 
     def __str__(self) -> str:

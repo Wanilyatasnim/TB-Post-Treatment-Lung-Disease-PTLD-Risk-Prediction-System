@@ -117,24 +117,7 @@
             </li>
         </ul>
         
-        <h3>By District</h3>
-        <ul class="filter-list">
-            {% for district in districts|slice:":10" %}
-            <li{% if request.GET.district == district %} class="selected"{% endif %}>
-                <a href="{% build_filter_url district=district %}">{{ district }}</a>
-            </li>
-            {% empty %}
-            <li><span class="quiet">No districts</span></li>
-            {% endfor %}
-            {% if districts|length > 10 %}
-            <li><span class="quiet">... and {{ districts|length|add:"-10" }} more</span></li>
-            {% endif %}
-            <li{% if not request.GET.district %} class="selected"{% endif %}>
-                <a href="{% build_filter_url district=None %}">All</a>
-            </li>
-        </ul>
-        
-        {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change or request.GET.district %}
+        {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change %}
         <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd;">
             <a href="{% url 'patients:patient-list' %}" class="button" style="display: block; text-align: center; padding: 8px;">Clear All Filters</a>
         </div>
@@ -145,9 +128,9 @@
         <form id="changelist-search" method="get">
             <div>
                 <label for="searchbar"><img src="{% static 'admin/img/search.svg' %}" alt="Search"></label>
-                <input type="text" size="40" name="search" value="{{ request.GET.search }}" id="searchbar" autofocus placeholder="Search by Patient ID or District...">
+                <input type="text" size="40" name="search" value="{{ request.GET.search }}" id="searchbar" autofocus placeholder="Search by Patient ID or State...">
                 <input type="submit" value="Search">
-                {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change or request.GET.district %}
+                {% if request.GET.search or request.GET.sex or request.GET.hiv or request.GET.diabetes or request.GET.smoker or request.GET.age_group or request.GET.treated_before or request.GET.regimen_change %}
                 <a href="{% url 'patients:patient-list' %}" class="small quiet" style="margin-left: 10px;">Clear all filters</a>
                 {% endif %}
             </div>
@@ -362,10 +345,8 @@
                             </td>
                             <td class="field-sputum_culture"><span class="quiet">-</span></td>
                             <td class="field-x_ray">
-                                {% if patient.x_ray_score %}
-                                    {% if patient.x_ray_score >= 10 %}Suspected TB
-                                    {% elif patient.x_ray_score >= 5 %}Suspected with Cavity
-                                    {% else %}Not Performed{% endif %}
+                                {% if patient.chest_x_ray %}
+                                    {{ patient.chest_x_ray }}
                                 {% else %}
                                     <span class="quiet">-</span>
                                 {% endif %}

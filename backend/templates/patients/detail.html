@@ -37,10 +37,6 @@
             <td>{{ patient.age }} years</td>
         </tr>
         <tr>
-            <th>BMI:</th>
-            <td>{% if patient.bmi %}{{ patient.bmi|floatformat:1 }}{% else %}<span class="quiet">-</span>{% endif %}</td>
-        </tr>
-        <tr>
             <th>HIV Positive:</th>
             <td>
                 {% if patient.hiv_positive %}
@@ -69,22 +65,6 @@
                     <img src="{% static 'admin/img/icon-no.svg' %}" alt="False">
                 {% endif %}
             </td>
-        </tr>
-        <tr>
-            <th>X-Ray Score:</th>
-            <td>{% if patient.x_ray_score %}{{ patient.x_ray_score|floatformat:1 }}{% else %}<span class="quiet">-</span>{% endif %}</td>
-        </tr>
-        <tr>
-            <th>District:</th>
-            <td>{{ patient.district|default:"-" }}</td>
-        </tr>
-        <tr>
-            <th>Comorbidities:</th>
-            <td>{{ patient.comorbidities|default:"-" }}</td>
-        </tr>
-        <tr>
-            <th>Baseline Date:</th>
-            <td>{% if patient.baseline_date %}{{ patient.baseline_date }}{% else %}<span class="quiet">-</span>{% endif %}</td>
         </tr>
         {% if patient.notification_date %}
         <tr>

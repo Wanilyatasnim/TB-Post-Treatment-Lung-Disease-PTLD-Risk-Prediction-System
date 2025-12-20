@@ -8,9 +8,9 @@ class PatientForm(forms.ModelForm):
         model = Patient
         fields = [
             # Basic Demographics
-            "patient_id", "notification_date", "sex", "age", "race", "state", "district",
+            "patient_id", "notification_date", "sex", "age", "race", "state",
             # Baseline Clinical
-            "treatment", "chest_x_ray", "tuberculin_test", "clinical_form", "baseline_date",
+            "treatment", "chest_x_ray", "tuberculin_test", "clinical_form",
             # Comorbidities
             "hiv_positive", "diabetes", "smoker", "aids_comorbidity", "alcoholism_comorbidity",
             "mental_disorder_comorbidity", "drug_addiction_comorbidity", "other_comorbidity",
@@ -26,8 +26,6 @@ class PatientForm(forms.ModelForm):
             "supervised_treatment", "occupational_disease", "days_in_treatment",
             # Outcome
             "outcome_status",
-            # Legacy/Additional
-            "bmi", "x_ray_score", "comorbidities"
         ]
 
 

@@ -32,24 +32,61 @@ def export_patients_csv(patients: QuerySet, user=None, request=None) -> HttpResp
     
     # Write header
     writer.writerow([
-        'Patient ID', 'Sex', 'Age', 'BMI', 'HIV Positive', 'Diabetes', 'Smoker',
-        'X-Ray Score', 'District', 'Comorbidities', 'Baseline Date', 'Created At'
+        'Patient ID', 'Notification Date', 'Sex', 'Age', 'Race', 'State',
+        'Treatment', 'Clinical Form', 'Chest X-Ray', 'Tuberculin Test',
+        'HIV Positive', 'Diabetes', 'Smoker', 'AIDS', 'Alcoholism',
+        'Mental Disorder', 'Drug Addiction', 'Other Comorbidity',
+        'Bacilloscopy Sputum', 'Bacilloscopy Sputum 2', 'Bacilloscopy Other',
+        'Sputum Culture', 'Bacilloscopy Month 1', 'Bacilloscopy Month 2',
+        'Bacilloscopy Month 3', 'Bacilloscopy Month 4', 'Bacilloscopy Month 5',
+        'Bacilloscopy Month 6', 'Rifampicin', 'Isoniazid', 'Ethambutol',
+        'Streptomycin', 'Pyrazinamide', 'Ethionamide', 'Other Drugs',
+        'Supervised Treatment', 'Occupational Disease', 'Days In Treatment',
+        'Outcome Status', 'Created At'
     ])
     
     # Write data
     for patient in patients:
         writer.writerow([
             patient.patient_id,
+            patient.notification_date.strftime('%Y-%m-%d') if patient.notification_date else '',
             patient.sex,
             patient.age,
-            patient.bmi or '',
+            patient.race or '',
+            patient.state or '',
+            patient.treatment or '',
+            patient.clinical_form or '',
+            patient.chest_x_ray or '',
+            patient.tuberculin_test or '',
             'Yes' if patient.hiv_positive else 'No',
             'Yes' if patient.diabetes else 'No',
             'Yes' if patient.smoker else 'No',
-            patient.x_ray_score or '',
-            patient.district,
-            patient.comorbidities,
-            patient.baseline_date.strftime('%Y-%m-%d') if patient.baseline_date else '',
+            'Yes' if patient.aids_comorbidity else 'No',
+            'Yes' if patient.alcoholism_comorbidity else 'No',
+            'Yes' if patient.mental_disorder_comorbidity else 'No',
+            'Yes' if patient.drug_addiction_comorbidity else 'No',
+            patient.other_comorbidity or '',
+            patient.bacilloscopy_sputum or '',
+            patient.bacilloscopy_sputum_2 or '',
+            patient.bacilloscopy_other or '',
+            patient.sputum_culture or '',
+            patient.bacilloscopy_month_1 or '',
+            patient.bacilloscopy_month_2 or '',
+            patient.bacilloscopy_month_3 or '',
+            patient.bacilloscopy_month_4 or '',
+            patient.bacilloscopy_month_5 or '',
+            patient.bacilloscopy_month_6 or '',
+            'Yes' if patient.rifampicin else 'No',
+            'Yes' if patient.isoniazid else 'No',
+            'Yes' if patient.ethambutol else 'No',
+            'Yes' if patient.streptomycin else 'No',
+            'Yes' if patient.pyrazinamide else 'No',
+            'Yes' if patient.ethionamide else 'No',
+            patient.other_drugs or '',
+            'Yes' if patient.supervised_treatment else 'No',
+            'Yes' if patient.occupational_disease else 'No',
+            patient.days_in_treatment or '',
+            patient.outcome_status or '',
             patient.created_at.strftime('%Y-%m-%d %H:%M:%S')
         ])
     
