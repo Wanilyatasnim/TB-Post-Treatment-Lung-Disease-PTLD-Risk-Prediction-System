@@ -269,42 +269,25 @@ class RiskPredictionViewSet(viewsets.ModelViewSet):
             (1 if patient.other_comorbidity else 0)
         )
         
-        # Extract numeric value from chest_x_ray field if available
-        x_ray_numeric = None
-        if patient.chest_x_ray:
-            # Try to extract numeric score from chest_x_ray string
-            try:
-                import re
-                match = re.search(r'(\d+\.?\d*)', str(patient.chest_x_ray))
-                if match:
-                    x_ray_numeric = float(match.group(1))
-            except:
-                pass
-        
-        # Return features compatible with current model (backward compatible)
-        # ⚠️ WARNING: Current ML model expects OLD features (BMI, x_ray_score) that are NOT in new TB dataset
-        # These are provided as defaults/estimates for backward compatibility
-        # TODO: Retrain model with new TB dataset features to use actual patient data
-        # See ML_MODEL_FEATURE_MISMATCH.md for details
+        # Return features matching the updated model (without BMI and x_ray_score)
+        # Features: age, hiv_positive, diabetes, smoker, comorbidity_count, 
+        #           adherence_mean, adherence_min, adherence_std, modification_count, visit_count
         return {
             'age': int(patient.age),
-            'bmi': 22.0,  # ⚠️ DEFAULT - BMI not in new TB dataset (no weight/height fields). This is a placeholder.
             'hiv_positive': int(patient.hiv_positive),
             'diabetes': int(patient.diabetes),
             'smoker': int(patient.smoker),
-            'x_ray_score': float(x_ray_numeric) if x_ray_numeric else 5.0,  # ⚠️ ESTIMATED - Extracted from chest_x_ray text or default. Not actual numeric score field.
+            'comorbidity_count': comorbidity_count,
             'adherence_mean': adherence_mean,
             'adherence_min': adherence_min,
             'adherence_std': adherence_std,
             'modification_count': modification_count,
             'visit_count': visit_count,
-            # Additional features from new dataset (for future model retraining)
-            # These are calculated but not yet used by current model
+            # Additional features calculated for reference (not used by current model)
             'bacilloscopy_m1': bacilloscopy_m1,
             'bacilloscopy_m2': bacilloscopy_m2,
             'bacilloscopy_m3': bacilloscopy_m3,
             'bacilloscopy_trend': bacilloscopy_trend,
-            'comorbidity_count': comorbidity_count,
             'days_in_treatment': int(patient.days_in_treatment) if patient.days_in_treatment else 90,
             'supervised_treatment': int(patient.supervised_treatment),
         }

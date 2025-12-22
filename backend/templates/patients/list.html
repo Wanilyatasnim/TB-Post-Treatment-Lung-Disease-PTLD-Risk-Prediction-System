@@ -576,6 +576,7 @@
     </div>
 </div>
 
+{% if user.role == 'clinician' or user.role == 'admin' %}
 <ul class="object-tools">
     <li>
         <a href="{% url 'patients:patient-create' %}" class="addlink">
@@ -583,6 +584,7 @@
         </a>
     </li>
 </ul>
+{% endif %}
 
 <style>
 /* Django Admin Changelist Styles */

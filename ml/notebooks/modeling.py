@@ -34,11 +34,111 @@ print("="*60)
 # ============================================================================
 print("\n1. LOADING DATA...")
 
-df = pd.read_csv('../data/synthetic/merged_features.csv')
+# Load TB dataset directly
+df = pd.read_csv('../data/synthetic/tb_dataset.csv')
 print(f"Dataset shape: {df.shape}")
 
-# Define features
-baseline_features = ['age', 'bmi', 'hiv_positive', 'diabetes', 'smoker', 'x_ray_score']
+# Map column names to standard format
+column_mapping = {
+    'Age': 'age',
+    'Sex': 'sex',
+    'HIV': 'hiv_positive',
+    'Diabetes_Comorbidity': 'diabetes',
+    'Smoking_Comorbidity': 'smoker',
+    'AIDS_Comorbidity': 'aids_comorbidity',
+    'Alcoholism_Comorbidity': 'alcoholism_comorbidity',
+    'Mental_Disorder_Comorbidity': 'mental_disorder_comorbidity',
+    'Drug_Addiction_Comorbidity': 'drug_addiction_comorbidity',
+    'Other_Comorbidity': 'other_comorbidity',
+    'Days_In_Treatment': 'days_in_treatment',
+    'Supervised_Treatment': 'supervised_treatment',
+    'Bacilloscopy_Month_1': 'bacilloscopy_month_1',
+    'Bacilloscopy_Month_2': 'bacilloscopy_month_2',
+    'Bacilloscopy_Month_3': 'bacilloscopy_month_3',
+    'Outcome_Status': 'outcome',
+}
+
+# Rename columns
+for old_col, new_col in column_mapping.items():
+    if old_col in df.columns:
+        df[new_col] = df[old_col]
+
+# Convert boolean fields
+bool_fields = ['hiv_positive', 'diabetes', 'smoker', 'aids_comorbidity',
+               'alcoholism_comorbidity', 'mental_disorder_comorbidity',
+               'drug_addiction_comorbidity', 'supervised_treatment']
+for field in bool_fields:
+    if field in df.columns:
+        df[field] = df[field].astype(int) if df[field].dtype == 'bool' else df[field].fillna(0).astype(int)
+
+# Calculate comorbidity count
+df['comorbidity_count'] = (
+    df.get('hiv_positive', pd.Series([0] * len(df))).fillna(0).astype(int) +
+    df.get('diabetes', pd.Series([0] * len(df))).fillna(0).astype(int) +
+    df.get('smoker', pd.Series([0] * len(df))).fillna(0).astype(int) +
+    df.get('aids_comorbidity', pd.Series([0] * len(df))).fillna(0).astype(int) +
+    df.get('alcoholism_comorbidity', pd.Series([0] * len(df))).fillna(0).astype(int) +
+    df.get('mental_disorder_comorbidity', pd.Series([0] * len(df))).fillna(0).astype(int) +
+    df.get('drug_addiction_comorbidity', pd.Series([0] * len(df))).fillna(0).astype(int) +
+    (df.get('other_comorbidity', pd.Series([''] * len(df))).notna() & 
+     (df.get('other_comorbidity', pd.Series([''] * len(df))) != '')).astype(int)
+)
+
+# Estimate adherence based on outcome (since monitoring visits not in dataset)
+if 'outcome' in df.columns:
+    outcome_adherence_map = {
+        'cured': 0.95,
+        'completed': 0.90,
+        'died': 0.60,
+        'failure': 0.70,
+        'defaulted': 0.50,
+        'transferred': 0.85,
+        'lost': 0.55
+    }
+    df['adherence_mean'] = df['outcome'].map(outcome_adherence_map).fillna(0.85) * 100
+    np.random.seed(42)
+    df['adherence_mean'] = df['adherence_mean'] + np.random.normal(0, 5, len(df))
+    df['adherence_mean'] = df['adherence_mean'].clip(50, 100)
+    df['adherence_min'] = df['adherence_mean'] - np.random.uniform(5, 15, len(df))
+    df['adherence_min'] = df['adherence_min'].clip(40, 100)
+    df['adherence_std'] = np.random.uniform(2, 8, len(df))
+else:
+    df['adherence_mean'] = 85.0
+    df['adherence_min'] = 75.0
+    df['adherence_std'] = 5.0
+
+# Estimate modification count based on comorbidities and treatment duration
+if 'comorbidity_count' in df.columns and 'days_in_treatment' in df.columns:
+    base_modifications = (df['comorbidity_count'] * 0.3 + 
+                          (df['days_in_treatment'] / 180) * 0.5)
+    df['modification_count'] = np.random.poisson(base_modifications.clip(0, 5))
+else:
+    df['modification_count'] = 0
+
+# Estimate visit count based on treatment duration (assume monthly visits)
+if 'days_in_treatment' in df.columns:
+    df['visit_count'] = (df['days_in_treatment'] / 30).round().astype(int).clip(1, 12)
+else:
+    df['visit_count'] = 6
+
+# Calculate risk_score for training target (heuristic based on features)
+print("\n2. FEATURE ENGINEERING...")
+risk_scores = []
+for idx, row in df.iterrows():
+    base_risk = 0.2
+    age_factor = (row.get('age', 40) - 18) / 82 * 0.15
+    comorbidity_factor = row.get('comorbidity_count', 0) * 0.08
+    hiv_factor = row.get('hiv_positive', 0) * 0.15
+    adherence_factor = (1 - row.get('adherence_mean', 85) / 100) * 0.25
+    mod_factor = row.get('modification_count', 0) * 0.05
+    risk = base_risk + age_factor + comorbidity_factor + hiv_factor + adherence_factor + mod_factor
+    risk = np.clip(risk + np.random.normal(0, 0.05), 0, 1)
+    risk_scores.append(risk)
+
+df['risk_score'] = risk_scores
+
+# Define features (removed BMI and x_ray_score as they are not in the TB dataset)
+baseline_features = ['age', 'hiv_positive', 'diabetes', 'smoker', 'comorbidity_count']
 treatment_features = ['adherence_mean', 'adherence_min', 'adherence_std', 
                      'modification_count', 'visit_count']
 feature_cols = baseline_features + treatment_features
@@ -56,9 +156,9 @@ X = df[feature_cols].copy()
 y = df['high_risk'].copy()
 
 # ============================================================================
-# 2. TRAIN-TEST SPLIT
+# 3. TRAIN-TEST SPLIT
 # ============================================================================
-print("\n2. SPLITTING DATA...")
+print("\n3. SPLITTING DATA...")
 
 X_temp, X_test, y_temp, y_test = train_test_split(
     X, y, test_size=0.15, random_state=42, stratify=y
@@ -81,10 +181,10 @@ X_test_scaled = scaler.transform(X_test)
 print("Features standardized")
 
 # ============================================================================
-# 3. MODEL TRAINING
+# 4. MODEL TRAINING
 # ============================================================================
 print("\n" + "="*60)
-print("3. TRAINING MODELS")
+print("4. TRAINING MODELS")
 print("="*60)
 
 # 3.1 Random Forest
@@ -158,10 +258,10 @@ test_auc_ensemble = roc_auc_score(y_test, y_test_pred_ensemble)
 print(f"Test AUROC: {test_auc_ensemble:.4f}")
 
 # ============================================================================
-# 4. MODEL EVALUATION
+# 5. MODEL EVALUATION
 # ============================================================================
 print("\n" + "="*60)
-print("4. MODEL PERFORMANCE SUMMARY")
+print("5. MODEL PERFORMANCE SUMMARY")
 print("="*60)
 
 results = pd.DataFrame({
@@ -226,10 +326,10 @@ print("Saved: confusion_matrix.png")
 plt.close()
 
 # ============================================================================
-# 5. SHAP ANALYSIS
+# 6. SHAP ANALYSIS
 # ============================================================================
 print("\n" + "="*60)
-print("5. SHAP ANALYSIS")
+print("6. SHAP ANALYSIS")
 print("="*60)
 
 explainer = shap.TreeExplainer(xgb_model)
@@ -243,10 +343,10 @@ print("Saved: shap_summary.png")
 plt.close()
 
 # ============================================================================
-# 6. MODEL PERSISTENCE
+# 7. MODEL PERSISTENCE
 # ============================================================================
 print("\n" + "="*60)
-print("6. SAVING MODELS")
+print("7. SAVING MODELS")
 print("="*60)
 
 # Save models

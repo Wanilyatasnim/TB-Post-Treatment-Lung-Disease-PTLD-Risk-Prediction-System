@@ -49,17 +49,17 @@ if new_patients > 0:
         print(f"   HIV: {features['hiv_positive']}")
         print(f"   Diabetes: {features['diabetes']}")
         print(f"   Smoker: {features['smoker']}")
-        print(f"   BMI (default): {features['bmi']}")
-        print(f"   X-Ray Score (estimated): {features['x_ray_score']}")
-        print(f"   Bacilloscopy M3 (calculated): {features.get('bacilloscopy_m3', 'N/A')}")
         print(f"   Comorbidity Count: {features.get('comorbidity_count', 'N/A')}")
+        print(f"   Adherence Mean: {features.get('adherence_mean', 'N/A')}")
+        print(f"   Modification Count: {features.get('modification_count', 'N/A')}")
+        print(f"   Visit Count: {features.get('visit_count', 'N/A')}")
     except Exception as e:
         print(f"   ✗ Feature extraction failed: {e}")
     
     print(f"\n4. Status: ✓ Dataset integration is WORKING")
     print(f"   - Data loads correctly")
     print(f"   - Feature extraction works")
-    print(f"   - Predictions can be generated (uses defaults for BMI/x_ray_score)")
+    print(f"   - Predictions can be generated (using available features)")
     print(f"   - UI should display all fields correctly")
     
 else:

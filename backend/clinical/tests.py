@@ -25,11 +25,9 @@ class PatientModelTest(TestCase):
             patient_id='TEST-001',
             sex='M',
             age=35,
-            bmi=22.5,
             hiv_positive=False,
             diabetes=False,
             smoker=False,
-            x_ray_score=5.0,
             district='Test District',
             created_by=self.user
         )
@@ -58,8 +56,7 @@ class RiskPredictionTest(TestCase):
         self.patient = Patient.objects.create(
             patient_id='TEST-002',
             sex='F',
-            age=45,
-            bmi=25.0
+            age=45
         )
         self.prediction = RiskPrediction.objects.create(
             prediction_id='PR-TEST-002-001',
@@ -163,8 +160,7 @@ class PatientDetailViewTest(TestCase):
         self.patient = Patient.objects.create(
             patient_id='TEST-005',
             sex='F',
-            age=40,
-            bmi=23.0
+            age=40
         )
     
     def test_patient_detail_requires_login(self):

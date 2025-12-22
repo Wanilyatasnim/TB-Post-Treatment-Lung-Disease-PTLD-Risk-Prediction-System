@@ -13,9 +13,11 @@
 <h1>Patient: {{ patient.patient_id }}</h1>
 
 <ul class="object-tools">
+    {% if user.role == 'clinician' or user.role == 'admin' %}
     <li>
         <a href="{% url 'patients:patient-edit' patient.patient_id %}" class="changelink">Change</a>
     </li>
+    {% endif %}
     <li>
         <a href="{% url 'patients:patient-list' %}">← Back to list</a>
     </li>
@@ -362,10 +364,14 @@
 <div class="module">
     <h2>Risk Predictions & Explainability</h2>
     <div style="padding: 15px;">
+        {% if user.role == 'clinician' or user.role == 'admin' %}
         <button id="generatePredictionBtn" class="button default" onclick="generatePrediction('{{ patient.patient_id }}')">
             <span id="predictionBtnText">Generate New Prediction</span>
             <span id="predictionBtnSpinner" style="display: none;">...</span>
         </button>
+        {% else %}
+        <p class="help" style="margin-bottom: 15px;">You have read-only access. Only clinicians and admins can generate predictions.</p>
+        {% endif %}
         
         {% if predictions %}
         <div style="margin-top: 20px;">
@@ -462,7 +468,7 @@
         </div>
         {% else %}
         <div style="padding: 15px; text-align: center; color: #666;">
-            <p>No predictions yet. Click "Generate New Prediction" to create a risk assessment for this patient.</p>
+            <p>No predictions yet.{% if user.role == 'clinician' or user.role == 'admin' %} Click "Generate New Prediction" to create a risk assessment for this patient.{% else %} Only clinicians and admins can generate predictions.{% endif %}</p>
         </div>
         {% endif %}
         

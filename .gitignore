@@ -47,6 +47,7 @@ db.sqlite3-journal
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*.ipynb
 
 # ML Models (if large)
 *.h5

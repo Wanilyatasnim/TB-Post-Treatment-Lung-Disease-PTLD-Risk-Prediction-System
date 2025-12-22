@@ -35,7 +35,7 @@ class IsClinician(permissions.BasePermission):
 
 
 class IsResearcher(permissions.BasePermission):
-    """Researchers have read-only access."""
+    """Researchers have read-only access to aggregated data."""
     
     def has_permission(self, request, view):
         if not (request.user and request.user.is_authenticated):

@@ -77,11 +77,10 @@ class PTLDPredictor:
         Args:
             patient_features: dict with keys matching self.feature_cols:
                 - age: int (years)
-                - bmi: float
                 - hiv_positive: int (0 or 1)
                 - diabetes: int (0 or 1)
                 - smoker: int (0 or 1)
-                - x_ray_score: float (0-20)
+                - comorbidity_count: int (total number of comorbidities)
                 - adherence_mean: float (0-100)
                 - adherence_min: float (0-100)
                 - adherence_std: float

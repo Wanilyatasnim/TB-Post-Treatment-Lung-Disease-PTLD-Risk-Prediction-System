@@ -195,28 +195,30 @@ class RecommendationEngine:
                     ]
                 })
             
-            elif feature == 'bmi' and patient_features.get('bmi', 0) < 18.5:
+            elif feature == 'comorbidity_count' and patient_features.get('comorbidity_count', 0) >= 3:
                 recommendations.append({
-                    'category': 'nutrition',
+                    'category': 'comorbidity',
                     'priority': 'high' if risk_category == 'high' else 'medium',
-                    'title': 'Nutritional Support',
-                    'description': f'Low BMI ({patient_features.get("bmi", 0):.1f}) is associated with increased risk.',
+                    'title': 'Multiple Comorbidities',
+                    'description': f'Patient has {patient_features.get("comorbidity_count", 0)} comorbidities, which increases PTLD risk.',
                     'actions': [
-                        'Assess nutritional status',
-                        'Provide nutritional counseling',
-                        'Consider nutritional supplements',
-                        'Monitor weight changes'
+                        'Coordinate care with specialists',
+                        'Review medication interactions',
+                        'Monitor for complications',
+                        'Consider treatment modifications'
                     ]
                 })
             
-            elif feature == 'x_ray_score' and patient_features.get('x_ray_score', 0) > 10:
+            elif feature == 'comorbidity_count' and patient_features.get('comorbidity_count', 0) >= 2:
                 recommendations.append({
-                    'category': 'imaging',
-                    'priority': 'high' if risk_category == 'high' else 'medium',
-                    'title': 'Imaging Follow-up',
-                    'description': f'High X-ray score ({patient_features.get("x_ray_score", 0):.1f}) indicates significant lung involvement.',
+                    'category': 'comorbidity',
+                    'priority': 'medium',
+                    'title': 'Comorbidity Management',
+                    'description': f'Patient has {patient_features.get("comorbidity_count", 0)} comorbidities requiring attention.',
                     'actions': [
-                        'Schedule follow-up chest X-ray in 2-3 months',
+                        'Coordinate care with relevant specialists',
+                        'Review medication interactions',
+                        'Monitor for complications'
                         'Consider CT scan for detailed assessment',
                         'Monitor for progression of lung changes',
                         'Assess response to treatment'

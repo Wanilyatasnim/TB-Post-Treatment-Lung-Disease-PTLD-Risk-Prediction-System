@@ -25,8 +25,7 @@ class PatientAPITest(TestCase):
         self.patient = Patient.objects.create(
             patient_id='API-TEST-001',
             sex='M',
-            age=35,
-            bmi=22.5
+            age=35
         )
     
     def test_patient_list_requires_auth(self):
@@ -55,8 +54,7 @@ class PatientAPITest(TestCase):
         data = {
             'patient_id': 'API-TEST-002',
             'sex': 'F',
-            'age': 40,
-            'bmi': 24.0
+            'age': 40
         }
         response = self.client.post('/api/patients/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -100,11 +98,9 @@ class PredictionAPITest(TestCase):
             patient_id='PRED-TEST-001',
             sex='M',
             age=35,
-            bmi=22.5,
             hiv_positive=False,
             diabetes=False,
-            smoker=False,
-            x_ray_score=5.0
+            smoker=False
         )
         # Create a visit for adherence calculation
         from clinical.models import MonitoringVisit

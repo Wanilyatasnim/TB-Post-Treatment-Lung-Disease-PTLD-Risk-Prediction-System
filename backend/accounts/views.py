@@ -16,7 +16,10 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
     
     def get_success_url(self):
-        """Redirect to patient list after login."""
+        """Redirect based on user role after login."""
+        if self.request.user.is_authenticated and hasattr(self.request.user, 'role'):
+            if self.request.user.role == 'researcher':
+                return reverse_lazy('researchers:dashboard')
         return reverse_lazy('patients:patient-list')
     
     def form_valid(self, form):

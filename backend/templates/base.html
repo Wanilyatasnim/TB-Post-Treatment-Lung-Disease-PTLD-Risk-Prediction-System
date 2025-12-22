@@ -168,14 +168,23 @@
     <div id="container">
         <div id="header">
             <div id="branding">
-                <h1 id="site-name"><a href="{% url 'patients:patient-list' %}">PTLD Risk Prediction System</a></h1>
+                <h1 id="site-name">
+                    <a href="{% if user.is_authenticated and user.role == 'researcher' %}{% url 'researchers:dashboard' %}{% else %}{% url 'patients:patient-list' %}{% endif %}">
+                        PTLD Risk Prediction System
+                    </a>
+                </h1>
             </div>
             <div id="user-tools">
                 {% if user.is_authenticated %}
                     Welcome, <strong>{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</strong>.
                     {% if user.role %}<span style="text-transform: none;">({{ user.role|title }})</span>{% endif %}
-                    / <a href="{% url 'patients:patient-list' %}">Patients</a>
-                    / <a href="{% url 'patients:dashboard' %}">Dashboard</a>
+                    {% if user.role == 'researcher' %}
+                        / <a href="{% url 'researchers:dashboard' %}">Dashboard</a>
+                        / <a href="{% url 'patients:patient-list' %}">View Patients</a>
+                    {% else %}
+                        / <a href="{% url 'patients:patient-list' %}">Patients</a>
+                        / <a href="{% url 'patients:dashboard' %}">Dashboard</a>
+                    {% endif %}
                     / <a href="/admin/">Admin</a>
                     / <a href="{% url 'accounts:logout' %}">Log out</a>
                 {% else %}
@@ -185,7 +194,7 @@
         </div>
         <div class="breadcrumbs">
             {% block breadcrumbs %}
-            <a href="{% url 'patients:patient-list' %}">Home</a>
+            <a href="{% if user.is_authenticated and user.role == 'researcher' %}{% url 'researchers:dashboard' %}{% else %}{% url 'patients:patient-list' %}{% endif %}">Home</a>
             {% endblock %}
         </div>
         <div id="content-main">

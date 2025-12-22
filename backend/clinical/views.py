@@ -23,6 +23,9 @@ class PatientListView(LoginRequiredMixin, ListView):
     template_name = "patients/list.html"
     context_object_name = "patients"
     paginate_by = 25
+    
+    # Note: Researchers can view patient list (read-only access)
+    # The template will hide "Add patient" button for researchers
 
     def get_queryset(self):
         # Optimize queryset to prevent N+1 queries
@@ -249,6 +252,20 @@ class PatientCreateView(LoginRequiredMixin, CreateView):
     form_class = PatientForm
     template_name = "patients/form.html"
     success_url = reverse_lazy("patients:patient-list")
+    
+    def dispatch(self, request, *args, **kwargs):
+        """Check if user has permission to create patients."""
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        
+        # Only clinicians and admins can create patients
+        if hasattr(request.user, 'role') and request.user.role == 'researcher':
+            from django.contrib import messages
+            from django.shortcuts import redirect
+            messages.error(request, "You don't have permission to create patients. Researchers have read-only access.")
+            return redirect('patients:patient-list')
+        
+        return super().dispatch(request, *args, **kwargs)
 
 
 class PatientUpdateView(LoginRequiredMixin, UpdateView):
@@ -260,6 +277,20 @@ class PatientUpdateView(LoginRequiredMixin, UpdateView):
     slug_url_kwarg = "patient_id"
     template_name = "patients/form.html"
     success_url = reverse_lazy("patients:patient-list")
+    
+    def dispatch(self, request, *args, **kwargs):
+        """Check if user has permission to update patients."""
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        
+        # Only clinicians and admins can update patients
+        if hasattr(request.user, 'role') and request.user.role == 'researcher':
+            from django.contrib import messages
+            from django.shortcuts import redirect
+            messages.error(request, "You don't have permission to edit patients. Researchers have read-only access.")
+            return redirect('patients:patient-detail', patient_id=kwargs.get('patient_id'))
+        
+        return super().dispatch(request, *args, **kwargs)
 
 
 class PatientDetailView(LoginRequiredMixin, DetailView):
@@ -270,6 +301,12 @@ class PatientDetailView(LoginRequiredMixin, DetailView):
     slug_url_kwarg = "patient_id"
     template_name = "patients/detail.html"
     context_object_name = "patient"
+    
+    def dispatch(self, request, *args, **kwargs):
+        """Allow researchers to view but not edit."""
+        # Researchers can view patient details (read-only)
+        # But they should be redirected to dashboard for main navigation
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -301,6 +338,14 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     login_url = "/accounts/login/"
     redirect_field_name = "next"
     template_name = "dashboard/overview.html"
+    
+    def dispatch(self, request, *args, **kwargs):
+        """Redirect researchers to their own dashboard."""
+        if request.user.is_authenticated and hasattr(request.user, 'role'):
+            if request.user.role == 'researcher':
+                from django.shortcuts import redirect
+                return redirect('researchers:dashboard')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)

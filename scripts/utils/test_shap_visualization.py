@@ -25,21 +25,20 @@ def test_shap_visualizer():
     print(f"✓ Visualizer initialized")
     print(f"  Plots directory: {visualizer.plots_dir}")
     
-    # Sample feature data
+    # Sample feature data (without BMI and x_ray_score)
     feature_names = [
-        'age', 'bmi', 'hiv_positive', 'diabetes', 'smoker',
-        'x_ray_score', 'adherence_mean', 'adherence_min',
-        'adherence_std', 'modification_count', 'visit_count'
+        'age', 'hiv_positive', 'diabetes', 'smoker', 'comorbidity_count',
+        'adherence_mean', 'adherence_min', 'adherence_std', 
+        'modification_count', 'visit_count'
     ]
     
     # Sample SHAP values and feature values
     shap_values = {
         'age': 0.15,
-        'bmi': -0.03,
         'hiv_positive': 0.22,
         'diabetes': 0.08,
         'smoker': 0.12,
-        'x_ray_score': 0.18,
+        'comorbidity_count': 0.18,
         'adherence_mean': -0.25,
         'adherence_min': -0.10,
         'adherence_std': 0.05,
@@ -49,11 +48,10 @@ def test_shap_visualizer():
     
     feature_values = {
         'age': 45,
-        'bmi': 22.5,
         'hiv_positive': 1,
         'diabetes': 0,
         'smoker': 1,
-        'x_ray_score': 12.0,
+        'comorbidity_count': 2,
         'adherence_mean': 75.0,
         'adherence_min': 60.0,
         'adherence_std': 10.5,
@@ -139,14 +137,13 @@ def test_model_integration():
         print(f"  Model version: {predictor.model_version}")
         print(f"  Features: {len(predictor.feature_cols)}")
         
-        # Sample patient features
+        # Sample patient features (without BMI and x_ray_score)
         features = {
             'age': 45,
-            'bmi': 22.5,
             'hiv_positive': 1,
             'diabetes': 0,
             'smoker': 1,
-            'x_ray_score': 12.0,
+            'comorbidity_count': 2,
             'adherence_mean': 75.0,
             'adherence_min': 60.0,
             'adherence_std': 10.5,
